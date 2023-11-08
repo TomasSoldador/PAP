@@ -11,7 +11,6 @@ router.post('/insert', async (req, res) => {
    const email = req.body.email;
    const password = req.body.password;
    const confirmPassword = req.body.confirmPassword;
-   const data_nascimento = req.body.data_nascimento;
 
 
    // Verificar o email:
@@ -30,8 +29,8 @@ router.post('/insert', async (req, res) => {
          // Verifica se as senhas são iguais:
          if (password === confirmPassword) {
             const crypto_Password = await bcrypt.hash(password, 10);
-            const sqlInsert = "INSERT INTO usuario (nome, email, password, data_nascimento) VALUES (?, ?, ?, ?)";
-            db.query(sqlInsert, [nome, email, crypto_Password, data_nascimento], (err, result) => {
+            const sqlInsert = "INSERT INTO usuario (nome, email, password) VALUES (?, ?, ?)";
+            db.query(sqlInsert, [nome, email, crypto_Password], (err, result) => {
                if (err) {
                   console.log("Erro ao adicionar o usuário:", err);
                   res.json({ error: "Erro ao adicionar o usuário" });

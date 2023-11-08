@@ -14,7 +14,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [dataNascimento, setDataNascimento] = useState("");
+  
 
   const [passwordError, setPasswordError] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
@@ -72,7 +72,6 @@ function Login() {
         {
           nome: name,
           email: email,
-          data_nascimento: dataNascimento,
           password: password,
           confirmPassword: confirmPassword,
         }
@@ -92,7 +91,6 @@ function Login() {
           email: email,
           password: password,
           confirmPassword: confirmPassword,
-          data_nascimento: dataNascimento,
         },
       ]);
     } catch (error) {
@@ -145,15 +143,11 @@ function Login() {
             </Components.ButtonEye2>
             {passwordError && (
               <Components.p>
-                <BiError style={{ color: "yellow" }} /> As senhas não conferem{" "}
-                <BiError style={{ color: "yellow" }} />{" "}
+                <BiError style={{ color: "yellow" }} /> As senhas não conferem
+                <BiError style={{ color: "yellow" }} />
               </Components.p>
             )}
-            <Components.Input
-              type="date"
-              value={dataNascimento}
-              onChange={(e) => setDataNascimento(e.target.value)}
-            />
+            
             <Components.Button onClick={Registar}>
               Registar-se
             </Components.Button>

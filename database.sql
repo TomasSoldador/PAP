@@ -25,7 +25,6 @@ CREATE TABLE IF NOT EXISTS `pap`.`usuario` (
   `nome` VARCHAR(245) NOT NULL,
   `email` VARCHAR(245) NOT NULL,
   `password` VARCHAR(245) NOT NULL,
-  `data_nascimento` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
@@ -37,9 +36,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pap`.`perfil` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(245) NOT NULL,
   `foto` VARCHAR(245) NOT NULL,
+  `username` VARCHAR(245) NOT NULL,
   `descricao` VARCHAR(245) NOT NULL,
+  `data_nascimento` VARCHAR(45) NOT NULL,
+  `genero` VARCHAR(45),
   `Usuario_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,

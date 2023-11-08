@@ -24,30 +24,6 @@ export const Container = styled.div`
   min-height: 400px;
 `;
 
-export const ButtonEye = styled.button`
-  position: absolute;
-  top: 195px;
-  right: 10px; 
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2em;
-  color: #777;
-`;
-
-export const ButtonEye2 = styled.button`
-  position: absolute;
-  top: 249px;
-  right: 10px; 
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2em;
-  color: #777;
-`;
-
 
 export const SignUpContainer = styled.div`
   position: absolute;
@@ -64,7 +40,7 @@ export const SignUpContainer = styled.div`
       transform: translateX(100%);
       opacity: 1;
       z-index: 5;
-   `
+      `
       : null}
 `;
 
@@ -104,6 +80,14 @@ export const Input = styled.input`
   width: 100%;
 `;
 
+export const InputFile = styled.input`
+  background-color: #eee;
+  border: 1px solid #000000;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+`;
+
 export const Button = styled.button`
   border-radius: 20px;
   border: 1px solid rgb(7, 7, 92);
@@ -122,6 +106,31 @@ export const Button = styled.button`
     outline: none;
   }
 `;
+
+export const ButtonEye = styled.button`
+  position: absolute;
+  top: 175px;
+  right: 10px; 
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #777;
+`;
+
+export const ButtonEye2 = styled.button`
+  position: absolute;
+  top: 229px;
+  right: 10px; 
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #777;
+`;
+
 export const GhostButton = styled(Button)`
   background-color: transparent;
   border-color: #ffffff;
