@@ -1,6 +1,3 @@
-// TODO: Resolver o problema com o RadioBotton "outro"
-
-
 import * as Components from "../Styles/Registar";
 import React, { useState } from 'react';
 
@@ -24,6 +21,11 @@ function Registar () {
    };
 
    // Radio buttons
+   const RadioOutro = () => {
+      setGender("");
+      setOutro(true);
+   }
+
    const RadioMasculino = () => {
       setGender('Masculino')
       setOutro(false)
@@ -42,6 +44,8 @@ function Registar () {
       setName('');
       setGender('');
       setAvatar(null);
+      setDescricao('');
+      setDataNascimento('');
    }
 
 
@@ -91,17 +95,17 @@ function Registar () {
 
                <Components.RadioWrapper>
                   <Components.RadioLabel>
-                     <Components.RadioInput type="radio" name="gender" value="Masculino" checked={gender === 'Masculino'} onChange={RadioMasculino} />
+                     <Components.RadioInput type="radio" name="gender" onChange={RadioMasculino} />
                      Masculino
                   </Components.RadioLabel>
 
                   <Components.RadioLabel>
-                     <Components.RadioInput type="radio" name="gender" value="Feminino" checked={gender === 'Feminino'} onChange={RadioFemenino} />
+                     <Components.RadioInput type="radio" name="gender" onChange={RadioFemenino} />
                      Feminino
                   </Components.RadioLabel>
 
                   <Components.RadioLabel>
-                     <Components.RadioInput type="radio" name="gender" onChange={() => setOutro(true)} />
+                     <Components.RadioInput type="radio" name="gender" onChange={RadioOutro} />
                      Outro
                   </Components.RadioLabel>
                </Components.RadioWrapper>

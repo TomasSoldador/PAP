@@ -81,6 +81,7 @@ export const Input = styled.input`
 `;
 
 export const RadioWrapper = styled.div`
+   margin-top: 10px;
    margin-bottom: 10px;
 `;
 
@@ -112,6 +113,8 @@ export const Button = styled.button`
       outline: none;
    }
 `;
+
+
 
 export const Paragraph = styled.p`
    font-size: 14px;
