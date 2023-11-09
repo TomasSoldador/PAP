@@ -27,6 +27,7 @@ router.post('/post', async  (req, res) => {
             console.log('seja bem vindo')
             res.json({ password: true });
          } else {
+            console.log('seja bem false')
             res.json({ password: false });
          }
    } else {
@@ -69,6 +70,7 @@ router.post('/insert', async (req, res) => {
                console.log("Usuário adicionado com sucesso.");
                res.json({ success: true });
             });
+
          } else {
             console.log("Erro ao adicionar o usuário: Senhas não coincidem");
             res.json({ error: "Senhas não coincidem" });

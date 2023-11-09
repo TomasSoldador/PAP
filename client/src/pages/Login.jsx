@@ -55,6 +55,7 @@ function Login() {
         navigateTo("/home");
       } else {
         alert("A password ou email estão errados");
+        return;
       }
 
       setUsuarioList([...usuarioList, { email: email, password: password }]);
