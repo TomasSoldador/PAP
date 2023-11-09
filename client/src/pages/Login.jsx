@@ -68,7 +68,7 @@ function Login() {
 
     try {
       const resposta = await Axios.post(
-        "http://localhost:3001/api/registar/insert",
+        "http://localhost:3001/api/login/insert",
         {
           nome: name,
           email: email,

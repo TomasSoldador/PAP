@@ -21,7 +21,7 @@ export const Container = styled.div`
    overflow: hidden;
    width: 500px;
    max-width: 100%;
-   min-height: 550px;
+   min-height: 650px;
 `;
 
 export const Form = styled.form`
@@ -113,6 +113,41 @@ export const Button = styled.button`
       outline: none;
    }
 `;
+
+export const DataInputWrapper = styled.div`
+   display: flex;
+   gap: 10px;
+   
+
+   label {
+      margin-top: 20px;
+   }
+
+   select {
+      appearance: none;
+      background-color: #eee;
+      border: none;
+      padding: 12px 15px;
+      margin: 8px 0;
+      width: 100%;
+      border-radius: 5px;
+      font-size: 14px;
+   }
+`;
+
+export const DataInput = ({ label, value, onChange, options }) => (
+   <DataInputWrapper>
+      <label>{label}</label>
+      <select value={value} onChange={onChange}>
+         {options.map(option => (
+            <option key={option.value} value={option.value}>
+               {option.label}
+            </option>
+         ))}
+      </select>
+   </DataInputWrapper>
+);
+
 
 
 

@@ -10,6 +10,42 @@ function Registar () {
    const [descricao, setDescricao] = useState("");
    const [outro, setOutro] = useState(false);
 
+
+
+   // Input data
+   const [dia, setDia] = useState('');
+   const [mes, setMes] = useState('');
+   const [ano, setAno] = useState('');
+   
+   const startYear = new Date().getFullYear() - 80;
+   const endYear = new Date().getFullYear();
+
+   const anos = Array.from({ length: endYear - startYear + 1 }, (_, index) => ({
+      label: `${startYear + index}`,
+      value: `${startYear + index}`,
+   }));
+
+   const meses = [
+      { label: 'Janeiro', value: '01' },
+      { label: 'Fevereiro', value: '02' },
+      { label: 'Março', value: '03' },
+      { label: 'Abril', value: '04' },
+      { label: 'Maio', value: '05' },
+      { label: 'Junho', value: '06' },
+      { label: 'Julho', value: '07' },
+      { label: 'Agosto', value: '08' },
+      { label: 'Setembro', value: '09' },
+      { label: 'Outubro', value: '10' },
+      { label: 'Novembro', value: '11' },
+      { label: 'Dezembro', value: '12' },
+   ];
+
+   const dias = Array.from({ length: 31 }, (_, index) => ({
+      label: `${index + 1}`,
+      value: `${index + 1 < 10 ? '0' : ''}${index + 1}`,
+   }));
+
+
    // TODO: Enviar a imagem para uma pasta e depois enviar so o endereço da imagem para a base de dados
    // Input da imagem
    const handleImageChange = (event) => {
@@ -37,6 +73,7 @@ function Registar () {
    }
 
    // TODO: criar a parte no cliente e no servidor para enviar os dados para a base de dados
+   // TODO: Verificar se a data é valida antes de enviar
    // Enviar os dados para a base de dados
    const Criar = () => {
       alert(name + ' ' + gender + ' ' + avatar + ' ' + descricao + ' ' + dataNascimento)
@@ -87,11 +124,27 @@ function Registar () {
                   onChange={(e) => setDescricao(e.target.value)}
                   placeholder="Descrição"
                />
-               <Components.Input
-                  type="date"
-                  value={dataNascimento}
-                  onChange={(e) => setDataNascimento(e.target.value)}
-               />
+
+               <Components.DataInputWrapper>
+                  <Components.DataInput
+                     label="Dia:"
+                     value={dia}
+                     onChange={(e) => setDia(e.target.value)}
+                     options={dias}
+                  />
+                  <Components.DataInput
+                     label="Mes:"
+                     value={mes}
+                     onChange={(e) => setMes(e.target.value)}
+                     options={meses}
+                  />
+                  <Components.DataInput
+                     label="Ano:"
+                     value={ano}
+                     onChange={(e) => setAno(e.target.value)}
+                     options={anos}
+                  />
+               </Components.DataInputWrapper>
 
                <Components.RadioWrapper>
                   <Components.RadioLabel>
