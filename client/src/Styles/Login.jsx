@@ -109,7 +109,7 @@ export const Button = styled.button`
 
 export const ButtonEye = styled.button`
   position: absolute;
-  top: 175px;
+  top: 230px;
   right: 10px; 
   transform: translateY(-50%);
   background: none;
@@ -121,7 +121,7 @@ export const ButtonEye = styled.button`
 
 export const ButtonEye2 = styled.button`
   position: absolute;
-  top: 229px;
+  top: 285px;
   right: 10px; 
   transform: translateY(-50%);
   background: none;

@@ -32,6 +32,7 @@ router.post('/post', async  (req, res) => {
          }
    } else {
       console.log("usuario não encontrado")
+      res.json({ password: false });
    }})
 })
 
@@ -54,7 +55,7 @@ router.post('/insert', async (req, res) => {
 
       if (result.length > 0) {
          console.log("Email já existe");
-         res.json({ error: "Email já cadastrado" });
+         res.json({ emailError: true });
       } else {
          // Verifica se as senhas são iguais:
          if (password === confirmPassword) {

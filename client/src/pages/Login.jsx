@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BiError } from "react-icons/bi";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Aviso , Error } from "../components/Alertas";
 
 function Login() {
   const navigateTo = useNavigate();
@@ -24,6 +25,10 @@ function Login() {
 
   const [usuarioList, setUsuarioList] = useState([]);
 
+  const [isOpenAviso, setIsOpenAviso] = useState(false);
+  const [isOpenError, setIsOpenError] = useState(false);
+
+
   // Verifica se as passwords são iguais
   const primeira_password = (e) => {
     const newPassword = e.target.value;
@@ -42,6 +47,8 @@ function Login() {
   const Login = async (e) => {
     e.preventDefault();
 
+    setIsOpenAviso(false);
+
     try {
       const resposta = await Axios.post(
         "http://localhost:3001/api/login/post",
@@ -54,8 +61,7 @@ function Login() {
       if (resposta.data.password) {
         navigateTo("/home");
       } else {
-        alert("A password ou email estão errados");
-        return;
+        setIsOpenAviso(true)
       }
 
       setUsuarioList([...usuarioList, { email: email, password: password }]);
@@ -66,6 +72,8 @@ function Login() {
 
   const Registar = async (e) => {
     e.preventDefault();
+
+    setIsOpenError(false);
 
     try {
       const resposta = await Axios.post(
@@ -78,11 +86,12 @@ function Login() {
         }
       );
 
+      if (resposta.data.emailError) {
+        setIsOpenError(true);
+      }
+
       if (resposta.data.success) {
         navigateTo("/registar");
-      } else {
-        alert(resposta.data.error);
-        return;
       }
 
       setUsuarioList([
@@ -101,6 +110,12 @@ function Login() {
 
   return (
     <Components.AllContainer>
+      {isOpenAviso && (
+        <Aviso texto={"Email ou password incorretas"} mostrar={true} />
+      )}
+      {isOpenError && (
+        <Error texto={"Email já cadastrado"} mostrar={true} />
+      )}
       <Components.Container>
         <Components.SignUpContainer signinIn={signIn}>
           <Components.Form>

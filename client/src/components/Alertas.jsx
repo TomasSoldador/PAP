@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 
-export const Error = ({texto}) => {
+
+export const Error = ({texto, mostrar}) => {
   const notify = () => {
     toast.error(texto, {
       position: "top-right",
@@ -17,6 +18,13 @@ export const Error = ({texto}) => {
       theme: "dark",
     });
   };
+
+  useEffect(() => {
+    if (mostrar) {
+      notify();
+    }
+  }, [mostrar]);
+  
   return (
     <div className="GeeksforGeeks">
       <ToastContainer
@@ -56,7 +64,7 @@ export const Aviso = ({texto, mostrar}) => {
     if (mostrar) {
       notify();
     }
-  }, []);
+  }, [mostrar]);
 
   return (
     <div className="GeeksforGeeks">
