@@ -107,26 +107,17 @@ export const Button = styled.button`
   }
 `;
 
-export const ButtonEye = styled.button`
-  position: absolute;
-  top: 230px;
-  right: 10px; 
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2em;
-  color: #777;
+export const DivPassword = styled.div`
+  width: 100%;
+  display: inline-flex;
 `;
 
-export const ButtonEye2 = styled.button`
-  position: absolute;
-  top: 285px;
-  right: 10px; 
-  transform: translateY(-50%);
+export const ButtonEye = styled.button`
+  margin-top: 4px;
   background: none;
   border: none;
   cursor: pointer;
+  position: relative;
   font-size: 1.2em;
   color: #777;
 `;
@@ -156,9 +147,10 @@ export const OverlayContainer = styled.div`
 `;
 
 export const p = styled.p`
-  color: #000000;
+  color: #e90000;
   font-size: 12px;
   margin: -1px;
+  margin-bottom: 10px;
 `;
 
 export const Overlay = styled.div`

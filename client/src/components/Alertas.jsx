@@ -3,20 +3,31 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+const Style = {
+  position: "top-right",
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark",
+}
 
+const ToastConfig = {
+  position: "top-right",
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark",
+};
 
 export const Error = ({texto, mostrar}) => {
   const notify = () => {
-    toast.error(texto, {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+    toast.error(texto, Style);
   };
 
   useEffect(() => {
@@ -25,22 +36,7 @@ export const Error = ({texto, mostrar}) => {
     }
   }, [mostrar]);
   
-  return (
-    <div className="GeeksforGeeks">
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-    </div>
-  );
+  return <ToastContainer {...ToastConfig}/>
 }
 
 
@@ -48,16 +44,7 @@ export const Error = ({texto, mostrar}) => {
 
 export const Aviso = ({texto, mostrar}) => {
   const notify = () => {
-    toast.warn(texto, {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      });
+    toast.warn(texto, Style);
   };
 
   useEffect(() => {
@@ -66,20 +53,6 @@ export const Aviso = ({texto, mostrar}) => {
     }
   }, [mostrar]);
 
-  return (
-    <div className="GeeksforGeeks">
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-    </div>
-  );
+  return <ToastContainer {...ToastConfig}/>
+
 }

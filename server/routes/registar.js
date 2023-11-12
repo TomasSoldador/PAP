@@ -1,9 +1,8 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
-const db = require('../db');
-
 const router = express.Router();
-
+const multer = require('multer');
+const path = require('path');
+const db = require('../db');
 
 
 module.exports = router;

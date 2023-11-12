@@ -36,11 +36,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pap`.`perfil` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `foto` VARCHAR(245) NOT NULL,
   `username` VARCHAR(245) NOT NULL,
-  `descricao` VARCHAR(245) NOT NULL,
-  `data_nascimento` VARCHAR(45) NOT NULL,
+  `imageUrl` VARCHAR(245),
   `genero` VARCHAR(45),
+  `descricao` VARCHAR(245),
+  `data_nascimento` VARCHAR(45) NOT NULL,
   `Usuario_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,

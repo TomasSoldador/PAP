@@ -1,7 +1,6 @@
 import { React, useState } from "react";
 import * as Components from "../Styles/Login";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { BiError } from "react-icons/bi";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Aviso , Error } from "../components/Alertas";
@@ -26,7 +25,8 @@ function Login() {
   const [usuarioList, setUsuarioList] = useState([]);
 
   const [isOpenAviso, setIsOpenAviso] = useState(false);
-  const [isOpenError, setIsOpenError] = useState(false);
+  const [isOpenErrorEmail, setIsOpenErrorEmail] = useState(false);
+  const [isOpenErrorPassword, setIsOpenErrorPassword] = useState(false);
 
 
   // Verifica se as passwords são iguais
@@ -73,7 +73,8 @@ function Login() {
   const Registar = async (e) => {
     e.preventDefault();
 
-    setIsOpenError(false);
+    setIsOpenErrorEmail(false);
+    setIsOpenErrorPassword(false);
 
     try {
       const resposta = await Axios.post(
@@ -87,7 +88,11 @@ function Login() {
       );
 
       if (resposta.data.emailError) {
-        setIsOpenError(true);
+        setIsOpenErrorEmail(true);
+      }
+
+      if (resposta.data.ErrorSenhas) {
+        setIsOpenErrorPassword(true);
       }
 
       if (resposta.data.success) {
@@ -110,13 +115,13 @@ function Login() {
 
   return (
     <Components.AllContainer>
-      {isOpenAviso && (
-        <Aviso texto={"Email ou password incorretas"} mostrar={true} />
-      )}
-      {isOpenError && (
-        <Error texto={"Email já cadastrado"} mostrar={true} />
-      )}
       <Components.Container>
+        {isOpenErrorEmail && (
+          <Error texto={"Email já cadastrado!"} mostrar={true} />
+        )}
+        {isOpenErrorPassword && (
+          <Error texto={"Passwords não são iguais!"} mostrar={true} />
+        )}
         <Components.SignUpContainer signinIn={signIn}>
           <Components.Form>
             <Components.Title>Criar Conta</Components.Title>
@@ -132,35 +137,38 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
             />
-            <Components.Input
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={primeira_password}
-              placeholder="Password"
-            />
-            <Components.ButtonEye
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </Components.ButtonEye>
-
-            <Components.Input
-              type={showConfirmPassword ? "text" : "password"}
-              value={confirmPassword}
-              onChange={confirmarPassword}
-              placeholder="Confirmar Password"
-            />
-            <Components.ButtonEye2
-              type="button"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            >
-              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-            </Components.ButtonEye2>
+            <Components.DivPassword>
+              <Components.Input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={primeira_password}
+                placeholder="Password"
+              />
+              <Components.ButtonEye
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </Components.ButtonEye>
+            </Components.DivPassword>
+            
+            <Components.DivPassword>
+              <Components.Input
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={confirmarPassword}
+                placeholder="Confirmar Password"
+                />
+              <Components.ButtonEye
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </Components.ButtonEye>
+            </Components.DivPassword>
             {passwordError && (
               <Components.p>
-                <BiError style={{ color: "yellow" }} /> As senhas não conferem
-                <BiError style={{ color: "yellow" }} />
+                As senhas não são iguais!
               </Components.p>
             )}
             
@@ -169,7 +177,10 @@ function Login() {
             </Components.Button>
           </Components.Form>
         </Components.SignUpContainer>
-
+        
+        {isOpenAviso && (
+          <Aviso texto={"Email ou password incorretas"} mostrar={true} />
+        )}
         <Components.SignInContainer signinIn={signIn}>
           <Components.Form>
             <Components.Title>Login</Components.Title>
