@@ -196,7 +196,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
-            <Components.Anchor href="#">
+            <Components.Anchor href="/resetpassword">
               Esqueceu-se da senha?
             </Components.Anchor>
             <Components.Button onClick={Login}>

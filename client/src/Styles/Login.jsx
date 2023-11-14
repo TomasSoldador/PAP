@@ -89,6 +89,7 @@ export const InputFile = styled.input`
 `;
 
 export const Button = styled.button`
+  margin-top: 10px;
   border-radius: 20px;
   border: 1px solid rgb(7, 7, 92);
   background-color: rgb(9, 9, 121);
