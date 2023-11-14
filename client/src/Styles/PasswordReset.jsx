@@ -44,7 +44,8 @@ export const Input = styled.input`
 `;
 
 export const Titulo = styled.div`
-  background-color: #f0f0ea;
+  background-color: rgb(7, 7, 92);;
+  color: white;
   width: 100%;
   height: 20%;
   display: flex;
@@ -62,7 +63,6 @@ export const p = styled.div`
 `;
 
 export const DivButtons = styled.div`
-  background-color: #f0f0ea;
   text-align: right;
   position: absolute;
   bottom: 0;
