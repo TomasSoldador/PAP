@@ -60,7 +60,7 @@ export default function PasswordReset() {
           {emailEnviado ? (
             <>
               <Components.p>Email enviado continue apartir do seu email!</Components.p>
-              <Components.p>Se não encontrar o email enviado tente ver o spam!</Components.p>
+              <Components.p>Se não encontrar o email enviado tente vero spam!</Components.p>
             </>
           ) : (
             <>

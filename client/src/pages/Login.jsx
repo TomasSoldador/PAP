@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Aviso , Error } from "../components/Alertas";
+import Cookies from 'js-cookie';
 
 function Login() {
   const navigateTo = useNavigate();
@@ -57,8 +58,9 @@ function Login() {
         }
       );
 
-      if (resposta.data.password) {
-        navigateTo("/home");
+      if (resposta.data.token) {
+        Cookies.set('authToken', resposta.data.token, { expires: 7 });
+        navigateTo("/");
       } else {
         setIsOpenAviso(true)
       }

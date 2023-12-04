@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const db = require('../db');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+
 
 // Endpoint de login
 router.post('/post', async (req, res) => {
@@ -24,6 +26,7 @@ router.post('/post', async (req, res) => {
       // Se o resultado funcionar ele vai pegar no email e na password da base de dados
       if (result.length > 0) {
          console.log("Usuário encontrado");
+         console.log(result)
 
          // Vai pegar a password encryptada e comparar com a password inserida no login
          const cryptPassword = result[0].password;
@@ -32,11 +35,13 @@ router.post('/post', async (req, res) => {
          if (passwordMatch) {
             // Se as passwords forem iguais vai passar um true para o FrontEnd
             console.log('Passwords conicidem');
-            return res.json({ password: true });
+            const token = jwt.sign({ id: result.id, email: result.email }, 'palavra_secreta', { expiresIn: '7d' });
+            console.log("Token Gerado no Backend:", token);
+
+            return res.json({ token });
          } else {
             // Se as passwords forem diferentes vai passar um false para o FrontEnd
             console.log('Passwords não conicidem');
-            return res.json({ password: false });
          }
 
       } else {
