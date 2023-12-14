@@ -78,7 +78,7 @@ function Registar() {
     setDataNascimento(new Date(ano, mes - 1, dia));
 
     alert(
-      `${nome} ${gender} ${descricao} ${dataNascimento.toLocaleDateString(
+      `${name} ${gender} ${descricao} ${dataNascimento.toLocaleDateString(
         "pt-PT"
       )}`
     );
@@ -91,9 +91,15 @@ function Registar() {
           genero: gender,
           data_nascimento: dataNascimento.toLocaleDateString("pt-PT"),
           descricao: descricao,
+          foto: avatar,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
-
+    
       setRegistarList([
         ...registarList,
         {
@@ -101,6 +107,7 @@ function Registar() {
           genero: gender,
           data_nascimento: dataNascimento.toLocaleDateString("pt-PT"),
           descricao: descricao,
+          foto: avatar,
         },
       ]);
     } catch (error) {
