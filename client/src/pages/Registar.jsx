@@ -1,6 +1,10 @@
 import * as Components from "../Styles/Registar";
 import React, { useState } from "react";
 import Axios from "axios";
+import Cookies from 'js-cookie';
+
+
+
 
 function Registar() {
   const [name, setName] = useState("");
@@ -13,6 +17,7 @@ function Registar() {
   const [mes, setMes] = useState("");
   const [ano, setAno] = useState("");
   const [registarList, setRegistarList] = useState("");
+  const token = Cookies.get('authToken');
 
   // Input data
   const startYear = new Date().getFullYear() - 80;
@@ -75,13 +80,25 @@ function Registar() {
   const Criar = async (e) => {
     e.preventDefault();
 
-    setDataNascimento(new Date(ano, mes - 1, dia));
+  // Converta os valores de dia, mês e ano para números
+  const diaNum = parseInt(dia, 10);
+  const mesNum = parseInt(mes, 10);
+  const anoNum = parseInt(ano, 10);
 
-    alert(
-      `${name} ${gender} ${descricao} ${dataNascimento.toLocaleDateString(
-        "pt-PT"
-      )}`
-    );
+  // Verifique se a conversão foi bem-sucedida
+  if (isNaN(diaNum) || isNaN(mesNum) || isNaN(anoNum)) {
+    console.error("Valores de data inválidos");
+    return;
+  }
+
+  // Converta os valores de dia, mês e ano para um objeto de data
+  const dataNascimento = new Date(anoNum, mesNum - 1, diaNum);
+
+  alert(
+    `${name} ${gender} ${descricao} ${dataNascimento.toLocaleDateString(
+      "pt-PT"
+    )}`
+  );
 
     try {
       const resposta = await Axios.post(
@@ -93,11 +110,7 @@ function Registar() {
           descricao: descricao,
           foto: avatar,
         },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        
       );
     
       setRegistarList([

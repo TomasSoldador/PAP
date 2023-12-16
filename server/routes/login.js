@@ -101,7 +101,9 @@ router.post('/insert', async (req, res) => {
 
                // Se der certo no insert passa um success true para o FrontEnd
                console.log("Usuário adicionado com sucesso.");
-               return res.json({ success: true });
+               const token = jwt.sign({ id: result.id}, 'palavra_secreta', { expiresIn: '7d' });
+               console.log(token);
+               return res.json({ success: true, token });
             });
 
          // Se as senhas não forem iguais vai passar um False para o FrontEnd

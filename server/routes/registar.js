@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const db = require('../db');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -23,6 +24,9 @@ const upload = multer({
 })
 
 router.post("/insert", upload.single("foto"), async (req, res) => {
+  const token = req.cookies.token;
+  const decodedToken = jwt.verify(token, 'palavra_secreta');
+  console.log(decodedToken.id);
   console.log(req.body.username);
   console.log(req.body.genero);
   console.log(req.body.data_nascimento);
@@ -46,7 +50,7 @@ router.post("/insert", upload.single("foto"), async (req, res) => {
       return res.json({ Usuario: "UsuarioExiste" })
     } else {
       const sqlInsert = "INSERT INTO perfil (username, imageURL, genero, descricao, data_nascimento, Usuario_id) VALUES (?, ?, ?, ?, ?, ?)";
-      db.query(sqlInsert, [username, foto, genero, descricao, data_nascimento, "2"], (err, result) => {
+      db.query(sqlInsert, [username, foto, genero, descricao, data_nascimento, "4"], (err, result) => {
         if (err) {
           console.log(err);
         }

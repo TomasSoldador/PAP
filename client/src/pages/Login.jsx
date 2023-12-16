@@ -96,7 +96,8 @@ function Login() {
         setIsOpenErrorPassword(true);
       }
 
-      if (resposta.data.success) {
+      if (resposta.data.token) {
+        Cookies.set('authToken', resposta.data.token, { expires: 7 });
         navigateTo("/registar");
       }
 
