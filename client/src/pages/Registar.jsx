@@ -100,32 +100,40 @@ function Registar() {
     )}`
   );
 
-    try {
-      const resposta = await Axios.post(
-        "http://localhost:3001/api/registar/insert",
-        {
-          username: name,
-          genero: gender,
-          data_nascimento: dataNascimento.toLocaleDateString("pt-PT"),
-          descricao: descricao,
-          foto: avatar,
+  const formData = new FormData();
+  formData.append("username", name);
+  formData.append("genero", gender);
+  formData.append("data_nascimento", dataNascimento.toLocaleDateString("pt-PT"));
+  formData.append("descricao", descricao);
+  formData.append("foto", avatar);
+  
+  try {
+    const resposta = await Axios.post(
+      "http://localhost:3001/api/registar/insert",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        
-      );
-    
-      setRegistarList([
-        ...registarList,
-        {
-          username: name,
-          genero: gender,
-          data_nascimento: dataNascimento.toLocaleDateString("pt-PT"),
-          descricao: descricao,
-          foto: avatar,
-        },
-      ]);
-    } catch (error) {
-      console.error("Erro ao enviar imagem para o servidor:", error);
-    }
+      }
+    );
+  
+    setRegistarList([
+      ...registarList,
+      {
+        username: name,
+        genero: gender,
+        data_nascimento: dataNascimento.toLocaleDateString("pt-PT"),
+        descricao: descricao,
+        foto: avatar,
+      },
+    ]);
+  
+    console.log("Resposta do servidor:", resposta.data);
+  } catch (error) {
+    console.error("Erro ao enviar imagem para o servidor:", error);
+  }
+  
   };
 
   return (

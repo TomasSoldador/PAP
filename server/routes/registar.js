@@ -3,9 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const db = require('../db');
-const jwt = require('jsonwebtoken');
 
-const app = express();
 
 const storage = multer.diskStorage({
   destination: "./imagens",
@@ -18,21 +16,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  // fileFilter: function (_req, file, cb) {
-  //   checkFileType(file, cb);
-  // }
 })
 
 router.post("/insert", upload.single("foto"), async (req, res) => {
-  const token = req.cookies.token;
-  const decodedToken = jwt.verify(token, 'palavra_secreta');
-  console.log(decodedToken.id);
-  console.log(req.body.username);
-  console.log(req.body.genero);
-  console.log(req.body.data_nascimento);
-  console.log(req.body.descricao);
-  console.log(req.file);
-  console.log("URL FOTO:" + req.file.filename);
 
   const username = req.body.username;
   const genero = req.body.genero;
