@@ -22,8 +22,8 @@ router.post('/post', async (req, res) => {
     html: `
         <p>Olá,</p>
         <p>Clique no botão abaixo para recuperar sua senha:</p>
-        <a href="http://localhost:5173/registar" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: #fff; text-decoration: none;">Recuperar Senha</a>
-        <p>Ou copie e cole o seguinte link em seu navegador: <a href="http://localhost:5173/registar">http://localhost:5173/registar</a></p>
+        <a href="http://localhost:5173/resetpass" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: #fff; text-decoration: none;">Recuperar Senha</a>
+        <p>Ou copie e cole o seguinte link em seu navegador: <a href="http://localhost:5173/resetpass">http://localhost:5173/resetpass</a></p>
         <p>Se você não solicitou a recuperação de senha, ignore este e-mail.</p>
     `
   };

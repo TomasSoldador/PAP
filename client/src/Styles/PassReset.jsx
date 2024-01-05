@@ -24,25 +24,6 @@ export const Container = styled.div`
   min-height: 350px;
 `;
 
-export const Form = styled.div`
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 50px;
-  height: 4vh;
-  text-align: center;
-`;
-
-export const Input = styled.input`
-  background-color: #eee;
-  border: none;
-  padding: 12px 15px;
-  margin: 8px 0;
-  width: 100%;
-`;
-
 export const Titulo = styled.div`
   background-color: rgb(7, 7, 92);;
   color: white;
@@ -55,11 +36,24 @@ export const Titulo = styled.div`
   font-weight: bold;
 `;
 
-export const p = styled.div`
+export const Input = styled.input`
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+`;
+
+export const Form = styled.div`
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 40px;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 230px;
+
+  text-align: center;
 `;
 
 export const DivButtons = styled.div`
@@ -92,5 +86,25 @@ export const Button = styled.button`
   }
 `;
 
+export const DivPassword = styled.div`
+  width: 100%;
+  display: inline-flex;
+`;
 
+export const ButtonEye = styled.button`
+  margin-top: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-size: 1.2em;
+  color: #777;
+`;
 
+export const p = styled.p`
+  color: #e90000;
+  font-size: 12px;
+  margin: -1px;
+  margin-top: 120px;
+  position: absolute;
+`;

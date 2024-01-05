@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Registar from "./pages/Registar";
 import PasswordReset from "./pages/PasswordReset";
 import PrivateRoute from "./middleware/PrivateRoute";
+import PassReset from "./pages/PassReset";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/registar" element={<PrivateRoute><Registar /></PrivateRoute>} />
       <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
       <Route path="/resetpassword" element={<PasswordReset />} />
+      <Route path="/resetpass" element={<PrivateRoute><PassReset /></PrivateRoute>} />
     </Routes>
   </Router>
 );
