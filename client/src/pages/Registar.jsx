@@ -80,59 +80,62 @@ function Registar() {
   const Criar = async (e) => {
     e.preventDefault();
 
-  // Converta os valores de dia, mês e ano para números
-  const diaNum = parseInt(dia, 10);
-  const mesNum = parseInt(mes, 10);
-  const anoNum = parseInt(ano, 10);
+    // Converta os valores de dia, mês e ano para números
+    const diaNum = parseInt(dia, 10);
+    const mesNum = parseInt(mes, 10);
+    const anoNum = parseInt(ano, 10);
 
-  // Verifique se a conversão foi bem-sucedida
-  if (isNaN(diaNum) || isNaN(mesNum) || isNaN(anoNum)) {
-    console.error("Valores de data inválidos");
-    return;
-  }
+    // Verifique se a conversão foi bem-sucedida
+    if (isNaN(diaNum) || isNaN(mesNum) || isNaN(anoNum)) {
+      console.error("Valores de data inválidos");
+      return;
+    }
 
-  // Converta os valores de dia, mês e ano para um objeto de data
-  const dataNascimento = new Date(anoNum, mesNum - 1, diaNum);
+    // Converta os valores de dia, mês e ano para um objeto de data
+    const dataNascimento = new Date(anoNum, mesNum - 1, diaNum);
 
-  alert(
-    `${name} ${gender} ${descricao} ${dataNascimento.toLocaleDateString(
-      "pt-PT"
-    )}`
-  );
-
-  const formData = new FormData();
-  formData.append("username", name);
-  formData.append("genero", gender);
-  formData.append("data_nascimento", dataNascimento.toLocaleDateString("pt-PT"));
-  formData.append("descricao", descricao);
-  formData.append("foto", avatar);
-  
-  try {
-    const resposta = await Axios.post(
-      "http://localhost:3001/api/registar/insert",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
+    alert(
+      `${name} ${gender} ${descricao} ${dataNascimento.toLocaleDateString(
+        "pt-PT"
+      )}`
     );
-  
-    setRegistarList([
-      ...registarList,
-      {
-        username: name,
-        genero: gender,
-        data_nascimento: dataNascimento.toLocaleDateString("pt-PT"),
-        descricao: descricao,
-        foto: avatar,
-      },
-    ]);
-  
-    console.log("Resposta do servidor:", resposta.data);
-  } catch (error) {
-    console.error("Erro ao enviar imagem para o servidor:", error);
-  }
+
+    const formData = new FormData();
+    formData.append("username", name);
+    formData.append("genero", gender);
+    formData.append("data_nascimento", dataNascimento.toLocaleDateString("pt-PT"));
+    formData.append("descricao", descricao);
+    formData.append("foto", avatar);
+    
+    try {
+      const resposta = await Axios.post(
+        "http://localhost:3001/api/registar/insert",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    
+      setRegistarList([
+        ...registarList,
+        {
+          username: name,
+          genero: gender,
+          data_nascimento: dataNascimento.toLocaleDateString("pt-PT"),
+          descricao: descricao,
+          foto: avatar,
+        },
+      ]);
+
+      
+    
+      console.log("Resposta do servidor:", resposta.data);
+    } catch (error) {
+      console.error("Erro ao enviar imagem para o servidor:", error);
+    }
   
   };
 

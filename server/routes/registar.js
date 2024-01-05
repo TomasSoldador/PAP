@@ -3,8 +3,9 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const db = require('../db');
+const validateToken = require('../middleware/validateToken');
 
-
+//TODO: fazer com que a foto não seja enviada para a pasta do servidor se o usuario ja existir
 const storage = multer.diskStorage({
   destination: "./imagens",
   filename: function (_req, file, cb) {
@@ -18,8 +19,10 @@ const upload = multer({
   storage: storage,
 })
 
-router.post("/insert", upload.single("foto"), async (req, res) => {
+router.post("/insert", validateToken, upload.single("foto"), async (req, res) => {
 
+
+  const userId = req.decoded.id;
   const username = req.body.username;
   const genero = req.body.genero;
   const data_nascimento = req.body.data_nascimento;
@@ -36,9 +39,12 @@ router.post("/insert", upload.single("foto"), async (req, res) => {
       return res.json({ Usuario: "UsuarioExiste" })
     } else {
       const sqlInsert = "INSERT INTO perfil (username, imageURL, genero, descricao, data_nascimento, Usuario_id) VALUES (?, ?, ?, ?, ?, ?)";
-      db.query(sqlInsert, [username, foto, genero, descricao, data_nascimento, "4"], (err, result) => {
+      db.query(sqlInsert, [username, foto, genero, descricao, data_nascimento, userId], (err, result) => {
         if (err) {
           console.log(err);
+        } else {
+          console.log("Perfil adicionado com sucesso")
+          return res.json({ Perfil: "PerfilAdicionado" })
         }
       })
     }

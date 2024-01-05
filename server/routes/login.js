@@ -26,7 +26,6 @@ router.post('/post', async (req, res) => {
       // Se o resultado funcionar ele vai pegar no email e na password da base de dados
       if (result.length > 0) {
          console.log("Usuário encontrado");
-         console.log(result)
 
          // Vai pegar a password encryptada e comparar com a password inserida no login
          const cryptPassword = result[0].password;
@@ -34,9 +33,8 @@ router.post('/post', async (req, res) => {
 
          if (passwordMatch) {
             // Se as passwords forem iguais vai passar um true para o FrontEnd
-            console.log('Passwords conicidem');
-            const token = jwt.sign({ id: result.id, email: result.email }, 'palavra_secreta', { expiresIn: '7d' });
-            console.log("Token Gerado no Backend:", token);
+            const token = jwt.sign({ id: result[0].insertId }, 'palavra_secreta', { expiresIn: '7d' });
+            console.log("Passwords coicidem, Token Gerado no Backend:", token);
 
             return res.json({ token });
          } else {
@@ -101,8 +99,7 @@ router.post('/insert', async (req, res) => {
 
                // Se der certo no insert passa um success true para o FrontEnd
                console.log("Usuário adicionado com sucesso.");
-               const token = jwt.sign({ id: result.id}, 'palavra_secreta', { expiresIn: '7d' });
-               console.log(token);
+               const token = jwt.sign({ id: result.insertId}, 'palavra_secreta', { expiresIn: '7d' });
                return res.json({ success: true, token });
             });
 
