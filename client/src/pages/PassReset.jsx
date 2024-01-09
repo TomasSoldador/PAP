@@ -1,6 +1,11 @@
 import { React, useState } from "react";
 import * as Components from "../Styles/PassReset";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Axios from "axios";
+import { Error } from "../components/Alertas";
+import Cookies from 'js-cookie';
+
+
 
 const PassReset = () => {
   const [password, setPassword] = useState("");
@@ -13,6 +18,10 @@ const PassReset = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [passwordList, setPasswordList] = useState([]);
+
+  const [isOpenErrorPassword, setIsOpenErrorPassword] = useState(false);
+  const token = Cookies.get('authToken');
+
 
 
   const primeira_password = (e) => {
@@ -30,17 +39,31 @@ const PassReset = () => {
   };
 
   const Enviar = async (e) => {
+
+    setIsOpenErrorPassword(false);
+
     if (password !== confirmPassword) {
-      alert("As passwords não são iguais" + " ola: " + confirmPassword + " adeus: " + password);
+      alert("ola");
     } else {
+
       try {
         const resposta = await Axios.post(
           "http://localhost:3001/api/passReset/insert",
           {
             password: password,
             confirmPassword: confirmPassword,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
+
+        if (resposta.data.ErrorSenhas) {
+          setIsOpenErrorPassword(true);
+        }
+
         setPasswordList([
           ...passwordList,
           {
@@ -59,6 +82,9 @@ const PassReset = () => {
     <>
       <Components.AllContainer>
         <Components.Container>
+          {isOpenErrorPassword && (
+            <Error texto={"Passwords não são iguais!"} mostrar={true} />
+          )}
           <Components.Titulo>Redefenir Password:</Components.Titulo>
           <Components.Form>
             <Components.DivPassword>

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { Error } from "../components/Alertas";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
+
 
 
 // TODO: usar o nodemailer no lado do servidor para enviar o email com o codigo de segurança  
@@ -28,6 +30,11 @@ export default function PasswordReset() {
           email: email
         }
       );
+
+      console.log(resposta.data.token);
+      if (resposta.data.token) {
+        Cookies.set('authToken', resposta.data.token, { expires: 7, sameSite: 'None', secure: true });
+      } 
 
       if (!resposta.data.emailError){
         setIsOpenErrorEmail(true);

@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
+
 
 
 router.post('/post', async (req, res) => {
@@ -33,14 +35,17 @@ router.post('/post', async (req, res) => {
   const sqlSelect = "SELECT * FROM usuario WHERE email = ?";
   db.query(sqlSelect, [email], async (err, result) => {
     if (result.length > 0) {
+      console.log(result)
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.error(error);
           } else {
           console.log('E-mail enviado: ' + info.response);
+          console.log(result[0].id)
+          const token = jwt.sign({ id: result[0].id}, 'palavra_secreta', { expiresIn: '7d' });
+          return res.json({ success: true, token, emailError: true });
         }
       });
-      res.json({ emailError: true });
     } else {
       console.log("Email não encontrado");
       res.json({ emailError: false });

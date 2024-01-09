@@ -59,7 +59,7 @@ function Login() {
       );
 
       if (resposta.data.token) {
-        Cookies.set('authToken', resposta.data.token, { expires: 7 });
+        Cookies.set('authToken', resposta.data.token, { expires: 7, sameSite: 'None', secure: true });
         navigateTo("/");
       } else {
         setIsOpenAviso(true)
@@ -97,7 +97,7 @@ function Login() {
       }
 
       if (resposta.data.token) {
-        Cookies.set('authToken', resposta.data.token, { expires: 7 });
+        Cookies.set('authToken', resposta.data.token, { expires: 7, sameSite: 'None', secure: true });
         navigateTo("/registar");
       }
 

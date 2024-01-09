@@ -22,7 +22,6 @@ const upload = multer({
 router.post("/insert", validateToken, upload.single("foto"), async (req, res) => {
 
 
-  const userId = req.decoded.id;
   const username = req.body.username;
   const genero = req.body.genero;
   const data_nascimento = req.body.data_nascimento;
