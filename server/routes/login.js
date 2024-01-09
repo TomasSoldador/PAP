@@ -10,8 +10,6 @@ router.post('/post', async (req, res) => {
    // Recebe os dados do FrontEnd
    const email = req.body.email;
    const password = req.body.password;
-   console.log("Email: " + email + " Password: " + password);
-
 
    // Faz a busca do usuario pelo email
    const sqlSelect = "SELECT * FROM usuario WHERE email = ?";
@@ -25,16 +23,13 @@ router.post('/post', async (req, res) => {
 
       // Se o resultado funcionar ele vai pegar no email e na password da base de dados
       if (result.length > 0) {
-         console.log("Usuário encontrado");
-
          // Vai pegar a password encryptada e comparar com a password inserida no login
          const cryptPassword = result[0].password;
          const passwordMatch = await bcrypt.compare(password, cryptPassword);
 
          if (passwordMatch) {
             // Se as passwords forem iguais vai passar um true para o FrontEnd
-            const token = jwt.sign({ id: result[0].insertId }, 'palavra_secreta', { expiresIn: '7d' });
-            console.log("Passwords coicidem, Token Gerado no Backend:", token);
+            const token = jwt.sign({ id: result[0].id }, 'palavra_secreta', { expiresIn: '7d' });
 
             return res.json({ token });
          } else {
@@ -79,14 +74,14 @@ router.post('/insert', async (req, res) => {
          console.log("Email já existe");
          return res.json({ emailError: true });
 
-      // Se não existir o email entra neste else
+         // Se não existir o email entra neste else
       } else {
          // Este if vai verificar se a password e a confirmpassword são iguais
          if (password === confirmPassword) {
 
             // Se for iguais aqui vai encryptar a password
             const hashedPassword = await bcrypt.hash(password, 10);
-         
+
             // Aqui vamos inserir os dados na base de dados
             const sqlInsert = "INSERT INTO usuario (nome, email, password) VALUES (?, ?, ?)";
             db.query(sqlInsert, [nome, email, hashedPassword], (err, result) => {
@@ -99,11 +94,11 @@ router.post('/insert', async (req, res) => {
 
                // Se der certo no insert passa um success true para o FrontEnd
                console.log("Usuário adicionado com sucesso.");
-               const token = jwt.sign({ id: result.insertId}, 'palavra_secreta', { expiresIn: '7d' });
+               const token = jwt.sign({ id: result.insertId }, 'palavra_secreta', { expiresIn: '7d' });
                return res.json({ success: true, token });
             });
 
-         // Se as senhas não forem iguais vai passar um False para o FrontEnd
+            // Se as senhas não forem iguais vai passar um False para o FrontEnd
          } else {
             console.log("Senhas não coincidem");
             return res.json({ ErrorSenhas: true });

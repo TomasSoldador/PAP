@@ -21,7 +21,7 @@ const upload = multer({
 
 router.post("/insert", validateToken, upload.single("foto"), async (req, res) => {
 
-
+  const userId = req.decoded.id;
   const username = req.body.username;
   const genero = req.body.genero;
   const data_nascimento = req.body.data_nascimento;
@@ -35,7 +35,7 @@ router.post("/insert", validateToken, upload.single("foto"), async (req, res) =>
     }
     if (result.length > 0) {
       console.log("Usuario ja existe")
-      return res.json({ Usuario: "UsuarioExiste" })
+      return res.json({ Usuario: true })
     } else {
       const sqlInsert = "INSERT INTO perfil (username, imageURL, genero, descricao, data_nascimento, Usuario_id) VALUES (?, ?, ?, ?, ?, ?)";
       db.query(sqlInsert, [username, foto, genero, descricao, data_nascimento, userId], (err, result) => {
@@ -43,7 +43,7 @@ router.post("/insert", validateToken, upload.single("foto"), async (req, res) =>
           console.log(err);
         } else {
           console.log("Perfil adicionado com sucesso")
-          return res.json({ Perfil: "PerfilAdicionado" })
+          return res.json({ success: true })
         }
       })
     }

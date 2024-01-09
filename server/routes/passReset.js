@@ -10,14 +10,20 @@ router.post('/insert', validateToken, async (req, res) => {
   const confirmPassword = req.body.confirmPassword;
   const userId = req.decoded.id;
 
-  //TODO: Ja esta a receber todos os dados deste lado.
-  // ! Agora so tenho verificar as 2 senhas e se forem iguais tenho de encryptar a senha e atraves do id mudar essa senha.
-  console.log(userId);
-  console.log(password);
-  console.log(confirmPassword);
-
-  return res.json({ ErrorSenhas: true });
-
+  if (password === confirmPassword) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const sqlUpdate = "UPDATE usuario SET password = ? WHERE id = ?";
+    db.query(sqlUpdate, [hashedPassword, userId], (err, result) => {
+      if (err) {
+        console.log("Erro ao atualizar a senha:", err);
+        return res.status(500).json({ error: 'Erro Interno do Servidor' });
+      }
+      console.log("Senha atualizada com sucesso.");
+      return res.json({ success: true });
+    });
+  } else {
+    return res.json({ ErrorSenhas: true });
+  }
 })
 
 

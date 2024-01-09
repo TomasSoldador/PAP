@@ -2,11 +2,16 @@ import * as Components from "../Styles/Registar";
 import React, { useState } from "react";
 import Axios from "axios";
 import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
+import { Aviso , Error } from "../components/Alertas";
 
 
 
 
 function Registar() {
+
+  const navigateTo = useNavigate();
+
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [avatar, setAvatar] = useState(null);
@@ -18,6 +23,8 @@ function Registar() {
   const [ano, setAno] = useState("");
   const [registarList, setRegistarList] = useState("");
   const token = Cookies.get('authToken');
+  const [isOpenErrorUser, setIsOpenErrorUser] = useState(false);
+
 
   // Input data
   const startYear = new Date().getFullYear() - 80;
@@ -80,6 +87,8 @@ function Registar() {
   const Criar = async (e) => {
     e.preventDefault();
 
+    setIsOpenErrorUser(false);
+
     // Converta os valores de dia, mês e ano para números
     const diaNum = parseInt(dia, 10);
     const mesNum = parseInt(mes, 10);
@@ -118,6 +127,14 @@ function Registar() {
           },
         }
       );
+
+      if(resposta.data.Usuario) {
+        setIsOpenErrorUser(true);
+      }
+
+      if(resposta.data.success) { 
+        navigateTo("/");
+      }
     
       setRegistarList([
         ...registarList,
@@ -142,6 +159,9 @@ function Registar() {
   return (
     <Components.AllContainer>
       <Components.Container>
+        {isOpenErrorUser && (
+          <Error texto={"Usuario já cadastrado!"} mostrar={true} />
+        )}
         <Components.Form>
           <Components.Title> Bem Vindo! </Components.Title>
           <Components.Paragraph>

@@ -4,10 +4,15 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Axios from "axios";
 import { Error } from "../components/Alertas";
 import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
+
 
 
 
 const PassReset = () => {
+
+  const navigateTo = useNavigate();
+
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -43,9 +48,8 @@ const PassReset = () => {
     setIsOpenErrorPassword(false);
 
     if (password !== confirmPassword) {
-      alert("ola");
+      setIsOpenErrorPassword(true);
     } else {
-
       try {
         const resposta = await Axios.post(
           "http://localhost:3001/api/passReset/insert",
@@ -60,9 +64,10 @@ const PassReset = () => {
           }
         );
 
-        if (resposta.data.ErrorSenhas) {
-          setIsOpenErrorPassword(true);
+        if(resposta.data.success) {
+          navigateTo("/login");
         }
+
 
         setPasswordList([
           ...passwordList,
