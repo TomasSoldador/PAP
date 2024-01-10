@@ -5,7 +5,6 @@ const path = require('path');
 const db = require('../db');
 const validateToken = require('../middleware/validateToken');
 
-//TODO: fazer com que a foto não seja enviada para a pasta do servidor se o usuario ja existir
 const storage = multer.diskStorage({
   destination: "./imagens",
   filename: function (_req, file, cb) {
@@ -26,7 +25,7 @@ router.post("/insert", validateToken, upload.single("foto"), async (req, res) =>
   const genero = req.body.genero;
   const data_nascimento = req.body.data_nascimento;
   const descricao = req.body.descricao;
-  const foto = req.file.filename;
+  let foto = req.file ? req.file.filename : null;
 
   const sqlSelect = "SELECT * FROM perfil WHERE username = ?";
   db.query(sqlSelect, [username], (err, result) => {
