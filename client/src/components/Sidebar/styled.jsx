@@ -10,14 +10,14 @@ export const SidebarContainer = styled.div`
   margin: 15px 0 45px 15px;
   color: white;
   padding: 20px;
-  overflow-y: auto;
+  overflow-y: auto; // Permite rolagem por padrão
   border-radius: 10px;
   transition: width 0.3s;
   display: flex;
-  flex-direction: column; // Define a direção do layout para coluna
+  flex-direction: column;
 
   @media (max-width: 768px) {
-    width: 80px; // Largura reduzida para telas menores
+    width: 80px;
   }
 `;
 
@@ -27,6 +27,7 @@ export const SidebarItem = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 15px; // Aumenta o espaço abaixo de cada item
 
   &:hover {
     background-color: #1a91da;
@@ -34,12 +35,11 @@ export const SidebarItem = styled.div`
     transition: background-color 0.2s;
   }
 
-  // Esconde o texto em telas menores, mostrando apenas os ícones
   @media (max-width: 768px) {
-    justify-content: center; // Centraliza o ícone
-    padding: 10px; // Ajusta o padding
+    justify-content: center;
+    padding: 10px;
     .text {
-      display: none; // Esconde o texto
+      display: none;
     }
   }
 `;
@@ -69,15 +69,15 @@ export const ProfileButton = styled.div`
   }
 
   .username {
-    display: block; // O nome do usuário é mostrado por padrão
+    display: block; 
   }
 
   @media (max-width: 768px) {
     padding: 10px;
-    justify-content: center; // Centraliza o ícone no botão
+    justify-content: center; 
 
     .username {
-      display: none; // Esconde o nome do usuário em telas menores
+      display: none;
     }
   }
 `;
@@ -85,3 +85,34 @@ export const ProfileButton = styled.div`
 export const Logo = styled.div`
   height: 5px;
 `
+
+export const SidebarTopImage = styled.div`
+  width: 100%; 
+  padding: 10px;
+  text-align: center;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+
+export const LogoutButton = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  gap: 10px;
+  margin-top: auto; // Isso colocará o botão no final da sidebar
+
+  &:hover {
+    background-color: #1a91da;
+    border-radius: 5px;
+  }
+`;
