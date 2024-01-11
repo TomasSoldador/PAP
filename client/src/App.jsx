@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Registar from "./pages/Registar";
 import PasswordReset from "./pages/PasswordReset";
 import PrivateRoute from "./middleware/PrivateRoute";
