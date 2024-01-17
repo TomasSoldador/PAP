@@ -27,7 +27,7 @@ export const SidebarItem = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 15px; // Aumenta o espaço abaixo de cada item
+  margin-bottom: 5px; // Aumenta o espaço abaixo de cada item
 
   &:hover {
     background-color: #1a91da;
@@ -58,15 +58,22 @@ export const ProfileButton = styled.div`
   }
 
   .profile-pic {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: auto;
-    }
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex; /* Adiciona flexbox */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+
+  img {
+    width: auto; /* Altere para 'auto' para manter a proporção da imagem */
+    height: 100%; /* A altura será de 100% do contêiner */
+    /* Adicione 'object-fit' se quiser que a imagem cubra completamente o contêiner sem distorção */
+    object-fit: cover;
   }
+}
+
 
   .username {
     display: block; 
@@ -92,7 +99,7 @@ export const SidebarTopImage = styled.div`
   text-align: center;
 
   img {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
     border-radius: 50%;
   }
@@ -109,10 +116,23 @@ export const LogoutButton = styled.div`
   padding: 10px 20px;
   cursor: pointer;
   gap: 10px;
-  margin-top: auto; // Isso colocará o botão no final da sidebar
+  margin-top: auto;
 
   &:hover {
     background-color: #1a91da;
     border-radius: 5px;
+  }
+
+  .logout-text {
+    display: block; // O texto é mostrado por padrão
+  }
+
+  // Media query para telas com largura menor que 768px
+  @media (max-width: 768px) {
+    justify-content: center; // Centraliza o ícone
+    padding: 10px;
+    .logout-text {
+      display: none; // Esconde o texto em telas menores
+    }
   }
 `;

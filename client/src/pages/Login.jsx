@@ -46,7 +46,6 @@ function Login() {
 
   const Login = async (e) => {
     e.preventDefault();
-
     setIsOpenAviso(false);
 
     try {
@@ -65,7 +64,12 @@ function Login() {
         setIsOpenAviso(true)
       }
 
-      setUsuarioList([...usuarioList, { email: email, password: password }]);
+      setUsuarioList([
+      ...usuarioList, 
+      {
+        email: email,
+        password: password
+      }]);
     } catch (error) {
       console.log("Erro no pedido ao servidor: ", error);
     }
@@ -73,6 +77,7 @@ function Login() {
 
   const Registar = async (e) => {
     e.preventDefault();
+    alert(password, confirmPassword);
 
     setIsOpenErrorEmail(false);
     setIsOpenErrorPassword(false);

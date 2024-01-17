@@ -8,6 +8,7 @@ import Registar from "./pages/Registar";
 import PasswordReset from "./pages/PasswordReset";
 import PrivateRoute from "./middleware/PrivateRoute";
 import PassReset from "./pages/PassReset";
+import Explorer from "./pages/Explorer/Explorer";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
       <Route path="/resetpassword" element={<PasswordReset />} />
       <Route path="/resetpass" element={<PrivateRoute><PassReset /></PrivateRoute>} />
+      <Route path="/Explore" element={<PrivateRoute><Explorer /></PrivateRoute>} />
     </Routes>
   </Router>
 );
