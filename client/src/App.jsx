@@ -9,6 +9,10 @@ import PasswordReset from "./pages/PasswordReset";
 import PrivateRoute from "./middleware/PrivateRoute";
 import PassReset from "./pages/PassReset";
 import Explorer from "./pages/Explorer/Explorer";
+import Notifications from "./pages/Notifications/Notifications";
+import Messages from "./pages/Messages/Messages";
+import Shop from "./pages/Shop/Shop";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
@@ -18,7 +22,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
       <Route path="/resetpassword" element={<PasswordReset />} />
       <Route path="/resetpass" element={<PrivateRoute><PassReset /></PrivateRoute>} />
-      <Route path="/Explore" element={<PrivateRoute><Explorer /></PrivateRoute>} />
+      <Route path="/Explorer" element={<PrivateRoute><Explorer /></PrivateRoute>} />
+      <Route path="/Notifications" element={<PrivateRoute><Notifications /></PrivateRoute>} />
+      <Route path="/Messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
+      <Route path="/Shop" element={<PrivateRoute><Shop /></PrivateRoute>} />
     </Routes>
   </Router>
 );

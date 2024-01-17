@@ -32,14 +32,14 @@ const Sidebar = ({ userId, foto }) => {
 
   return (
     <Components.SidebarContainer>
-      <Components.SidebarTopImage>
+      <Components.SidebarTopImage onClick={() => handleNavigation('/')}>
         <img src={LOGO} alt="Imagem no topo da Sidebar" />
       </Components.SidebarTopImage>
-      <Components.SidebarItem onClick={() => handleNavigation('/home')}>
+      <Components.SidebarItem onClick={() => handleNavigation('/')}>
         <FaHome />
         <span className="text">Home</span>
       </Components.SidebarItem>
-      <Components.SidebarItem onClick={() => handleNavigation('/Explore')}>
+      <Components.SidebarItem onClick={() => handleNavigation('/Explorer')}>
         <FaHashtag />
         <span className="text">Explore</span>
       </Components.SidebarItem>
@@ -51,23 +51,15 @@ const Sidebar = ({ userId, foto }) => {
         <FaEnvelope />
         <span className="text">Messages</span>
       </Components.SidebarItem>
-      <Components.SidebarItem onClick={() => handleNavigation('/Bookmarks')}>
+      <Components.SidebarItem onClick={() => handleNavigation('/Shop')}>
         <FaBookmark />
-        <span className="text">Bookmarks</span>
-      </Components.SidebarItem>
-      <Components.SidebarItem onClick={() => handleNavigation('/Lists')}>
-        <FaList />
-        <span className="text">Lists</span>
-      </Components.SidebarItem>
-      <Components.SidebarItem onClick={() => handleNavigation('/Profile')}>
-        <FaUser />
-        <span className="text">Profile</span>
+        <span className="text">Loja</span>
       </Components.SidebarItem>
       <Components.SidebarItem onClick={() => handleNavigation('/More')}>
         <FaEllipsisH />
         <span className="text">More</span>
       </Components.SidebarItem>
-      <Components.ProfileButton>
+      <Components.ProfileButton onClick={() => handleNavigation('/Profile')}>
         <div className="profile-pic">
           <img
             src={fotoURL || "../../src/assets/transferir.jpeg"}

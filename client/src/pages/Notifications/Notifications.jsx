@@ -7,7 +7,7 @@ import Axios from "axios";
 
 
 
-function Home () {
+function Notifications () {
   const token = Cookies.get("authToken");
   const [crud_userId, setCrud_UserId] = useState([]);
   const [userId, setUserId] = useState("");
@@ -50,10 +50,10 @@ function Home () {
     <Components.LayoutContainer>
       <Sidebar userId={userDataUsername} foto={userImageURL}/>
       <Components.ContentContainer>
-        <h1>Home</h1>
+        <h1>Notifications</h1>
       </Components.ContentContainer>
     </Components.LayoutContainer>
   )
 }
 
-export default Home;
+export default Notifications;
