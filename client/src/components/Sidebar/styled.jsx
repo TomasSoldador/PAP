@@ -58,30 +58,29 @@ export const ProfileButton = styled.div`
   }
 
   .profile-pic {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex; /* Adiciona flexbox */
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex; /* Adiciona flexbox */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 
-  img {
-    width: auto; /* Altere para 'auto' para manter a proporção da imagem */
-    height: 100%; /* A altura será de 100% do contêiner */
-    /* Adicione 'object-fit' se quiser que a imagem cubra completamente o contêiner sem distorção */
-    object-fit: cover;
+    img {
+      width: auto; /* Altere para 'auto' para manter a proporção da imagem */
+      height: 100%; /* A altura será de 100% do contêiner */
+      /* Adicione 'object-fit' se quiser que a imagem cubra completamente o contêiner sem distorção */
+      object-fit: cover;
+    }
   }
-}
-
 
   .username {
-    display: block; 
+    display: block;
   }
 
   @media (max-width: 768px) {
     padding: 10px;
-    justify-content: center; 
+    justify-content: center;
 
     .username {
       display: none;
@@ -91,10 +90,10 @@ export const ProfileButton = styled.div`
 
 export const Logo = styled.div`
   height: 5px;
-`
+`;
 
 export const SidebarTopImage = styled.div`
-  width: 100%; 
+  width: 100%;
   padding: 10px;
   text-align: center;
 
@@ -108,7 +107,6 @@ export const SidebarTopImage = styled.div`
     display: none;
   }
 `;
-
 
 export const LogoutButton = styled.div`
   display: flex;

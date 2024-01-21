@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import * as Components from "./styled"; 
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import Posts from "../../components/posts/Posts";
 
 
 
@@ -25,9 +26,8 @@ function Home () {
           userId: decodedToken.id,
         }).then((res) => {
           setUserDataUsername(res.data[0].username)
-          setUserImageURL(res.data[0].imageUrl); 
+          setUserImageURL(res.data[0].imageURL);
           
-
           setCrud_UserId([
             ...crud_userId,
             {
@@ -50,7 +50,9 @@ function Home () {
     <Components.LayoutContainer>
       <Sidebar userId={userDataUsername} foto={userImageURL}/>
       <Components.ContentContainer>
-        <h1>Home</h1>
+        <Posts photoUrl={userImageURL} userName={userDataUsername} />
+        <Posts photoUrl={userImageURL} userName={userDataUsername} />
+        <Posts photoUrl={userImageURL} userName={userDataUsername} />
       </Components.ContentContainer>
     </Components.LayoutContainer>
   )

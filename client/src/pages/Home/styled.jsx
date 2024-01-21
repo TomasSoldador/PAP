@@ -11,6 +11,13 @@ export const ContentContainer = styled.div`
   margin-left: 250px;
   min-height: 100vh;
   transition: margin-left 0.3s;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
 
   @media (max-width: 768px) {
     margin-left: 80px;
