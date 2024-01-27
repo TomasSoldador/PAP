@@ -1,5 +1,5 @@
 import * as Components from "./styled";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaHome,
   FaHashtag,
@@ -45,7 +45,6 @@ const Sidebar = ({ userId, foto }) => {
         <FaPlus />
         <span className="text">Criar</span>
         <Modal showModal={showModal} setShowModal={setShowModal} />
-
       </Components.SidebarItem>
       <Components.SidebarItem onClick={() => handleNavigation('/Explorer')}>
         <FaHashtag />

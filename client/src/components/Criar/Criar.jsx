@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import * as Components from "./styled";
 
-
-
 export const Modal = ({ showModal, setShowModal }) => {
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -57,7 +55,9 @@ export const Modal = ({ showModal, setShowModal }) => {
   return (
     <Components.ModalBackdrop show={showModal}>
       <Components.ModalContent onClick={(e) => e.stopPropagation()}>
-        <Components.CloseButton onClick={handleClose}>&times;</Components.CloseButton>
+        <Components.CloseButton onClick={handleClose}>
+          &times;
+        </Components.CloseButton>
         <h2>Carregar Imagem</h2>
         <Components.Dropzone
           onClick={() => fileInputRef.current.click()}
@@ -76,13 +76,22 @@ export const Modal = ({ showModal, setShowModal }) => {
         </Components.Dropzone>
         {images.length > 0 && (
           <Components.CarouselContainer>
-            <Components.CarouselImage src={images[currentImageIndex]} alt={`Imagem ${currentImageIndex + 1}`} />
+            <Components.CarouselImage
+              src={images[currentImageIndex]}
+              alt={`Imagem ${currentImageIndex + 1}`}
+            />
             {images.length > 1 && (
               <>
-                <Components.CarouselButton data-direction="prev" onClick={() => handleCarouselNavigation('prev')}>
+                <Components.CarouselButton
+                  data-direction="prev"
+                  onClick={() => handleCarouselNavigation("prev")}
+                >
                   <FaChevronLeft />
                 </Components.CarouselButton>
-                <Components.CarouselButton data-direction="next" onClick={() => handleCarouselNavigation('next')}>
+                <Components.CarouselButton
+                  data-direction="next"
+                  onClick={() => handleCarouselNavigation("next")}
+                >
                   <FaChevronRight />
                 </Components.CarouselButton>
               </>
