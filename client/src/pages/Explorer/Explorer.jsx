@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 
-
 function Explorer () {
   const token = Cookies.get("authToken");
   const [crud_userId, setCrud_UserId] = useState([]);
@@ -50,7 +49,9 @@ function Explorer () {
     <Components.LayoutContainer>
       <Sidebar userId={userDataUsername} foto={userImageURL}/>
       <Components.ContentContainer>
-        <h1>Explorer</h1>
+        <Components.explorer>
+          <Components.BlackSearchIcon  />
+        </Components.explorer>
       </Components.ContentContainer>
     </Components.LayoutContainer>
   )

@@ -25,9 +25,9 @@ function Messages () {
           userId: decodedToken.id,
         }).then((res) => {
           setUserDataUsername(res.data[0].username)
-          setUserImageURL(res.data[0].imageUrl); 
+          setUserImageURL(res.data[0].imageUrl);
           
-
+          
           setCrud_UserId([
             ...crud_userId,
             {

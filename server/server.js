@@ -1,4 +1,4 @@
-
+// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -13,9 +13,9 @@ app.use(cors());
 
 app.use('/server/imagens', express.static(path.join(__dirname, './imagens')));
 
-
 app.use('/api', routes);
 
+// Importante: Use server.listen ao invés de app.listen
 app.listen(3001, () => {
    console.log(`Server running on http://localhost:3001`);
 });

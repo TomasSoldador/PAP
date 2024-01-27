@@ -26,7 +26,7 @@ function Home () {
           userId: decodedToken.id,
         }).then((res) => {
           setUserDataUsername(res.data[0].username)
-          setUserImageURL(res.data[0].imageURL);
+          setUserImageURL(res.data[0].imageUrl);
           
           setCrud_UserId([
             ...crud_userId,
