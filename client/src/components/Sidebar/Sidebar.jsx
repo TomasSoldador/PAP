@@ -16,11 +16,51 @@ import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 import { Modal } from "../Modal_Pub/Modal";
 
-const Sidebar = ({ userId, foto }) => {
+import { jwtDecode } from "jwt-decode";
+import Axios from "axios";
+
+const Sidebar = () => {
+  const token = Cookies.get("authToken");
+  const [crud_userId, setCrud_UserId] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [userDataUsername, setUserDataUsername] = useState();
+  const [userImageURL, setUserImageURL] = useState('');
+
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken);
+      setUserId(decodedToken.id);
+
+      try {
+        Axios.post("http://localhost:3001/api/home/post", {
+          userId: decodedToken.id,
+        }).then((res) => {
+          setUserDataUsername(res.data[0].username)
+          setUserImageURL(res.data[0].imageUrl); 
+          
+
+          setCrud_UserId([
+            ...crud_userId,
+            {
+              userId: decodedToken.id,
+            },
+          ]);
+        }).catch((error) => {
+          console.log("Erro na solicitação ao servidor: ", error);
+        });
+
+        
+      } catch (error) {
+        console.log("Erro no pedido ao servidor: ", error);
+      }
+    }
+  }, [token]);
 
   const [showModal, setShowModal] = useState(false);
 
-  const fotoURL = `http://localhost:3001/server/imagens/` + foto;
+  const fotoURL = `http://localhost:3001/server/imagens/` + userImageURL;
   const navigate  = useNavigate();
 
   const handleLogout = () => {
@@ -73,7 +113,7 @@ const Sidebar = ({ userId, foto }) => {
             alt="Perfil"
           />
         </div>
-        <span className="username">{userId}</span>
+        <span className="username">{userDataUsername}</span>
       </Components.ProfileButton>
       <Components.LogoutButton onClick={handleLogout}>
         <FaSignOutAlt />

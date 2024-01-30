@@ -12,6 +12,7 @@ import Explorer from "./pages/Explorer/Explorer";
 import Notifications from "./pages/Notifications/Notifications";
 import Messages from "./pages/Messages/Messages";
 import Shop from "./pages/Shop/Shop";
+import Perfil from "./pages/Perfil/Perfil"
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/Notifications" element={<PrivateRoute><Notifications /></PrivateRoute>} />
       <Route path="/Messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
       <Route path="/Shop" element={<PrivateRoute><Shop /></PrivateRoute>} />
+      <Route path="/Perfil/:username" element={<PrivateRoute><Perfil /></PrivateRoute>} />
     </Routes>
   </Router>
 );
