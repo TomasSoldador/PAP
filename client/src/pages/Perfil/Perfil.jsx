@@ -12,27 +12,33 @@ function Perfil() {
     const fetchUserData = async () => {
       if (username) {
         try {
+          // Assegure-se de que a URL esteja correta e corresponda ao endpoint do servidor
           const response = await Axios.post("http://localhost:3001/api/user/profile", { username });
           setUserData(response.data); 
         } catch (error) {
-          console.log("Erro ao buscar dados do usuário: ", error);
+          console.error("Erro ao buscar dados do usuário: ", error);
         }
       }
     };
 
-    fetchUserData(); // Chama a função ao montar o componente e quando o username mudar
-  }, [username]); // Dependências do useEffect, neste caso, o username
+    fetchUserData();
+  }, [username]);
 
   return (
     <Components.LayoutContainer>
       <Sidebar />
       <Components.ContentContainer>
         {userData ? (
-          <div>
-            <h1>{userData.username}</h1>
-            <h1>{userData.imageUrl}</h1>
-            <h1>{userData.descricao}</h1>
-          </div>
+          <Components.Conteiner>
+            <Components.Foto>
+              <img
+                src={`http://localhost:3001/server/imagens/` + userData.imageUrl}
+                alt="Perfil"
+              />
+              <h1>{userData.username}</h1>
+            </Components.Foto>
+            <p>{userData.descricao}</p> {/* Mudança de h1 para p para descrição */}
+          </Components.Conteiner>
         ) : (
           <p>Carregando dados do usuário...</p>
         )}

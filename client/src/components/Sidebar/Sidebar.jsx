@@ -106,7 +106,7 @@ const Sidebar = () => {
         <FaEllipsisH />
         <span className="text">Mais</span>
       </Components.SidebarItem>
-      <Components.ProfileButton onClick={() => handleNavigation('/Profile')}>
+      <Components.ProfileButton onClick={() => {navigate(`/Perfil/${userDataUsername}`)}}>
         <div className="profile-pic">
           <img
             src={fotoURL || "../../src/assets/transferir.jpeg"}

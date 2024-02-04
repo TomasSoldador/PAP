@@ -1,11 +1,14 @@
 import React, { useRef, useState } from "react";
 import * as Components from "./styled";
+import { Error } from "../Alertas";
 
 export const Modal = ({ showModal, setShowModal }) => {
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [description, setDescription] = useState("");
   const fileInputRef = useRef(null);
+  const [nextPage, setNextPage] = useState(false);
+  const [openError, setOpenError] = useState(false);
 
   const handleClose = () => {
     setShowModal(false);
@@ -23,10 +26,31 @@ export const Modal = ({ showModal, setShowModal }) => {
     }
   };
 
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex + 1 < images.length ? prevIndex + 1 : 0
+    );
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex - 1 >= 0 ? prevIndex - 1 : images.length - 1
+    );
+  };
+
   const handleDrop = (event) => {
     event.preventDefault();
     const files = Array.from(event.dataTransfer.files);
     const newImages = files.map((file) => URL.createObjectURL(file));
+
+    if (images.length + newImages.length > 4) {
+      setOpenError(true);
+      setTimeout(() => {
+        setOpenError(false);
+      }, 3000);
+      return;
+    }
+
     setImages((prevImages) => [...prevImages, ...newImages]);
     fileInputRef.current.value = "";
   };
@@ -34,13 +58,39 @@ export const Modal = ({ showModal, setShowModal }) => {
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
     const newImages = files.map((file) => URL.createObjectURL(file));
+
+    if (images.length + newImages.length > 4) {
+      setOpenError(true);
+      setTimeout(() => {
+        setOpenError(false);
+      }, 3000);
+      return;
+    }
+
     setImages((prevImages) => [...prevImages, ...newImages]);
     event.target.value = "";
   };
 
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const voltar = () => {
+    setNextPage(false);
+    setImages([]);
+  };
+
+  const publicar = () => {
+    
+  }
+
   return (
     <Components.ModalBackdrop $show={showModal}>
+      {openError && (
+        <Error texto={"So pode inserir no maximo 4 imagens"} mostrar={true} />
+      )}
       <Components.ModalContent onClick={(e) => e.stopPropagation()}>
+        {images.length > 0 && <Components.BackBottum onClick={voltar} />}
         <Components.CloseButton onClick={handleClose}>
           &times;
         </Components.CloseButton>
@@ -93,16 +143,66 @@ export const Modal = ({ showModal, setShowModal }) => {
             />
           </Components.Dropzone>
         )}
-        {images.length > 0 && (
-          <Components.CarouselContainer>
-            <Components.CarouselImage
-              src={images[currentImageIndex]}
-              alt={`Imagem ${currentImageIndex + 1}`}
-            />
-          <Components.RemoveImageIcon onClick={removeCurrentImage} />
-          </Components.CarouselContainer>
+        {images.length > 0 &&
+          (nextPage ? (
+            <Components.ContentContainer>
+              <Components.FlexContainer>
+                
+                <Components.GridContainer>
+                  {images.map((image, index) => (
+                    <div key={index}>
+                      <img
+                        src={image}
+                        alt={`Imagem ${index + 1}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Components.GridContainer>
+                <Components.footer>
+                  <Components.NextButton onClick={() => publicar()}>
+                    {" "}
+                    Publicar{" "}
+                  </Components.NextButton>
+                </Components.footer>
+              </Components.FlexContainer>
 
-        )}
+              <Components.DescriptionInput
+                type="text"
+                placeholder="Write a caption..."
+                value={description}
+                onChange={handleDescriptionChange}
+              />
+            </Components.ContentContainer>
+          ) : (
+            <Components.CarouselContainer>
+              <Components.CarouselImage
+                src={images[currentImageIndex]}
+                alt={`Imagem ${currentImageIndex + 1}`}
+              />
+              <Components.RemoveImageIcon onClick={removeCurrentImage} />
+              {images.length > 1 && (
+                <>
+                  <Components.NavigationButtonLeft onClick={handlePrevImage}>
+                    &lt;
+                  </Components.NavigationButtonLeft>
+                  <Components.NavigationButtonRight onClick={handleNextImage}>
+                    &gt;
+                  </Components.NavigationButtonRight>
+                </>
+              )}
+              <Components.footer>
+                <Components.NextButton onClick={() => setNextPage(true)}>
+                  {" "}
+                  Seguinte{" "}
+                </Components.NextButton>
+              </Components.footer>
+            </Components.CarouselContainer>
+          ))}
       </Components.ModalContent>
     </Components.ModalBackdrop>
   );

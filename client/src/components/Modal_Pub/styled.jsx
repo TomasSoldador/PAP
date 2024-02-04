@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FaTrashAlt } from "react-icons/fa";
-
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export const ModalBackdrop = styled.div`
   display: ${({ $show }) => $show ? 'block' : 'none'};
@@ -19,7 +19,7 @@ export const ModalContent = styled.div`
   color: #ecf0f1;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  position: absolute; /* Change to absolute */
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -53,67 +53,186 @@ export const TitleDiv = styled.div`
   border-bottom: 1px solid black;
   text-align: center;
   color: white;
-`
+`;
 
 export const Dropzone = styled.div`
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: white;
   border-radius: 5px;
   padding: 20px;
   text-align: center;
   height: 300px;
-
 `;
 
 export const svg = styled.div`
   margin-bottom: 20px;
-`
+`;
 
-export const Button = styled.button` 
+export const Button = styled.button`
   margin-top: 15px;
   color: white;
   background-color: #3471db;
   border-radius: 8px;
   font-size: 14px;
   border: none;
-  padding: 10px 10px 7px 10px; 
-  
+  padding: 10px 10px 7px 10px;
   &:hover,
   &:focus {
-    background-color: #000dff; // Cor de destaque para botão de fechar
+    background-color: #000dff;
     cursor: pointer;
   }
-`
+`;
 
 export const CarouselContainer = styled.div`
-  width: 100%; /* Ajuste para 100% */
-  height: 400px; /* Ajuste para 100% */
+  width: 100%;
+  height: 400px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   border-radius: 1%;
+  flex-direction: column;
 `;
 
 export const CarouselImage = styled.img`
-  width: 100%; /* Garante que a imagem preencha a largura */
-  height: 100%; /* Garante que a imagem preencha a altura */
-  object-fit: cover; /* A imagem cobrirá todo o espaço, podendo ser cortada */
-  object-position: center; /* Centraliza a imagem no espaço disponível */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 `;
 
 export const RemoveImageIcon = styled(FaTrashAlt)`
-  font-size: 20px;
+  font-size: 18px;
   position: absolute;
-  top: 240px;
-  right: 50%;
-  color: #fff; 
+  bottom: 17px;
+  left: 15px;
+  color: #ededed;
   cursor: pointer;
   &:hover {
-      color: #2980b9; 
+    color: #e74c3c;
   }
+`;
+
+export const NavigationButton = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #3498db;
+  font-size: 24px;
+  z-index: 2;
+  &:hover {
+    color: #ecf0f1;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const NavigationButtonLeft = styled(NavigationButton)`
+  left: 10px;
+`;
+
+export const NavigationButtonRight = styled(NavigationButton)`
+  right: 10px;
+`;
+
+export const ImageListContainer = styled.div`
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 0;
+`;
+
+export const ImageThumbnail = styled.img`
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+export const NextButton = styled.div`
+  color: #3498db;
+  display: flex;
+  position: absolute;
+  bottom: 16px;
+  right: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    color: #ededed;
+  }
+`;
+
+
+export const footer = styled.div`
+  border-top: solid 1px black;
+  padding: 25px;
+  width: 100%; 
+`;
+
+export const BackBottum = styled(FaArrowLeft)`
+  color: #ecf0f1;
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+  z-index: 1;
+  &:hover,
+  &:focus {
+    color: #3498db;
+  }
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; // Mantém os itens alinhados no topo
+  padding: 20px;
+  gap: 16px;
+  width: 100%; // Ajuste conforme necessário
+`;
+
+export const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Ensure the container takes full height */
+`;
+
+export const DescriptionInput = styled.textarea`
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  height: 200px; /* ou qualquer outra altura que você preferir */
+  margin-top: 10px;
+  border: none;
+  box-sizing: border-box;
+  resize: none; /* Impede o usuário de redimensionar o textarea */
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+
+export const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 10px; /* Adjust the gap as needed */
+  justify-items: center; /* Center the items horizontally */
 `;
