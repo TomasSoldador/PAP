@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import * as Components from "./styled";
 import { Error } from "../Alertas";
+import axios from "axios";
+import Cookies from "js-cookie";
+
 
 export const Modal = ({ showModal, setShowModal }) => {
   const [images, setImages] = useState([]);
@@ -9,6 +12,7 @@ export const Modal = ({ showModal, setShowModal }) => {
   const fileInputRef = useRef(null);
   const [nextPage, setNextPage] = useState(false);
   const [openError, setOpenError] = useState(false);
+  const token = Cookies.get('authToken');
 
   const handleClose = () => {
     setShowModal(false);
@@ -57,19 +61,19 @@ export const Modal = ({ showModal, setShowModal }) => {
 
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
-    const newImages = files.map((file) => URL.createObjectURL(file));
-
-    if (images.length + newImages.length > 4) {
+  
+    if (images.length + files.length > 4) {
       setOpenError(true);
       setTimeout(() => {
         setOpenError(false);
       }, 3000);
       return;
     }
-
-    setImages((prevImages) => [...prevImages, ...newImages]);
+  
+    setImages((prevImages) => [...prevImages, ...files]);
     event.target.value = "";
   };
+  
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
@@ -80,9 +84,33 @@ export const Modal = ({ showModal, setShowModal }) => {
     setImages([]);
   };
 
-  const publicar = () => {
-    
-  }
+  const publicar = async () => {
+    try {
+      const formData = new FormData();
+      images.forEach((image, index) => {
+        formData.append('images', image);
+      });
+      formData.append('description', description);
+      
+      console.log(formData);
+  
+      const response = await axios.post('http://localhost:3001/api/posts/insert', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log(response.data);
+
+      setImages([]);
+      setDescription('');
+      setNextPage(false);
+      setShowModal(false);
+    } catch (error) {
+      console.error('Error uploading images:', error);
+    }
+  };
 
   return (
     <Components.ModalBackdrop $show={showModal}>
@@ -135,6 +163,7 @@ export const Modal = ({ showModal, setShowModal }) => {
             </Components.Button>
             <input
               type="file"
+              name="images"
               ref={fileInputRef}
               style={{ display: "none" }}
               onChange={handleImageChange}
@@ -148,21 +177,22 @@ export const Modal = ({ showModal, setShowModal }) => {
             <Components.ContentContainer>
               <Components.FlexContainer>
                 
-                <Components.GridContainer>
-                  {images.map((image, index) => (
-                    <div key={index}>
-                      <img
-                        src={image}
-                        alt={`Imagem ${index + 1}`}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </Components.GridContainer>
+              <Components.GridContainer>
+                {images.map((file, index) => (
+                  <div key={index}>
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`Imagem ${index + 1}`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                ))}
+              </Components.GridContainer>
+
                 <Components.footer>
                   <Components.NextButton onClick={() => publicar()}>
                     {" "}
@@ -181,7 +211,7 @@ export const Modal = ({ showModal, setShowModal }) => {
           ) : (
             <Components.CarouselContainer>
               <Components.CarouselImage
-                src={images[currentImageIndex]}
+                src={URL.createObjectURL(images[currentImageIndex])}
                 alt={`Imagem ${currentImageIndex + 1}`}
               />
               <Components.RemoveImageIcon onClick={removeCurrentImage} />
