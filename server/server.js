@@ -13,6 +13,8 @@ app.use(express.urlencoded({ limit: '10mb', extended: true })); // ajuste confor
 app.use(cors());
 
 app.use('/server/imagens', express.static(path.join(__dirname, './imagens')));
+app.use('/server/imagesPosts', express.static(path.join(__dirname, './imagesPosts')));
+
 
 app.use('/api', routes);
 

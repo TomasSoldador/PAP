@@ -29,8 +29,6 @@ router.post('/insert', validateToken, upload.array('images', 4), async (req, res
     const images = req.files.map(file => file.filename);
     const description = req.body.description;
 
-
-
     const perfil_id = req.decoded.id; // Replace with actual perfil_id
 
     // Inserir dados na tabela posts
@@ -45,6 +43,18 @@ router.post('/insert', validateToken, upload.array('images', 4), async (req, res
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
+router.get('/get', async (req, res) => {
+  
+    sqlSelect = 'SELECT * FROM posts';
+    db.query(sqlSelect, async (err, result) => {
+      res.json(result);
+    })
+});
+
+
+
+
 
 
 module.exports = router;
