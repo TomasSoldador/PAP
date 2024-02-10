@@ -22,7 +22,7 @@ const Post = ({ data, userName, photoUrl, children }) => {
         <Components.UserName>{data.perfil_id}</Components.UserName>
       </Components.UserProfile>
       <Components.Photo>
-        <Carousel showThumbs={false} showStatus={false} dynamicHeight={false}>
+        <Carousel showThumbs={false} showStatus={false} style={{ zIndex: '1' }} dynamicHeight={false}>
           {Object.values(data).map((value, index) => {
             if (
               typeof value === "string" &&
@@ -30,7 +30,7 @@ const Post = ({ data, userName, photoUrl, children }) => {
             ) {
               return (
                 <div key={index}>
-                  <Components.Img
+                  <Components.Img style={{zIndex: '1'}}
                     src={`http://localhost:3001/server/imagesPosts/` + value}
                     alt={`Post Image ${index + 1}`}
                   />

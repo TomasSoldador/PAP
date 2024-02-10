@@ -3,9 +3,9 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export const ModalBackdrop = styled.div`
-  display: ${({ $show }) => $show ? 'block' : 'none'};
+  display: ${({ $show }) => ($show ? "block" : "none")};
   position: fixed;
-  z-index: 1000;
+  z-index: 10001; /* Set a higher z-index value */
   left: 0;
   top: 0;
   width: 100%;
@@ -25,9 +25,10 @@ export const ModalContent = styled.div`
   transform: translate(-50%, -50%);
   width: 80%;
   max-width: 400px;
+  z-index: 10002; /* Set a higher z-index value */
 
   @media (max-width: 768px) {
-    height: 200px; 
+    height: 200px;
   }
 `;
 

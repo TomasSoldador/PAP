@@ -39,14 +39,39 @@ export const Photo = styled.div`
   overflow: hidden;
 `;
 
+export const CarouselContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 1%;
+`;
+
 export const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
 `;
 
-export const InteractionSection = styled.div`
-  padding: 10px;
+export const NavButton = styled.button`
+  background: none;
+  color: white !important;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const LikeCommentSection = styled.div`
@@ -74,3 +99,4 @@ export const IconButton = styled.button`
     outline: none;
   }
 `;
+  
