@@ -52,6 +52,19 @@ router.get('/get', async (req, res) => {
     })
 });
 
+router.post('/getPerfil', async (req, res) => {
+  const { idperfil } = req.body;
+  console.log(idperfil)
+  const sqlQuery = `
+    SELECT * FROM perfil
+    WHERE id = ?
+    LIMIT 1;
+  `;
+  db.query(sqlQuery, [idperfil], async (err, result) => {
+    res.json(result);
+  })
+});
+
 
 
 

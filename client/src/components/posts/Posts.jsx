@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Components from "./styled";
 import { FaComment, FaHeart, FaRegHeart } from "react-icons/fa";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import Axios from "axios";
 
 const Post = ({ data, userName, photoUrl, children }) => {
-  const fotoPerfil = `http://localhost:3001/server/imagens/` + photoUrl;
+  
   const [coracao, setCoracao] = useState(true);
+  const [dataPerfil, setDataPerfil] = useState([]);
+  const idperfil = data.perfil_id
 
   const handleLike = () => {
     setCoracao(!coracao);
   };
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (idperfil) {
+        try {
+          // Assegure-se de que a URL esteja correta e corresponda ao endpoint do servidor
+          const response = await Axios.post("http://localhost:3001/api/posts/getPerfil", { idperfil });
+          setDataPerfil(response.data); 
+        } catch (error) {
+          console.error("Erro ao buscar dados do usuário: ", error);
+        }
+      }
+    };
+    
+    fetchUserData();
+  }, [idperfil]);
+  
+  console.log(dataPerfil);
+
   return (
     <Components.PostContainer>
       <Components.UserProfile>
         <Components.ProfileImage
-          src={fotoPerfil || "../../assets/transferir.jpeg"}
-          alt={`${data.perfil_id}'s profile`}
+          src={`http://localhost:3001/server/imagens/${dataPerfil[0]?.imageUrl || "../../assets/transferir.jpeg"}`}
+
+          alt={`${dataPerfil[0]?.imageUrl}'s profile`}
         />
-        <Components.UserName>{data.perfil_id}</Components.UserName>
+        <Components.UserName>{dataPerfil[0]?.username}</Components.UserName>
       </Components.UserProfile>
       <Components.Photo>
         <Carousel showThumbs={false} showStatus={false} style={{ zIndex: '1' }} dynamicHeight={false}>
@@ -30,7 +52,7 @@ const Post = ({ data, userName, photoUrl, children }) => {
             ) {
               return (
                 <div key={index}>
-                  <Components.Img style={{zIndex: '1'}}
+                  <Components.Img
                     src={`http://localhost:3001/server/imagesPosts/` + value}
                     alt={`Post Image ${index + 1}`}
                   />

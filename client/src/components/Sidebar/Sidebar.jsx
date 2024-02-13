@@ -94,10 +94,6 @@ const Sidebar = () => {
         <FaBell />
         <span className="text">Notificações</span>
       </Components.SidebarItem>
-      <Components.SidebarItem onClick={() => handleNavigation('/Messages')}>
-        <FaEnvelope />
-        <span className="text">Mensagens</span>
-      </Components.SidebarItem>
       <Components.SidebarItem onClick={() => handleNavigation('/Shop')}>
         <FaBookmark />
         <span className="text">Loja</span>
