@@ -25,7 +25,7 @@ function Home () {
       }
     };
   
-    PesquisarPosts();  // Chama a função assíncrona imediatamente
+    PesquisarPosts(); 
   }, [token]);
   
 

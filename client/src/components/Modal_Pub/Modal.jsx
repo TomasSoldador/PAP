@@ -3,9 +3,11 @@ import * as Components from "./styled";
 import { Error } from "../Alertas";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 
 
-export const Modal = ({ showModal, setShowModal }) => {
+
+function Modal ({ showModal, setShowModal }) {
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [description, setDescription] = useState("");
@@ -13,8 +15,10 @@ export const Modal = ({ showModal, setShowModal }) => {
   const [nextPage, setNextPage] = useState(false);
   const [openError, setOpenError] = useState(false);
   const token = Cookies.get('authToken');
+  const navigate  = useNavigate();
 
   const handleClose = () => {
+    navigate(-1)
     setShowModal(false);
     setImages([]);
     setCurrentImageIndex(0);
@@ -102,7 +106,7 @@ export const Modal = ({ showModal, setShowModal }) => {
       });
   
       console.log(response.data);
-
+      navigate(-1);
       setImages([]);
       setDescription('');
       setNextPage(false);
@@ -113,7 +117,7 @@ export const Modal = ({ showModal, setShowModal }) => {
   };
 
   return (
-    <Components.ModalBackdrop $show={showModal}>
+    <Components.ModalBackdrop>
       {openError && (
         <Error texto={"So pode inserir no maximo 4 imagens"} mostrar={true} />
       )}
@@ -237,3 +241,5 @@ export const Modal = ({ showModal, setShowModal }) => {
     </Components.ModalBackdrop>
   );
 };
+
+export default Modal;

@@ -14,7 +14,7 @@ import {
 import LOGO from "../../assets/logo2.png";
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
-import { Modal } from "../Modal_Pub/Modal";
+
 
 import { jwtDecode } from "jwt-decode";
 import Axios from "axios";
@@ -58,7 +58,6 @@ const Sidebar = () => {
     }
   }, [token]);
 
-  const [showModal, setShowModal] = useState(false);
 
   const fotoURL = `http://localhost:3001/server/imagens/` + userImageURL;
   const navigate  = useNavigate();
@@ -81,10 +80,9 @@ const Sidebar = () => {
         <FaHome />
         <span className="text">Home</span>
       </Components.SidebarItem>
-      <Components.SidebarItem onClick={() => setShowModal(true)}>
+      <Components.SidebarItem onClick={() => handleNavigation('/Criar')}>
         <FaPlus />
         <span className="text">Criar</span>
-        <Modal showModal={showModal} setShowModal={setShowModal} />
       </Components.SidebarItem>
       <Components.SidebarItem onClick={() => handleNavigation('/Explorer')}>
         <FaHashtag />
@@ -97,10 +95,6 @@ const Sidebar = () => {
       <Components.SidebarItem onClick={() => handleNavigation('/Shop')}>
         <FaBookmark />
         <span className="text">Loja</span>
-      </Components.SidebarItem>
-      <Components.SidebarItem onClick={() => handleNavigation('/More')}>
-        <FaEllipsisH />
-        <span className="text">Mais</span>
       </Components.SidebarItem>
       <Components.ProfileButton onClick={() => {navigate(`/Perfil/${userDataUsername}`)}}>
         <div className="profile-pic">

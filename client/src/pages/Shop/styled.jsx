@@ -16,3 +16,34 @@ export const ContentContainer = styled.div`
     margin-left: 80px;
   }
 `;
+
+export const navbar = styled.div`
+  width: 100%;
+  position: fixed;
+  top: 0;
+`;
+
+export const Titulo = styled.div`
+  margin-left: 35%;
+`;
+
+export const button = styled.button`
+  top: 20px;
+  right: 40px;
+  position: fixed;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  background-color: #3471db;
+  border-radius: 8px;
+  &:hover {
+    background-color: #000dff;
+    cursor: pointer;
+  }
+
+  span{
+    margin-left:10px;
+  }
+`;

@@ -3,7 +3,6 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export const ModalBackdrop = styled.div`
-  display: ${({ $show }) => ($show ? "block" : "none")};
   position: fixed;
   z-index: 10001; /* Set a higher z-index value */
   left: 0;
