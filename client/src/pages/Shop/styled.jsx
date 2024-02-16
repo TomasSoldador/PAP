@@ -47,3 +47,10 @@ export const button = styled.button`
     margin-left:10px;
   }
 `;
+
+export const conteudo = styled.div`
+  margin-top: 60px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+`;

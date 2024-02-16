@@ -14,6 +14,7 @@ app.use(cors());
 
 app.use('/server/imagens', express.static(path.join(__dirname, './imagens')));
 app.use('/server/imagesPosts', express.static(path.join(__dirname, './imagesPosts')));
+app.use('/server/imagesPostsLoja', express.static(path.join(__dirname, './imagesPostsLoja')));
 
 
 app.use('/api', routes);

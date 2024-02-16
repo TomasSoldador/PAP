@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Modal ({ showModal, setShowModal }) {
+function Modal () {
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [description, setDescription] = useState("");
@@ -15,6 +15,7 @@ function Modal ({ showModal, setShowModal }) {
   const [nextPage, setNextPage] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState();
+  const [nome, setNome] = useState();
   const [location, setLocation] = useState();
   const [preco, setPreco] = useState();
   const token = Cookies.get('authToken');
@@ -22,7 +23,6 @@ function Modal ({ showModal, setShowModal }) {
 
   const handleClose = () => {
     navigate(-1)
-    setShowModal(false);
     setImages([]);
     setCurrentImageIndex(0);
     setDescription("");
@@ -92,23 +92,25 @@ function Modal ({ showModal, setShowModal }) {
       images.forEach((image, index) => {
         formData.append('images', image);
       });
+      formData.append('nome', nome);
       formData.append('description', description);
+      formData.append('preco', preco);
+      formData.append('phoneNumber', phoneNumber);
+      formData.append('location', location);
       
       console.log(formData);
   
-      const response = await axios.post('http://localhost:3001/api/posts/insert', formData, {
+      const response = await axios.post('http://localhost:3001/api/loja/insert', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       });
   
-      console.log(response.data);
       navigate(-1);
       setImages([]);
       setDescription('');
       setNextPage(false);
-      setShowModal(false);
     } catch (error) {
       console.error('Error uploading images:', error);
     }
@@ -219,7 +221,6 @@ function Modal ({ showModal, setShowModal }) {
                   </div>
                 ))}
               </Components.GridContainer>
-
                 <Components.footer>
                   <Components.NextButton onClick={() => publicar()}>
                     {" "}
@@ -228,6 +229,12 @@ function Modal ({ showModal, setShowModal }) {
                 </Components.footer>
               </Components.FlexContainer>
               
+              <Components.Input
+                type="text"
+                placeholder="Nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
               <Components.Input
                 type="text"
                 placeholder="Preco"
