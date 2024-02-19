@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Components from "./styled";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Modal from "../ModalPostsLoja/Modal";
 
 const Postsloja = ({post, index}) => {
