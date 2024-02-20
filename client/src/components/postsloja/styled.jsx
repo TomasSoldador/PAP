@@ -25,8 +25,8 @@ export const ImageArea = styled.div`
   justify-content: center;
 
   img {
-    width: 100%;
-    height: 100%;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
   }
 `;

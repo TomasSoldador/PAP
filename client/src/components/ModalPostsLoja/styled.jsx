@@ -41,13 +41,16 @@ export const CloseButton = styled.span`
 `;
 
 export const Title = styled.div`
-  align-items: center;
+  justify-content: center;
+  display:flex;
+  font-size: 24px;
+  font-weight: bold;
   padding: 10px;
   border-bottom: 1px solid white;
 `;
 
 export const Conteudo = styled.div`
-  padding: 5px;
+  padding: 10px;
 `;
 
 export const Imagens = styled.div`
@@ -64,18 +67,36 @@ export const Imagens = styled.div`
 `;
 
 
-export const Preco = styled.div`
+export const Info = styled.div`
+  margin-bottom: 10px;
+  span {
+    font-weight: bold;
+  }
+`;
+
+export const Dados = styled.div`
+  margin-left: 10px;
 
 `;
 
-export const Localizacao = styled.div`
-  
+export const EnlargedImageBackdrop = styled.div`
+  position: fixed;
+  z-index: 10003;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
 `;
 
-export const Numero = styled.div`
-
+export const EnlargedImage = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%;
+  max-height: 80%;
+  text-align: center;
 `;
 
-export const Descricao = styled.div`
-
-`;
