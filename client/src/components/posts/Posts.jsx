@@ -5,15 +5,18 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import Axios from "axios";
 
-const Post = ({ data, userName, photoUrl, children }) => {
+const Post = ({ posts }) => {
   
-  const [coracao, setCoracao] = useState(true);
+  const [coracao, setCoracao] = useState(false);
   const [dataPerfil, setDataPerfil] = useState([]);
-  const idperfil = data.perfil_id
+  const [likes, setLikes] = useState(posts.Likes || 0); 
+  const idperfil = posts.perfil_id
 
-  const handleLike = () => {
+  const handleLike = async () => {
     setCoracao(!coracao);
   };
+  
+  
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -31,7 +34,6 @@ const Post = ({ data, userName, photoUrl, children }) => {
     fetchUserData();
   }, [idperfil]);
   
-  console.log(dataPerfil);
 
   return (
     <Components.PostContainer>
@@ -45,7 +47,7 @@ const Post = ({ data, userName, photoUrl, children }) => {
       </Components.UserProfile>
       <Components.Photo>
         <Carousel showThumbs={false} showStatus={false} style={{ zIndex: '1' }} dynamicHeight={false}>
-          {Object.values(data).map((value, index) => {
+          {Object.values(posts).map((value, index) => {
             if (
               typeof value === "string" &&
               value.match(/\.(jpeg|jpg|gif|png)$/)
@@ -66,6 +68,7 @@ const Post = ({ data, userName, photoUrl, children }) => {
       <Components.LikeCommentSection>
         <Components.IconButton onClick={handleLike}>
           {coracao ? <FaHeart /> : <FaRegHeart />}
+          <span></span>
         </Components.IconButton>
         <FaComment />
       </Components.LikeCommentSection>

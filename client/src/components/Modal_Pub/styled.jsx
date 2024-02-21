@@ -50,6 +50,7 @@ export const TitleDiv = styled.div`
   padding: 15px;
   width: 100%;
   height: 100%;
+  font-weight: bold;
   border-bottom: 1px solid black;
   text-align: center;
   color: white;
@@ -178,7 +179,6 @@ export const NextButton = styled.div`
 
 
 export const footer = styled.div`
-  border-top: solid 1px black;
   padding: 25px;
   width: 100%; 
 `;
@@ -199,18 +199,13 @@ export const BackBottum = styled(FaArrowLeft)`
 `;
 
 export const ContentContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  
   align-items: flex-start; // Mantém os itens alinhados no topo
   padding: 20px;
-  gap: 16px;
   width: 100%; // Ajuste conforme necessário
 `;
 
 export const FlexContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   height: 100%; /* Ensure the container takes full height */
 `;
 
@@ -218,8 +213,6 @@ export const DescriptionInput = styled.textarea`
   width: 100%;
   padding: 10px;
   background-color: transparent;
-  height: 200px; /* ou qualquer outra altura que você preferir */
-  margin-top: 10px;
   border: none;
   box-sizing: border-box;
   resize: none; /* Impede o usuário de redimensionar o textarea */

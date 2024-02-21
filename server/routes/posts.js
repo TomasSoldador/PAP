@@ -65,6 +65,10 @@ router.post('/getPerfil', async (req, res) => {
   })
 });
 
+router.post('/likePost', async (req, res) => {
+  const { postId, buttonStatus } = req.body;
+
+});
 
 
 

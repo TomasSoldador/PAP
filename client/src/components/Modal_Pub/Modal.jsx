@@ -160,7 +160,7 @@ function Modal ({ showModal, setShowModal }) {
                 ></path>
               </svg>
             </Components.svg>
-            Arrasta fotos e vídeos para aqui
+            Arrasta fotos para aqui
             <Components.Button onClick={() => fileInputRef.current.click()}>
               {" "}
               Selecionar do Computador{" "}

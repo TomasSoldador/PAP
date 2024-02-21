@@ -35,7 +35,7 @@ function Home () {
       <Sidebar />
       <Components.ContentContainer>
         {postsData.map((post, index) => (
-          <Posts key={index} data={post} />
+          <Posts key={index} posts={post} />
         ))}
       </Components.ContentContainer>
     </Components.LayoutContainer>
