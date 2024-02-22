@@ -27,5 +27,31 @@ router.post('/profile', async (req, res) => {
   });
 });
 
+router.post('/profilePosts', async (req, res) => {
+  const { userId } = req.body;
+
+  const sqlQuery = `
+    SELECT * FROM posts
+    WHERE perfil_id = ?
+  `;
+
+  db.query(sqlQuery, [userId], (err, result) => {
+    res.json(result);
+  })
+})
+
+router.post('/profilePostsLoja', async (req, res) => {
+  const { userId } = req.body;
+
+  const sqlQuery = `
+    SELECT * FROM postsloja
+    WHERE perfil_id = ?
+  `;
+
+  db.query(sqlQuery, [userId], (err, result) => {
+    res.json(result);
+  })
+})
+
 
 module.exports = router;

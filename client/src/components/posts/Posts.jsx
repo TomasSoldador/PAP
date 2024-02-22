@@ -70,7 +70,9 @@ const Post = ({ posts }) => {
           {coracao ? <FaHeart /> : <FaRegHeart />}
           <span></span>
         </Components.IconButton>
-        <FaComment />
+        <Components.IconButton>
+          <FaComment />
+        </Components.IconButton>
       </Components.LikeCommentSection>
     </Components.PostContainer>
   );
