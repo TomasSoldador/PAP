@@ -52,7 +52,10 @@ const handleGetPostsError = (res, error) => {
 
 router.get('/get', async (req, res) => {
   try {
-    db.query(SelectAllPosts, async (err, result) => {
+    const { limit = 5, offset = 0 } = req.query;
+    const query = `${SelectAllPosts} ORDER BY id DESC LIMIT ${offset}, ${limit}`;
+
+    db.query(query, async (err, result) => {
       if (err) {
         handleGetPostsError(res, err);
       } else {

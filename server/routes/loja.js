@@ -32,10 +32,10 @@ router.post('/insert', validateToken, upload.array('images', 4), async (req, res
   try {
     const images = req.files.map(file => file.filename);
     const nome = req.body.nome;
-    const descricao = req.body.descricao;
-    const numeroTelefone = req.body.numeroTelefone;
+    const descricao = req.body.description;
+    const numeroTelefone = req.body.phoneNumber;
     const preco = req.body.preco;
-    const localizacao = req.body.localizacao;
+    const localizacao = req.body.location;
     const perfil_id = req.decoded.id;
 
     await db.query('INSERT INTO postsloja (nome, numero, localizacao, preco, descricao, perfil_id, foto1, foto2, foto3, foto4) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -54,7 +54,7 @@ const handleGetPostsError = (res, error) => {
 
 router.get('/get', async (req, res) => {
   try {
-    db.query(SelectALLPostsLoja, async (err, result) => {
+    db.query(SelectALLPostsLoja + ' ORDER BY id DESC', async (err, result) => {
       if (err) {
         handleGetPostsError(res, err);
       } else {
