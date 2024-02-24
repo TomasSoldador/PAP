@@ -1,25 +1,23 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
-const db = require('../db');
+const db = require('../db/db');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
+const { SelectAllPerfilUserId } = require("../db/queries");
 
 router.post('/post', async (req, res) => {
-  const userId = req.body.userId;
-
-  console.log(userId);
-
-  const sqlSelect = "SELECT * FROM perfil WHERE Usuario_id = ?";
-  db.query(sqlSelect, [userId], async (err, result) => {
-    if (err) {
-      console.error("Erro na consulta SQL: ", err);
-    } else {
-      console.log(result);
-      return res.json(result);
-    }
-  });
-
-})
-
+  try {
+    const userId = req.body.userId;
+    db.query(SelectAllPerfilUserId, [userId], (err, result) => {
+      if (err) {
+        console.error('Erro no SQL query (Erro no routes/home.js):', err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.json(result);
+      }
+    });
+  } catch (error) {
+    console.error('Erro no Erro no routes/home.js:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 module.exports = router;
