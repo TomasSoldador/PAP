@@ -88,6 +88,18 @@ router.post('/getPerfil', async (req, res) => {
   }
 });
 
+router.post('/upload', async (req, res) => {
+  const postId = req.body.postId;
+  const descricao = req.body.descricao
+
+  await db.query(`
+      UPDATE posts
+      SET descricao = ?
+      WHERE id = ?
+    `, [descricao, postId]
+  );
+})
+
 router.post('/likePost', async (req, res) => {
   const { postId, buttonStatus } = req.body;
 

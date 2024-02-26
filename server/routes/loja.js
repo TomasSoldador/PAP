@@ -87,4 +87,29 @@ router.post('/getPerfil', async (req, res) => {
   }
 });
 
+router.post('/upload', async (req, res) => {
+  try {
+    const postId = req.body.postId;
+    const nome = req.body.nome;
+    const descricao = req.body.descricao;
+    const numeroTelefone = req.body.numero;
+    const preco = req.body.preco;
+    const localizacao = req.body.localizacao;
+
+    // Supondo que você tenha uma tabela chamada 'postsloja'
+    // e os campos 'nome', 'descricao', 'numero', 'preco', 'localizacao'
+    await db.query(`
+      UPDATE postsloja
+      SET nome = ?, descricao = ?, numero = ?, preco = ?, localizacao = ?
+      WHERE id = ?
+    `, [nome, descricao, numeroTelefone, preco, localizacao, postId]);
+
+    res.status(200).json({ success: true, message: 'Dados atualizados com sucesso' });
+
+  } catch {
+    console.error('Erro na atualização dos dados do post:', error);
+    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+  }
+})
+
 module.exports = router;

@@ -10,6 +10,7 @@ const PostsPerfil = ({
   type,
   updateUserPosts,
   updateUserPostsLoja,
+  fetchUserData,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
 

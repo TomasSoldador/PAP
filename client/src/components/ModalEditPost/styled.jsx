@@ -4,7 +4,7 @@ import {FaPen, FaTrash } from "react-icons/fa";
 
 export const ModalBackdrop = styled.div`
   position: fixed;
-  z-index: 10003; /* Set a higher z-index value */
+  z-index: 10001; /* Set a higher z-index value */
   left: 0;
   top: 0;
   width: 100%;
@@ -24,7 +24,7 @@ export const ModalContent = styled.div`
   transform: translate(-50%, -50%);
   width: 80%;
   max-width: 400px;
-  z-index: 10004; /* Set a higher z-index value */
+  z-index: 10002; /* Set a higher z-index value */
 
   @media (max-width: 768px) {
     height: 200px;
@@ -126,4 +126,8 @@ export const TrashIcon = styled(FaTrash)`
 
 export const PenIcon = styled(FaPen)`
   font-size: 1.5em;
+`;
+
+export const button = styled.button`
+  padding: 10px;
 `;

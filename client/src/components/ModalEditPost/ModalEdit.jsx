@@ -1,74 +1,80 @@
 import React, { useRef, useState } from "react";
-import * as Components from "./Styled";
+import * as Components from "./styled";
+import { Error } from "../Alertas";
 import axios from "axios";
-import ModalEdit from "../../components/ModalEditPost/ModalEdit"
 
-function Modal({ userData, post, url, onClose, updateUserPosts }) {
+function Modal({ userData, post, url, onClose, fetchUserData }) {
+  console.log(post.id);
 
-  const [modalEditVisible, setModalEditVisible] = useState(true);
+  const [descricao, setDescricao] = useState(post.descricao);
+  const [preco, setPreco] = useState(post.preco || "");
+  const [localizacao, setLocalizacao] = useState(post.localizacao || "");
+  const [numero, setNumero] = useState(post.numero || "");
+  const [nome, setNome] = useState(post.nome || "");
+
 
   const handleClose = () => {
     onClose();
   };
 
-  const abrirModalEdit = () => {
-    setModalEditVisible(false);
-  };
-
-  const remover = async () => {
-    try {
-      if(post.preco) {
-        const resposta = await axios.delete(
-          "http://localhost:3001/api/user/profilePostLojaDelete",
-          {
-            data: {
-              id: post.id,
-              foto1: post.foto1,
-              foto2: post.foto2,
-              foto3: post.foto3,
-              foto4: post.foto4,
-            },
-          }
-        );
-        updateUserPosts((prevPosts) =>
-          prevPosts.filter((prevPost) => prevPost.id !== post.id)
-        );
-        console.log(resposta.data);
-      } else {
-        const resposta = await axios.delete(
-          "http://localhost:3001/api/user/profilePostDelete",
-          {
-            data: {
-              id: post.id,
-              foto1: post.foto1,
-              foto2: post.foto2,
-              foto3: post.foto3,
-              foto4: post.foto4,
-            },
-          }
-        );
-        updateUserPosts((prevPosts) =>
-          prevPosts.filter((prevPost) => prevPost.id !== post.id)
-        );
-        console.log(resposta.data);
-      }
-      handleClose();
-    } catch (error) {
-      console.error("Erro na exclusão do post de loja: ", error);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "descricao":
+        setDescricao(value);
+        break;
+      case "preco":
+        setPreco(value);
+        break;
+      case "localizacao":
+        setLocalizacao(value);
+        break;
+      case "numero":
+        setNumero(value);
+        break;
+      case "nome":
+        setNome(value);
+        break;
+      default:
+        break;
     }
-  };
+  }
 
- 
+  const salvar = async () => {
+    try {
+      if (post.preco) {
+        const response = await axios.post('http://localhost:3001/api/loja/upload', {
+          postId: post.id,
+          nome: nome,
+          descricao: descricao,
+          preco: preco,
+          numero: numero,
+          localizacao: localizacao,
+        });
+        console.log(response);
+      } else {
+        const response = await axios.post('http://localhost:3001/api/posts/upload', {
+          postId: post.id,
+          descricao: descricao,
+        })
+        console.log(response);
+      }
+    } catch (error) {
+      console.error('Error uploading images:', error);
+    }
+    
+  }
+
   return (
     <>
-    {modalEditVisible ? (
-
       <Components.ModalBackdrop>
         <Components.ModalContent onClick={(e) => e.stopPropagation()}>
           <Components.Titulo>
             <Components.FotoPerfil>
               <img
-                src={`http://localhost:3001/server/imagens/` + userData.imageUrl}
+                src={
+                  `http://localhost:3001/server/imagens/` + userData.imageUrl
+                }
                 alt="Perfil"
               />
             </Components.FotoPerfil>
@@ -127,49 +133,72 @@ function Modal({ userData, post, url, onClose, updateUserPosts }) {
             {post.preco ? (
               <>
                 <Components.Info>
+                  <span>Nome: </span>
+                  <input
+                    type="text"
+                    name="nome"
+                    value={nome}
+                    onChange={handleInputChange}
+                  />
+                </Components.Info>
+                <Components.Info>
                   <span>Preço: </span>
-                  <Components.Dados>{post.preco}€</Components.Dados>
+                  <input
+                    type="text"
+                    name="preco"
+                    value={preco}
+                    onChange={handleInputChange}
+                  />
                 </Components.Info>
                 <Components.Info>
                   <span>Localização: </span>
-                  <Components.Dados>{post.localizacao}</Components.Dados>
+                  <input
+                    type="text"
+                    name="localizacao"
+                    value={localizacao}
+                    onChange={handleInputChange}
+                  />
                 </Components.Info>
                 <Components.Info>
                   <span>Telefone para contato: </span>
-                  <Components.Dados>{post.numero}</Components.Dados>
+                  <input
+                    type="text"
+                    name="numero"
+                    value={numero}
+                    onChange={handleInputChange}
+                  />
                 </Components.Info>
                 <Components.Info>
                   <span> Descrição: </span>
-                  <Components.Dados>{post.descricao}</Components.Dados>
+                  <input
+                    type="text"
+                    name="descricao"
+                    value={descricao}
+                    onChange={handleInputChange}
+                  />
                 </Components.Info>
               </>
             ) : (
+              
               <Components.Info>
+                
                 <span> Descrição: </span>
-                <Components.Dados>{post.descricao}</Components.Dados>
+                <input
+                    type="text"
+                    name="descricao"
+                    value={descricao}
+                    onChange={handleInputChange}
+                  />
               </Components.Info>
             )}
           </Components.Conteudo>
           <Components.Footer>
-            <Components.EditButton onClick={abrirModalEdit}>
-              <Components.PenIcon />
-            </Components.EditButton>
-            <Components.DeleteButton onClick={remover}>
-              <Components.TrashIcon />
-            </Components.DeleteButton>
+            <Components.button onClick={salvar}>
+              Save
+            </Components.button>
           </Components.Footer>
         </Components.ModalContent>
       </Components.ModalBackdrop>
-    ) : (
-      
-        <ModalEdit 
-          userData={userData}
-          post={post}
-          url={url}
-          onClose={handleClose}
-        />
-      
-    ) }
     </>
   );
 }
