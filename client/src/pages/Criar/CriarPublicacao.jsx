@@ -94,7 +94,7 @@ function Modal ({ showModal, setShowModal }) {
       images.forEach((image, index) => {
         formData.append('images', image);
       });
-      formData.append('description', description);
+      formData.append('descricao', description);
       
       console.log(formData);
   

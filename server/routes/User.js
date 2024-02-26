@@ -41,7 +41,7 @@ router.post('/profilePosts', async (req, res) => {
   try {
     const { userId } = req.body;
 
-    db.query(SelectAllPostsWithId, [userId], (error, result) => {
+    db.query(SelectAllPostsWithId + ' ORDER BY id DESC', [userId], (error, result) => {
       if (error) {
         handleProfilePostsError(res, error);
       } else {
@@ -62,7 +62,7 @@ router.post('/profilePostsLoja', async (req, res) => {
   try {
     const { userId } = req.body;
 
-    db.query(SelectAllPostsLojaWithId, [userId], (error, result) => {
+    db.query(SelectAllPostsLojaWithId + ' ORDER BY id DESC', [userId], (error, result) => {
       if (error) {
         handleProfilePostsLojaError(res, error);
       } else {

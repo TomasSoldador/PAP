@@ -4,7 +4,6 @@ import * as Components from "./styled";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import PostsPerfil from "../../components/PostsPerfil/PostsPerfil"
-import Modal from "./Modal";
 
 function Perfil() {
   const { username } = useParams();
@@ -12,7 +11,6 @@ function Perfil() {
   const [userPosts, setUserPosts] = useState([]);
   const [userPostsLoja, setUserPostsLoja] = useState([]);
   const [buttonPost, setButtonPost] = useState(true);
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -36,13 +34,7 @@ function Perfil() {
     fetchUserData();
   }, [username]);
 
-  const abrirModal = (post) => {
-    setModalVisible(true)
-  }
-
-  const fecharModal = () => {
-    setModalVisible(false);
-  };
+  
   
   return (
     <>
@@ -72,15 +64,15 @@ function Perfil() {
                 </Components.botao>
               </Components.Buttons>
               {buttonPost ? (
-                <Components.Conteudo onClick={abrirModal}>
+                <Components.Conteudo>
                   {userPosts.map((post) => (
-                    <PostsPerfil key={post.id} post={post} url={"imagesPosts"} onClick={() => abrirModal(post)} />
+                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPosts"} />
                   ))}
                 </Components.Conteudo>
               ) : (
-                <Components.Conteudo onClick={abrirModal}>
+                <Components.Conteudo>
                   {userPostsLoja.map((post) => (
-                    <PostsPerfil key={post.id} post={post} url={"imagesPostsLoja"} onClick={() => abrirModal(post.id)} />
+                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPostsLoja"} />
                   ))}
                 </Components.Conteudo>
               )}
@@ -91,9 +83,6 @@ function Perfil() {
           )}
         </Components.ContentContainer>
       </Components.LayoutContainer>
-      {modalVisible && (
-        <Modal userData={userData} onClose={fecharModal} />
-      )}  
     </>
   );
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {FaPen, FaTrash } from "react-icons/fa";
 
 
 export const ModalBackdrop = styled.div`
@@ -49,6 +50,7 @@ export const Titulo = styled.div`
   display: flex;
   align-items: center;
   height: auto;
+  border-bottom: #15202B solid 1px;
 `;
 
 export const Username = styled.div`
@@ -68,5 +70,60 @@ export const FotoPerfil = styled.div`
 `;
 
 export const Conteudo = styled.div`
-  
+  padding: 10px;
+`;
+
+export const Imagens = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 10px 0;
+
+  img {
+    max-width: 48%; /* Adjust as needed to fit your layout */
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+`;
+
+export const Info = styled.div`
+  margin-bottom: 10px;
+  span {
+    font-weight: bold;
+  }
+`;
+
+export const Dados = styled.div`
+  margin-left: 10px;
+`;
+
+export const Footer = styled.div`
+  border-top: solid 1px #15202B;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const EditButton = styled.button`
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #00bcd4;
+`;
+
+export const DeleteButton = styled.button`
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ff6347;
+`;
+
+export const TrashIcon = styled(FaTrash)`
+  font-size: 1.5em;
+`;
+
+export const PenIcon = styled(FaPen)`
+  font-size: 1.5em;
 `;
