@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import * as Components from "./styled";
- import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Modal from "../../components/ModalPostsPerfil/Modal";
 
-
-const PostsPerfil = ({post, userData, url}) => {
+const PostsPerfil = ({
+  post,
+  userData,
+  url,
+  type,
+  updateUserPosts,
+  updateUserPostsLoja,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const fotoURL = `http://localhost:3001/server/${url}/${post.foto1}`;
 
   const abrirModal = (post) => {
-    setModalVisible(true)
-  }
+    setModalVisible(true);
+  };
 
   const fecharModal = () => {
     setModalVisible(false);
@@ -23,10 +29,19 @@ const PostsPerfil = ({post, userData, url}) => {
         <img src={fotoURL} alt="imagem 1" />
       </Components.PostContainer>
       {modalVisible && (
-        <Modal userData={userData} post={post} url={url} onClose={fecharModal} />
-      )}  
+        <Modal
+          userData={userData}
+          post={post}
+          url={url}
+          onClose={fecharModal}
+          type={type}
+          updateUserPosts={
+            type === "normal" ? updateUserPosts : updateUserPostsLoja
+          }
+        />
+      )}
     </>
-  )
-}
+  );
+};
 
 export default PostsPerfil;

@@ -34,7 +34,13 @@ function Perfil() {
     fetchUserData();
   }, [username]);
 
-  
+  const updateUserPosts = (newPosts) => {
+    setUserPosts(newPosts);
+  };
+
+  const updateUserPostsLoja = (newPosts) => {
+    setUserPostsLoja(newPosts);
+  };
   
   return (
     <>
@@ -66,13 +72,13 @@ function Perfil() {
               {buttonPost ? (
                 <Components.Conteudo>
                   {userPosts.map((post) => (
-                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPosts"} />
+                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPosts"} type={"normal"} updateUserPosts={updateUserPosts}/>
                   ))}
                 </Components.Conteudo>
               ) : (
                 <Components.Conteudo>
                   {userPostsLoja.map((post) => (
-                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPostsLoja"} />
+                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPostsLoja"} type={"Loja"} updateUserPostsLoja={updateUserPostsLoja}/>
                   ))}
                 </Components.Conteudo>
               )}

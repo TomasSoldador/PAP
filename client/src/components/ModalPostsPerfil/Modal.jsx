@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import * as Components from "./Styled";
 import axios from "axios";
 
-function Modal({ userData, post, url, onClose }) {
+function Modal({ userData, post, url, onClose, updateUserPosts }) {
   const handleClose = () => {
     onClose();
   };
@@ -23,6 +23,9 @@ function Modal({ userData, post, url, onClose }) {
             },
           }
         );
+        updateUserPosts((prevPosts) =>
+          prevPosts.filter((prevPost) => prevPost.id !== post.id)
+        );
         console.log(resposta.data);
       } else {
         const resposta = await axios.delete(
@@ -37,8 +40,14 @@ function Modal({ userData, post, url, onClose }) {
             },
           }
         );
+        updateUserPosts((prevPosts) =>
+          prevPosts.filter((prevPost) => prevPost.id !== post.id)
+        );
         console.log(resposta.data);
       }
+
+      
+
       handleClose();
     } catch (error) {
       console.error("Erro na exclusão do post de loja: ", error);
