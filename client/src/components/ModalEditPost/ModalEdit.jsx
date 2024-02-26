@@ -59,6 +59,7 @@ function Modal({ userData, post, url, onClose, fetchUserData }) {
         })
         console.log(response);
       }
+      handleClose();
     } catch (error) {
       console.error('Error uploading images:', error);
     }
