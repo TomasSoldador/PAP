@@ -106,4 +106,38 @@ router.post('/likePost', async (req, res) => {
   // Implemente a lógica para manipular os likes nos posts aqui
 });
 
+
+router.post('/comentarios', async (req, res) => {
+  try{
+    const { postId, mensagem, userFoto, username } = req.body.data;
+    console.log(req.body.data)
+  
+    await db.query('INSERT INTO comentarios (username, imageUrl, comentarios, posts_id) VALUES (?, ?, ?, ?)',
+        [username, userFoto, mensagem, postId]);
+
+    res.status(200).json({ success: true, message: 'Imagens e descrição enviadas com sucesso' });
+  } catch {
+    console.error('Erro ao recuperar dados de perfil do banco de dados (routes/posts.js):', error);
+    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+  }
+})
+
+router.post('/getComentarios', async (req, res) => {
+  try {
+    const postId = req.body.postId;
+
+    db.query('SELECT * FROM comentarios WHERE posts_id = ? ORDER BY id DESC', [postId], async (err, result) => {
+      if (err) {
+        handleGetPerfilError(res, err);
+      } else {
+        console.log(result)
+        res.json(result);
+      }
+    });
+
+  } catch (error) {
+    console.error('Erro ao buscar comentários:', error);
+    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+  }
+});
 module.exports = router;

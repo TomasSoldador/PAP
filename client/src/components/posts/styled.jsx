@@ -103,4 +103,55 @@ export const IconButton = styled.button`
     outline: none;
   }
 `;
+
+export const Comantarios = styled.div`
+  border-top: 1px solid #1d2d3d; 
+  padding: 10px;
+  max-height: 200px; /* Ajuste a altura máxima conforme necessário */
+  overflow-y: auto; /* Adiciona a rolagem vertical quando necessário */
+  border-radius: 4px;
+  margin-top: 0px;
+  width: 500px;
+  display: flex;
+  flex-direction: column; /* Alteração para exibir os elementos em coluna */
+  align-items: flex-start;
+  justify-content: flex-start; /* Alinhe os itens ao centro verticalmente */
+`;
+
+export const InputContainer = styled.div`
+  flex-grow: 1; /* Ocupa todo o espaço disponível */
+  display: flex;
+  align-items: center; /* Alinhe os itens ao centro verticalmente */
+`;
+
+export const Input = styled.input`
+  background-color: transparent;
+  width: 440px;
+  height: 32px;
+  color: white;
+  border: none;
+  border-bottom: 1px solid white;
+  margin-right: 10px; /* Espaço entre o Input e o ButtonSend */
+`;
+export const ButtonSend = styled.button`
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const mensagens = styled.div`
+  margin-top: 10px;
   
+`;
