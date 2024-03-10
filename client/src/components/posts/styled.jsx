@@ -132,7 +132,13 @@ export const Input = styled.input`
   border: none;
   border-bottom: 1px solid white;
   margin-right: 10px; /* Espaço entre o Input e o ButtonSend */
+
+  &:focus {
+    outline: none; /* Remove a borda de foco padrão */
+    border-bottom: 1px solid white; /* Se desejar manter a borda inferior ao focar */
+  }
 `;
+
 export const ButtonSend = styled.button`
   background-color: transparent;
   color: white;

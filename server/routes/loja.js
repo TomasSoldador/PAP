@@ -38,7 +38,7 @@ router.post('/insert', validateToken, upload.array('images', 4), async (req, res
     const localizacao = req.body.location;
     const perfil_id = req.decoded.id;
 
-    await db.query('INSERT INTO postsloja (nome, numero, localizacao, preco, descricao, perfil_id, foto1, foto2, foto3, foto4) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    await db.query('INSERT INTO PostsLoja (nome, numero, localizacao, preco, descricao, perfil_id, foto1, foto2, foto3, foto4) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [nome, numeroTelefone, localizacao, preco, descricao, perfil_id, images[0], images[1], images[2], images[3]]);
 
     res.status(200).json({ success: true, message: 'Imagens e descrição enviadas com sucesso' });
@@ -99,7 +99,7 @@ router.post('/upload', async (req, res) => {
     // Supondo que você tenha uma tabela chamada 'postsloja'
     // e os campos 'nome', 'descricao', 'numero', 'preco', 'localizacao'
     await db.query(`
-      UPDATE postsloja
+      UPDATE PostsLoja
       SET nome = ?, descricao = ?, numero = ?, preco = ?, localizacao = ?
       WHERE id = ?
     `, [nome, descricao, numeroTelefone, preco, localizacao, postId]);

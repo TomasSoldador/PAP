@@ -130,7 +130,6 @@ router.post('/getComentarios', async (req, res) => {
       if (err) {
         handleGetPerfilError(res, err);
       } else {
-        console.log(result)
         res.json(result);
       }
     });
@@ -140,4 +139,38 @@ router.post('/getComentarios', async (req, res) => {
     res.status(500).json({ success: false, message: 'Erro interno do servidor' });
   }
 });
+
+router.post('/scomentarios', async (req, res) => {
+  try{
+    const { comentarioId, mensagem, imageUrl, username } = req.body;
+    console.log(req.body);
+  
+    await db.query('INSERT INTO scomentarios (username, imageUrl, comentario, comentarios_id) VALUES (?, ?, ?, ?)',
+          [username, imageUrl, mensagem, comentarioId]);
+
+    res.status(200).json({ success: true, message: 'Imagens e descrição enviadas com sucesso' });
+  } catch (error) {
+    console.error('Erro ao recuperar dados de perfil do banco de dados (routes/posts.js):', error);
+    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+  }
+});
+
+router.post('/getScomentarios', async (req, res) => {
+  try {
+    const comentarioId = req.body.comentarioId;
+
+    db.query('SELECT * FROM scomentarios WHERE comentarios_id = ? ORDER BY id DESC', [comentarioId], async (err, result) => {
+      if (err) {
+        handleGetPerfilError(res, err);
+      } else {
+        res.json(result);
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao buscar comentários:', error);
+    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+  }
+})
+
+
 module.exports = router;

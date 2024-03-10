@@ -11,7 +11,7 @@ import {
   FaPlus,
 } from "react-icons/fa";
 
-import LOGO from "../../assets/logo2.png";
+import LOGO from "../../assets/Logo2.png";
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 

@@ -90,7 +90,7 @@ const Post = ({ posts }) => {
       // Atualize o estado 'comentarios' com a nova mensagem
       setComentarios((prevComentarios) => [
         {
-          id: resposta.data.id, // Certifique-se de ter um ID único, você pode ajustar conforme necessário
+          id: resposta.data.id, 
           username: userDataUsername,
           comentarios: mensagem,
           imageUrl: userImageURL,
@@ -106,6 +106,7 @@ const Post = ({ posts }) => {
   };
 
   useEffect(() => {
+    
     const fetchUserData = async () => {
       if (idperfil) {
         try {
@@ -174,7 +175,7 @@ const Post = ({ posts }) => {
           </Components.IconButton>
         </Components.LikeCommentSection>
         {comentariosVisible && (
-          <Components.Comantarios>
+          <Components.Comantarios comentariosVisible={comentariosVisible}>
             <Components.InputContainer>
               <Components.Input
                 placeholder="Comente aqui"
@@ -188,7 +189,7 @@ const Post = ({ posts }) => {
             <Components.mensagens>
               {comentarios.map((comentario) => (
                 <div key={comentario.id}>
-                  <ComentarioPost comentario={comentario} userId={userId} />
+                  <ComentarioPost comentario={comentario} comentarioId={comentario.id}/>
                 </div>
               ))}
             </Components.mensagens>

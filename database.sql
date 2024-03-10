@@ -23,7 +23,6 @@ USE `pap` ;
 CREATE TABLE IF NOT EXISTS `pap`.`usuario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(245) NOT NULL,
-  `sobrenome` VARCHAR(245) NOT NULL,
   `email` VARCHAR(245) NOT NULL,
   `password` VARCHAR(245) NOT NULL,
   PRIMARY KEY (`id`),
