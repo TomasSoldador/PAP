@@ -60,12 +60,12 @@ export const Username = styled.div`
 export const FotoPerfil = styled.div`
   width: 60px;
   height: 60px;
-  
-
   img {
     width: 60px;
     height: 60px;
     padding: 10px;
+    border-radius: 50%;
+    
   }
 `;
 
@@ -129,5 +129,15 @@ export const PenIcon = styled(FaPen)`
 `;
 
 export const button = styled.button`
-  padding: 10px;
+  color: white;
+  background-color: #3471db;
+  border-radius: 8px;
+  font-size: 14px;
+  border: none;
+  padding: 10px 20px 10px 20px;
+  &:hover,
+  &:focus {
+    background-color: #000dff;
+    cursor: pointer;
+  }
 `;

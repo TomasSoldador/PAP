@@ -66,6 +66,7 @@ export const FotoPerfil = styled.div`
     width: 60px;
     height: 60px;
     padding: 10px;
+    border-radius: 50%;
   }
 `;
 

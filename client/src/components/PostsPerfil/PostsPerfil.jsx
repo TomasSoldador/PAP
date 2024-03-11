@@ -10,7 +10,7 @@ const PostsPerfil = ({
   type,
   updateUserPosts,
   updateUserPostsLoja,
-  fetchUserData,
+  atualizar
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -22,6 +22,7 @@ const PostsPerfil = ({
 
   const fecharModal = () => {
     setModalVisible(false);
+    
   };
 
   return (
@@ -39,6 +40,7 @@ const PostsPerfil = ({
           updateUserPosts={
             type === "normal" ? updateUserPosts : updateUserPostsLoja
           }
+          atualizar = {atualizar}
         />
       )}
     </>

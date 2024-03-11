@@ -20,6 +20,7 @@ const Post = ({ posts }) => {
   const [userDataUsername, setUserDataUsername] = useState();
   const [userImageURL, setUserImageURL] = useState("");
   const [crud_userId, setCrud_UserId] = useState([]);
+  const [numeroLikes, setNumeroLikes] = useState("");
 
   useEffect(() => {
     if (token) {
@@ -50,8 +51,44 @@ const Post = ({ posts }) => {
     }
   }, [token]);
 
+  useEffect(() => {
+    Axios.post("http://localhost:3001/api/posts/getlikePost", {
+      postId: posts.id,
+    }).then((response) => {
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        const numeroLikes = response.data[0].Likes;
+        console.log(numeroLikes);        
+        setNumeroLikes(numeroLikes);
+      }
+    }).catch((error) => {
+      console.log("Erro na solicitação ao servidor: ", error);
+    });
+  }, [posts.id])
+
   const handleLike = async () => {
-    setCoracao(!coracao);
+    // Utilize o valor anterior de coracao para determinar a ação
+    const novoCoracao = !coracao;
+  
+    setCoracao(novoCoracao);
+  
+    // Atualize o estado local antes de fazer a chamada para o servidor
+    if (novoCoracao) {
+      setNumeroLikes((prevLikes) => prevLikes + 1);
+    } else {
+      setNumeroLikes((prevLikes) => prevLikes - 1);
+    }
+  
+    try {
+      // Utilize o estado atualizado para fazer a chamada para o servidor
+      const response = await Axios.post("http://localhost:3001/api/posts/likePost", {
+        numeroLikes: novoCoracao ? numeroLikes + 1 : numeroLikes - 1,
+        postsId: posts.id
+      });
+  
+      console.log(response);
+    } catch (error) {
+      console.log("Erro na solicitação ao servidor: ", error);
+    }
   };
 
   const toggleComentariosVisible = async () => {
@@ -169,6 +206,7 @@ const Post = ({ posts }) => {
         <Components.LikeCommentSection>
           <Components.IconButton onClick={handleLike}>
             {coracao ? <FaHeart /> : <FaRegHeart />}
+            <span>{numeroLikes !== null ? numeroLikes : "0"}</span>
           </Components.IconButton>
           <Components.IconButton onClick={toggleComentariosVisible}>
             <FaComment />

@@ -98,14 +98,9 @@ router.post('/upload', async (req, res) => {
       WHERE id = ?
     `, [descricao, postId]
   );
+
+  res.json("alterado")
 })
-
-router.post('/likePost', async (req, res) => {
-  const { postId, buttonStatus } = req.body;
-
-  // Implemente a lógica para manipular os likes nos posts aqui
-});
-
 
 router.post('/comentarios', async (req, res) => {
   try{
@@ -171,6 +166,42 @@ router.post('/getScomentarios', async (req, res) => {
     res.status(500).json({ success: false, message: 'Erro interno do servidor' });
   }
 })
+
+router.post('/getlikePost', async (req, res) => {
+  const { postId } = req.body;
+
+  console.log(postId)
+  try {
+    db.query('SELECT Likes FROM posts WHERE id = ? ', [postId], async (err, result) => {
+      if (err) {
+        handleGetPerfilError(res, err);
+      } else {
+        res.json(result);
+      }
+    });
+  } catch {
+    console.error('Erro ao buscar comentários:', error);
+    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+  }
+});
+
+router.post('/likePost', async (req, res) => {
+  const postsId = req.body.postsId;
+  const numeroLikes = req.body.numeroLikes;
+  try {
+    db.query('UPDATE posts SET Likes = ? WHERE id = ? ', [numeroLikes, postsId], async (err, result) => {
+      if (err) {
+        handleGetPerfilError(res, err);
+      } else {
+        res.json("alteradooo");
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao buscar comentários:', error);
+    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+  }
+});
+
 
 
 module.exports = router;

@@ -5,11 +5,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 
-function Modal ({post, onClose}) {
+function Modal ({post, onClose, atualizar}) {
   const [enlargedImage, setEnlargedImage] = useState(null);
 
   const handleClose = () => {
     onClose();
+    atualizar();
   };
 
   const handleImageClick = (imageSrc) => {

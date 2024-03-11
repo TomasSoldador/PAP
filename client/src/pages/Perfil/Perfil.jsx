@@ -34,6 +34,24 @@ function Perfil() {
     fetchUserData();
   }, [username]);
 
+  const atualizar = async () => {
+    if (username) {
+      try {
+        const response = await Axios.post("http://localhost:3001/api/user/profile", { username });
+        setUserData(response.data); 
+
+        const resposePosts = await Axios.post("http://localhost:3001/api/user/profilePosts", { userId: response.data.id });
+        setUserPosts(resposePosts.data)
+
+        const resposePostsLoja = await Axios.post("http://localhost:3001/api/user/profilePostsLoja", { userId : response.data.id });
+        setUserPostsLoja(resposePostsLoja.data)
+        
+      } catch (error) {
+        console.error("Erro ao buscar dados do usuário: ", error);
+      }
+    }
+  }
+
   const updateUserPosts = (newPosts) => {
     setUserPosts(newPosts);
   };
@@ -72,13 +90,13 @@ function Perfil() {
               {buttonPost ? (
                 <Components.Conteudo>
                   {userPosts.map((post) => (
-                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPosts"} type={"normal"} updateUserPosts={updateUserPosts}/>
+                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPosts"} type={"normal"} updateUserPosts={updateUserPosts} atualizar={atualizar}/>
                   ))}
                 </Components.Conteudo>
               ) : (
                 <Components.Conteudo>
                   {userPostsLoja.map((post) => (
-                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPostsLoja"} type={"Loja"} updateUserPostsLoja={updateUserPostsLoja}/>
+                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPostsLoja"} type={"Loja"} updateUserPostsLoja={updateUserPostsLoja} atualizar={atualizar}/>
                   ))}
                 </Components.Conteudo>
               )}

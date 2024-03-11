@@ -43,23 +43,27 @@ function Modal({ userData, post, url, onClose, fetchUserData }) {
   const salvar = async () => {
     try {
       if (post.preco) {
-        const response = await axios.post('http://localhost:3001/api/loja/upload', {
+        await axios.post('http://localhost:3001/api/loja/upload', {
           postId: post.id,
           nome: nome,
           descricao: descricao,
           preco: preco,
           numero: numero,
           localizacao: localizacao,
+        }).then((response) => {
+          handleClose()
+          console.log(response);
         });
-        console.log(response);
+        
       } else {
-        const response = await axios.post('http://localhost:3001/api/posts/upload', {
+        await axios.post('http://localhost:3001/api/posts/upload', {
           postId: post.id,
           descricao: descricao,
-        })
-        console.log(response);
+        }).then((response) => {
+          handleClose()
+          console.log(response);
+        });
       }
-      handleClose();
     } catch (error) {
       console.error('Error uploading images:', error);
     }

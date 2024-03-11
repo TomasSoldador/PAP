@@ -3,12 +3,13 @@ import * as Components from "./Styled";
 import axios from "axios";
 import ModalEdit from "../../components/ModalEditPost/ModalEdit"
 
-function Modal({ userData, post, url, onClose, updateUserPosts }) {
+function Modal({ userData, post, url, onClose, updateUserPosts, atualizar }) {
 
   const [modalEditVisible, setModalEditVisible] = useState(true);
 
   const handleClose = () => {
     onClose();
+    atualizar();
   };
 
   const abrirModalEdit = () => {
@@ -58,11 +59,9 @@ function Modal({ userData, post, url, onClose, updateUserPosts }) {
     }
   };
 
- 
   return (
     <>
     {modalEditVisible ? (
-
       <Components.ModalBackdrop>
         <Components.ModalContent onClick={(e) => e.stopPropagation()}>
           <Components.Titulo>
