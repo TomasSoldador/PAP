@@ -161,3 +161,10 @@ export const mensagens = styled.div`
   margin-top: 10px;
   
 `;
+
+export const Descricao = styled.div`
+  padding: 10px;
+  span{
+    padding: 10px;
+  }
+`;

@@ -12,7 +12,7 @@ function ComentarioPost({ comentario, comentarioId }) {
   const [mensagem, setMensagem] = useState("");
   const [comentarios, setComentarios] = useState([]);
 
-  const sendResposta = async () => {
+  const sendResposta = async (comentarioId) => {
     try {
       const resposta = await Axios.post(`http://localhost:3001/api/posts/scomentarios`, {
         comentarioId: comentarioId,
@@ -20,7 +20,8 @@ function ComentarioPost({ comentario, comentarioId }) {
         mensagem: mensagem,
         username: comentario.username,
       });
-  
+      
+      setComentarios([resposta.data, ...comentarios]);
       // Atualize os comentários após o envio
       openResposta();
   
@@ -71,7 +72,7 @@ function ComentarioPost({ comentario, comentarioId }) {
                 onChange={(e) => setMensagem(e.target.value)}
                 value={mensagem}
               />
-              <Components.ButtonSend onClick={sendResposta}>
+              <Components.ButtonSend onClick={() => sendResposta(comentarioId)}>
                 <FaPaperPlane />
               </Components.ButtonSend>
             </Components.InputContainer>

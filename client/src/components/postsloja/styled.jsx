@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const PostContainer = styled.div`
   color: white;
-  border: solid 1px white;
   border-radius: 10px;
   margin-bottom: 10px;
   margin-right: 10px;
@@ -14,8 +13,10 @@ export const PostContainer = styled.div`
 `;
 
 export const Titulo = styled.div`
-  border-bottom: solid white 1px;
+  border-bottom: solid #1d2d3d 1px;
   padding: 10px;
+  border-radius: 10px 10px 0px 0px; 
+  background-color: #0b1017;
 `;
 
 export const ImageArea = styled.div`
@@ -32,7 +33,9 @@ export const ImageArea = styled.div`
 `;
 
 export const Descricao = styled.div`
-  border-top: solid 1px white;
+  border-top: solid 1px #1d2d3d;
   margin-top: auto;
+  background-color: #0b1017;
+  border-radius: 0px 0px 10px 10px; 
   padding: 10px; /* Define a margem superior para "auto", posicionando a descrição no final do PostContainer */
 `;
