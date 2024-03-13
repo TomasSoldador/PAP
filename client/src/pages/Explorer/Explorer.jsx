@@ -3,33 +3,55 @@ import * as Components from "./styled";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Modal from "../../components/ModalExplorar/Modal";
 
 
 
-function Explorer () {
-  
+function Explorer() {
   const [options, setOptions] = useState([]);
-
+  const [posts, setPosts] = useState([]);
+  const [postsUser, setPostsUser] = useState([]);
   const navigate = useNavigate();
 
   const handleInputChange = (inputValue) => {
-    if (inputValue.length > 0 ) {
+    if (inputValue.length > 0) {
       Axios.post("http://localhost:3001/api/explorer/post", { query: inputValue })
         .then((res) => {
-          setOptions(res.data); // Atualiza as opções com a resposta da busca
+          const { resultsUser, resultsPost } = res.data;
+          setOptions(resultsUser);
+          setPostsUser(resultsPost);
         })
         .catch((error) => {
           console.log("Erro ao buscar opções: ", error);
         });
     } else {
+      // Se a barra de pesquisa estiver vazia, buscar todos os posts novamente
+      Axios.post("http://localhost:3001/api/posts/getAll")
+        .then((res) => {
+          setPosts(res.data);
+        })
+        .catch((error) => {
+          console.log("Erro ao buscar opções: ", error);
+        });
       setOptions([]);
+      setPostsUser([]);
     }
   };
+
+  useEffect(() => {
+    // Se a barra de pesquisa estiver vazia, busque todos os posts existentes
+    Axios.post("http://localhost:3001/api/posts/getAll")
+      .then((res) => {
+        setPosts(res.data);
+      })
+      .catch((error) => {
+        console.log("Erro ao buscar opções: ", error);
+      });
+  }, []);
 
   const handleOptionClick = (username) => {
     navigate(`/Perfil/${username}`);
   };
-
 
   return (
     <Components.LayoutContainer>
@@ -49,9 +71,27 @@ function Explorer () {
             </Components.OpcoesConteiner>
           )}
         </Components.explorer>
+        <Components.conteudo>
+          <Components.posts>
+            {postsUser.length > 0 ? (
+              postsUser.map((post, index) => (
+                <div key={index}>
+                  <Modal post={post} />
+                </div>
+              ))
+            ) : (
+              posts.map((post, index) => (
+                <div key={index}>
+                  <Modal post={post} />
+                </div>
+              ))
+            )}
+          </Components.posts>
+        </Components.conteudo>
       </Components.ContentContainer>
     </Components.LayoutContainer>
   );
 }
 
 export default Explorer;
+

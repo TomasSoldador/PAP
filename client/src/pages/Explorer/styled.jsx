@@ -7,7 +7,7 @@ export const LayoutContainer = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  display: flex;
+  display: relative;
   justify-content: center; // Centraliza horizontalmente
   color: white !important;
   padding: 20px;
@@ -15,6 +15,7 @@ export const ContentContainer = styled.div`
   min-height: 100vh;
   transition: margin-left 0.3s;
   width: 100%;
+  text-align: center;  // Adicionado para centralizar o conteúdo
 
   @media (max-width: 768px) {
     margin-left: 80px;
@@ -49,17 +50,18 @@ export const explorer = styled.div`
   background-color: white;
   display: flex;
   height: 30px;
-  width: 25%;
+  width: 30%;  // Alterado para 100%
   border-radius: 50px;
   border: none;
   transition: width 0.3s;
   padding: 10px;
-  position: relative; 
+  position: relative;
+  margin: 0 auto;  // Adicionado para centralizar horizontalmente
 
   @media (max-width: 1268px) {
     width: 60%;
   }
-`
+`;
 
 export const OpcoesConteiner = styled.div`
   background-color: white; // Ou qualquer cor que combine com o design
@@ -90,3 +92,14 @@ export const opcoes = styled.div`
     border-radius: 50%; 
   }
 `;
+
+export const conteudo = styled.div`
+  position: relative;
+  margin-top: 50px;
+`;
+
+export const posts = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+

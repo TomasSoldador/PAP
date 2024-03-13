@@ -67,6 +67,20 @@ router.get('/get', async (req, res) => {
   }
 });
 
+router.post('/getAll', async (req, res) => {
+  try {
+    db.query(SelectAllPosts, async (err, result) => {
+      if (err) {
+        handleGetPostsError(res, err);
+      } else {
+        res.json(result);
+      }
+    });
+  } catch (error) {
+    handleGetPostsError(res, error);
+  }
+});
+
 const handleGetPerfilError = (res, error) => {
   console.error('Erro ao recuperar dados de perfil do banco de dados (routes/posts.js):', error);
   res.status(500).json({ success: false, message: 'Erro interno do servidor' });
