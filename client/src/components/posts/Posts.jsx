@@ -21,9 +21,6 @@ const Post = ({ posts }) => {
   const [userImageURL, setUserImageURL] = useState("");
   const [crud_userId, setCrud_UserId] = useState([]);
   const [numeroLikes, setNumeroLikes] = useState("");
-
-  console.log(posts);
-
   useEffect(() => {
     if (token) {
       const decodedToken = jwtDecode(token);
@@ -167,6 +164,8 @@ const Post = ({ posts }) => {
 
     fetchUserData();
   }, [idperfil]);
+
+  
 
   return (
     <>

@@ -3,22 +3,59 @@ import * as Components from "./styled";
 import { FaPaperPlane } from "react-icons/fa";
 import Axios from "axios";
 import ScomentariosPost from "../ScomentariosPost/ScomentariosPost";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 function ComentarioPost({ comentario, comentarioId }) {
 
   const fotoUrl = `http://localhost:3001/server/imagens/${encodeURIComponent(comentario.imageUrl)}`;
 
+  
   const [respostaVisible, setRespostaVisible] = useState(false);
   const [mensagem, setMensagem] = useState("");
   const [comentarios, setComentarios] = useState([]);
+  const token = Cookies.get("authToken");
+  const [userDataUsername, setUserDataUsername] = useState();
+  const [userImageURL, setUserImageURL] = useState("");
+  const [crud_userId, setCrud_UserId] = useState([]);
+  const [userId, setUserId] = useState();
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUserId(decodedToken.id);
+
+      try {
+        Axios.post("http://localhost:3001/api/home/post", {
+          userId: decodedToken.id,
+        })
+          .then((res) => {
+            setUserDataUsername(res.data[0].username);
+            setUserImageURL(res.data[0].imageUrl);
+
+            setCrud_UserId([
+              ...crud_userId,
+              {
+                userId: decodedToken.id,
+              },
+            ]);
+          })
+          .catch((error) => {
+            console.log("Erro na solicitação ao servidor: ", error);
+          });
+      } catch (error) {
+        console.log("Erro no pedido ao servidor: ", error);
+      }
+    }
+  }, [token]);
 
   const sendResposta = async (comentarioId) => {
     try {
       const resposta = await Axios.post(`http://localhost:3001/api/posts/scomentarios`, {
         comentarioId: comentarioId,
-        imageUrl: comentario.imageUrl,
+        imageUrl: userImageURL,
         mensagem: mensagem,
-        username: comentario.username,
+        username: userDataUsername,
       });
       
       setComentarios([resposta.data, ...comentarios]);
