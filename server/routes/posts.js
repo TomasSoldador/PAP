@@ -139,6 +139,7 @@ router.post('/getComentarios', async (req, res) => {
       if (err) {
         handleGetPerfilError(res, err);
       } else {
+        console.log("server,", result)
         res.json(result);
       }
     });

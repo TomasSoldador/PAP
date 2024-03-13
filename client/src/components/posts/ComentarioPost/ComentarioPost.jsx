@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 function ComentarioPost({ comentario, comentarioId }) {
+  console.log(comentarioId)
 
   const fotoUrl = `http://localhost:3001/server/imagens/${encodeURIComponent(comentario.imageUrl)}`;
 

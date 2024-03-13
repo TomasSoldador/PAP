@@ -40,5 +40,22 @@ router.post('/post', async (req, res) => {
   }
 });
 
+router.post('/getUser', async (req, res) => {
+  try {
+    const perfil_id = req.body.perfil_id;
+    console.log(perfil_id)
+    db.query('SELECT * FROM perfil WHERE id = ?', [perfil_id], (error, results) => {
+      if (error) {
+        console.error('Erro ao buscar posts do usuário:', error);
+        return res.status(500).send('Internal Server Error');
+      }
+      console.log("id", results)
+      res.json(results);
+    })
+  } catch {
+
+  }
+})
+
 
 module.exports = router;

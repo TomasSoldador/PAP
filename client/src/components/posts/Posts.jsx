@@ -169,6 +169,7 @@ const Post = ({ posts }) => {
 
   return (
     <>
+    {console.log(comentarios)}
       <Components.PostContainer>
         <Components.UserProfile>
           <Components.ProfileImage
