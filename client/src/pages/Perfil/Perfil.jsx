@@ -73,11 +73,17 @@ function Perfil() {
                     src={`http://localhost:3001/server/imagens/` + userData.imageUrl}
                     alt="Perfil"
                   />
-                  <h1>{userData.username}</h1>
+                  <div>
+                    <h1>{userData.username}</h1>
+                    <p>{userData.descricao}</p> 
+                  </div>
                 </Components.Foto>
-                <Components.descricao>
-                  <p>{userData.descricao}</p> 
-                </Components.descricao>
+                <Components.buttonSeguir>
+                  Follow
+                </Components.buttonSeguir>
+                <Components.Follows>
+                  Seguidores: 
+                </Components.Follows>
               </Components.Info>
               <Components.Buttons>
                 <Components.botao onClick={() => setButtonPost(true)}>

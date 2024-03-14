@@ -7,7 +7,7 @@ export const LayoutContainer = styled.div`
 
 export const ContentContainer = styled.div`
   display: flex;
-  flex-direction: column; // Alterado para column
+  flex-direction: column;
   color: white !important;
   padding: 20px;
   margin-left: 250px;
@@ -44,11 +44,16 @@ export const Foto = styled.div`
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 10px; // Espaço entre a imagem e o título
+    margin-right: 10px;
   }
 
-  h1 {
-    margin: 0; // Remova a margem padrão do h1
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h1, p {
+    margin: 0;
   }
 `;
 
@@ -81,3 +86,21 @@ export const botao = styled.button`
     background-color: #191133a7;
   }
 `;
+
+export const buttonSeguir = styled.button`
+  padding: 8px 20px;
+  background: blue;
+  font-weight: bolder;
+  border-radius: 8px;
+  font-size: 15px;
+  border: 2px solid #0056b3; /* Adicionando uma borda azul */
+  color: white;
+  cursor: pointer;
+  margin: 10px 0 25px 30px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Adicionando uma sombra */
+`;
+
+export const Follows = styled.div`
+  
+`;
+
