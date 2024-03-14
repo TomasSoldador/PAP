@@ -51,6 +51,7 @@ export const Titulo = styled.div`
   align-items: center;
   height: auto;
   border-bottom: #15202B solid 1px;
+  cursor: pointer; /* Adicionando a propriedade cursor para mudar para ponteiro */
 `;
 
 export const Username = styled.div`

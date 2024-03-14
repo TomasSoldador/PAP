@@ -3,7 +3,7 @@ import { FiSearch } from 'react-icons/fi';
 
 export const LayoutContainer = styled.div`
   display: flex;
-  background-color: black !important;
+  background-color: #101821;
 `;
 
 export const ContentContainer = styled.div`

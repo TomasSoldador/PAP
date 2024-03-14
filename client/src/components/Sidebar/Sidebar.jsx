@@ -88,10 +88,6 @@ const Sidebar = () => {
         <FaHashtag />
         <span className="text">Explorar</span>
       </Components.SidebarItem>
-      <Components.SidebarItem onClick={() => handleNavigation('/Notifications')}>
-        <FaBell />
-        <span className="text">Notificações</span>
-      </Components.SidebarItem>
       <Components.SidebarItem onClick={() => handleNavigation('/Shop')}>
         <FaBookmark />
         <span className="text">Loja</span>
@@ -106,7 +102,7 @@ const Sidebar = () => {
         <span className="username">{userDataUsername}</span>
       </Components.ProfileButton>
       <Components.LogoutButton onClick={handleLogout}>
-        <FaSignOutAlt />
+        <FaSignOutAlt className="icon"/>
         <span className="logout-text">Logout</span>
       </Components.LogoutButton>
     </Components.SidebarContainer>

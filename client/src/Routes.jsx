@@ -8,7 +8,6 @@ import PasswordReset from "./pages/EmailForReset/PasswordReset";
 import PrivateRoute from "./middleware/PrivateRoute";
 import PassReset from "./pages/PasswordReset/PassReset";
 import Explorer from "./pages/Explorer/Explorer";
-import Notifications from "./pages/Notifications/Notifications";
 import Shop from "./pages/Shop/Shop";
 import Perfil from "./pages/Perfil/Perfil";
 import Criar from "./pages/Criar/CriarPublicacao";
@@ -24,7 +23,6 @@ function AppRouter() {
         <Route path="/resetpassword" element={<PasswordReset />} />
         <Route path="/resetpass" element={<PrivateRoute><PassReset /></PrivateRoute>} />
         <Route path="/Explorer" element={<PrivateRoute><Explorer /></PrivateRoute>} />
-        <Route path="/Notifications" element={<PrivateRoute><Notifications /></PrivateRoute>} />
         <Route path="/Shop" element={<PrivateRoute><Shop /></PrivateRoute>} />
         <Route path="/Perfil/:username" element={<PrivateRoute><Perfil /></PrivateRoute>} />
         <Route path="/Criar" element={<PrivateRoute><Criar /></PrivateRoute>} />

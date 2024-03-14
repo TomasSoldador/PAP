@@ -16,7 +16,7 @@ export const Titulo = styled.div`
   border-bottom: solid #1d2d3d 1px;
   padding: 10px;
   border-radius: 10px 10px 0px 0px; 
-  background-color: #0b1017;
+  background-color: #0B1017;
 `;
 
 export const ImageArea = styled.div`
@@ -35,7 +35,7 @@ export const ImageArea = styled.div`
 export const Descricao = styled.div`
   border-top: solid 1px #1d2d3d;
   margin-top: auto;
-  background-color: #0b1017;
+  background-color: #0B1017;
   border-radius: 0px 0px 10px 10px; 
   padding: 10px; /* Define a margem superior para "auto", posicionando a descrição no final do PostContainer */
 `;

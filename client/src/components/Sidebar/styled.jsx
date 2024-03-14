@@ -125,6 +125,10 @@ export const LogoutButton = styled.div`
     display: block; // O texto é mostrado por padrão
   }
 
+  .icon {
+    color: red;
+  }
+
   // Media query para telas com largura menor que 768px
   @media (max-width: 768px) {
     justify-content: center; // Centraliza o ícone
