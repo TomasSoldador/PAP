@@ -57,7 +57,7 @@ export const Foto = styled.div`
   }
 `;
 
-export const descricao = styled.div`
+export const Descricao = styled.div`
   margin-left: 30px;
 `;
 
@@ -88,19 +88,31 @@ export const botao = styled.button`
 `;
 
 export const buttonSeguir = styled.button`
-  padding: 8px 20px;
-  background: blue;
-  font-weight: bolder;
-  border-radius: 8px;
-  font-size: 15px;
-  border: 2px solid #0056b3; /* Adicionando uma borda azul */
+  padding: 10px 20px 10px 20px;
+  background-color: ${(props) => props.cor || "blue"};
   color: white;
-  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  border-bottom: 2px solid #15202B;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${(props) => props.corHover || "#191133a7"};
+  }
+`;
+
+export const seguidor = styled.div`
   margin: 10px 0 25px 30px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Adicionando uma sombra */
+  display: flex;
+  align-items: center; /* Alinhamento à esquerda */
+  
+  position: relative;
 `;
 
 export const Follows = styled.div`
-  
+  margin-left: 10px;
+  font-weight: bold;
 `;
-
