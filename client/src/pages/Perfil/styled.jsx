@@ -97,11 +97,7 @@ export const buttonSeguir = styled.button`
   font-size: 14px;
   font-weight: bold;
   transition: 0.3s;
-
-  &:hover {
-    cursor: pointer;
-    background-color: ${(props) => props.corHover || "#191133a7"};
-  }
+  cursor: pointer;
 `;
 
 export const seguidor = styled.div`

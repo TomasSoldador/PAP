@@ -162,4 +162,95 @@ router.delete('/profilePostDelete', async (req, res) => {
   }
 });
 
+
+router.post('/follows', async (req, res) => {
+  try {
+    const { followerId, userId } = req.body;
+    db.query("INSERT INTO seguidores (id_user, perfil_id) VALUES (?, ?)",
+    [followerId, userId], (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      res.json(result)
+    })
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+router.post('/getfollows', async (req, res) => {
+  try {
+    const { userId, userDataId } = req.body;
+    db.query("SELECT * FROM seguidores WHERE perfil_id = ?", [userId], (error, result) => {
+      if (error) {
+        console.error("Erro ao executar a consulta:", error);
+        res.status(500).json({ error: "Erro interno do servidor." });
+      } else {
+        const idUsers = result.map(row => row.id_user);
+        console.log("id: ", idUsers);
+        
+        if (idUsers.includes(userDataId.id)) {
+          res.json(true);
+        } else {
+          res.json(false);
+        }
+      }
+    });
+
+  } catch (err) {
+    console.error("Erro ao executar a consulta:", err);
+    res.status(500).json({ error: "Erro interno do servidor." });
+  }
+});
+
+router.post("/getAllFollows", async (req, res) => {
+  try {
+    const { userDataid } = req.body;
+    db.query("SELECT * FROM seguidores WHERE perfil_id = ?", [userDataid], (error, results) => {
+      if(error) {
+        console.log(error)
+      } else {
+        res.json(results);
+      }
+    })
+  } catch (err) {
+
+  }
+})
+
+router.delete("/deletefollow", async (req, res) => {
+  try {
+    const  { userId, followerId } = req.body;
+    db.query("DELETE FROM seguidores WHERE id_user = ? AND perfil_id = ?", [followerId, userId], (error, result) => {
+      if (error) {
+        console.log(error)
+        res.status(500).json({ error: "Erro interno do servidor." });
+      } else {
+        console.log("eliminado")
+        res.status(200).json({ message: "Seguidor removido com sucesso." });
+      }
+    });
+  } catch (error) {
+    console.error("Erro ao executar a consulta:", error);
+    res.status(500).json({ error: "Erro interno do servidor." });
+  }
+});
+
+router.post("/getDataFollow", async (req, res) => {
+  try {
+    const { userId } = req.body;
+    db.query("SELECT username, imageUrl FROM perfil WHERE id = ?", [userId], (error, result) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ error: "Erro interno do servidor." });
+      } else {
+        console.log(result) // Retorna os nomes de usuário como um array
+      }
+    });
+  } catch (error) {
+    console.error("Erro ao executar a consulta:", error);
+    res.status(500).json({ error: "Erro interno do servidor." });
+  }
+});
+
 module.exports = router;

@@ -6,6 +6,7 @@ import Axios from "axios";
 import PostsPerfil from "../../components/PostsPerfil/PostsPerfil"
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import ModalSeguidores from "./ModalSeguidores/ModalSeguidores";
 
 
 function Perfil() {
@@ -18,8 +19,12 @@ function Perfil() {
   const [crud_userId, setCrud_UserId] = useState([]);
   const [userId, setUserId] = useState("");
   const [userDataUsername, setUserDataUsername] = useState();
-  const [followButtonClicked, setFollowButtonClicked] = useState(false);
-
+  const [followButtonClicked, setFollowButtonClicked] = useState(false); 
+  const [numeroFollows, setNumeroFollows] = useState();
+  const [allFollows, setAllFollows] = useState([]);
+  const [seguidorTrueFalse, setSeguidorTrueFalse] = useState("");
+  const [tokenId, setTokenId] = useState("");
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,7 +38,11 @@ function Perfil() {
 
           const resposePostsLoja = await Axios.post("http://localhost:3001/api/user/profilePostsLoja", { userId : response.data.id });
           setUserPostsLoja(resposePostsLoja.data)
-          
+
+          const responseAllFollows = await Axios.post("http://localhost:3001/api/user/getAllFollows", { userDataid: response.data.id });
+          setAllFollows(responseAllFollows.data)
+          setNumeroFollows(responseAllFollows.data.length)
+
         } catch (error) {
           console.error("Erro ao buscar dados do usuário: ", error);
         }
@@ -54,6 +63,8 @@ function Perfil() {
           userId: decodedToken.id,
         }).then((res) => {
           setUserDataUsername(res.data[0].username)
+          setTokenId(res.data[0].id)
+          
 
           setCrud_UserId([
             ...crud_userId,
@@ -82,7 +93,7 @@ function Perfil() {
         setUserPosts(resposePosts.data)
 
         const resposePostsLoja = await Axios.post("http://localhost:3001/api/user/profilePostsLoja", { userId : response.data.id });
-        setUserPostsLoja(resposePostsLoja.data)
+        setUserPostsLoja(resposePostsLoja)
         
       } catch (error) {
         console.error("Erro ao buscar dados do usuário: ", error);
@@ -98,10 +109,55 @@ function Perfil() {
     setUserPostsLoja(newPosts);
   };
 
-  const novoSeguidor = () => {
-    setFollowButtonClicked(true);
-    d
+  const novoSeguidor = async () => {
+    try {
+      if (followButtonClicked) {
+        setFollowButtonClicked(false);
+        await Axios.delete("http://localhost:3001/api/user/deletefollow", {
+          data: { userId: userId, followerId: userData.id }
+        });
+      } else {
+        setFollowButtonClicked(true); 
+        await Axios.post("http://localhost:3001/api/user/follows", {
+          userId: userId,
+          followerId: userData.id
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao processar a solicitação:", error);
+    }
   };
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (userData) {
+          const responseFollowsTrueFalse = await Axios.post("http://localhost:3001/api/user/getfollows", { userId: tokenId, userDataId: userData });
+          console.log(responseFollowsTrueFalse.data);
+          if(responseFollowsTrueFalse.data) {
+            setFollowButtonClicked(true)
+          } else {
+            setFollowButtonClicked(false)
+          }
+        }
+      } catch (error) {
+        console.error('Erro ao buscar os dados:', error);
+      }
+    };
+  
+    fetchData();
+  }, [tokenId, userData]); 
+
+  const mostrarFollows = () => {
+    console.log("clicado")
+    setModalShow(true);
+  }
+
+  const onClose = () => {
+    setModalShow(false);
+  }
+
   
   return (
     <>
@@ -125,13 +181,13 @@ function Perfil() {
                   {userData.username !== userDataUsername && (
                     <Components.buttonSeguir
                       onClick={novoSeguidor}
-                      cor={followButtonClicked ? "green" : "blue"}
-                      corHover={followButtonClicked ? "green" : "#191133a7"}>
-                      Follow
+                      cor={followButtonClicked ? "red" : "blue"}
+                    >
+                      {followButtonClicked ? "Unfollow" : "Follow"}
                     </Components.buttonSeguir>
                   )}
-                  <Components.Follows>
-                    Seguidores: 0
+                  <Components.Follows onClick={mostrarFollows}>
+                    Seguidores: {numeroFollows}
                   </Components.Follows>
                 </Components.seguidor>
               </Components.Info>
@@ -162,6 +218,9 @@ function Perfil() {
             <p>Carregando dados do usuário...</p>
           )}
         </Components.ContentContainer>
+        {modalShow && (
+          <ModalSeguidores userData={userData.id} onClose={onClose} />
+        )}
       </Components.LayoutContainer>
     </>
   );
