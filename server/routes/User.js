@@ -79,9 +79,6 @@ router.post('/profilePostsLoja', async (req, res) => {
 router.delete('/profilePostLojaDelete', async (req, res) => {
   try {
     const { id, foto1, foto2, foto3, foto4 } = req.body;
-    console.log(req.body)
-
-    console.log('Corpo da requisição:', req.body);
 
     if (!id) {
       return res.status(400).send('ID do post não fornecido');
@@ -187,7 +184,6 @@ router.post('/getfollows', async (req, res) => {
         res.status(500).json({ error: "Erro interno do servidor." });
       } else {
         const idUsers = result.map(row => row.id_user);
-        console.log("id: ", idUsers);
         
         if (idUsers.includes(userDataId.id)) {
           res.json(true);
@@ -244,7 +240,8 @@ router.post("/getDataFollow", async (req, res) => {
         console.log(error);
         res.status(500).json({ error: "Erro interno do servidor." });
       } else {
-        console.log(result) // Retorna os nomes de usuário como um array
+        console.log(result) 
+        res.json(result)
       }
     });
   } catch (error) {

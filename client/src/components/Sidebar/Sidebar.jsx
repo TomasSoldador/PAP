@@ -3,12 +3,10 @@ import { useState, useEffect } from "react";
 import {
   FaHome,
   FaHashtag,
-  FaBell,
-  FaEnvelope,
   FaBookmark,
-  FaEllipsisH,
   FaSignOutAlt,
   FaPlus,
+  FaCog 
 } from "react-icons/fa";
 
 import LOGO from "../../assets/Logo2.png";
@@ -91,6 +89,10 @@ const Sidebar = () => {
       <Components.SidebarItem onClick={() => handleNavigation('/Shop')}>
         <FaBookmark />
         <span className="text">Loja</span>
+      </Components.SidebarItem>
+      <Components.SidebarItem onClick={() => handleNavigation('/settings')}>
+        <FaCog />
+        <span className="text">Defenições</span>
       </Components.SidebarItem>
       <Components.ProfileButton onClick={() => {navigate(`/Perfil/${userDataUsername}`)}}>
         <div className="profile-pic">

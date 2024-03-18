@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Components from "./styled";
 import axios from "axios";
+import Seguidor from "./Seguidor/Seguidor";
 
 function ModalSeguidores ({userData, onClose}) {
   const [userIds, setUserIds] = useState([]);
@@ -12,7 +13,6 @@ function ModalSeguidores ({userData, onClose}) {
 
   useEffect (() => {
     const fetchUserData = async () => {
-      console.log(userData);
       if (userData) {
         try {
           const response = await axios.post("http://localhost:3001/api/user/getAllFollows", { userDataid: userData });
@@ -43,10 +43,6 @@ function ModalSeguidores ({userData, onClose}) {
     fetchUserData();
   }, [userData]);
 
-  useEffect(() => {
-    console.log(userDataForIds);
-  }, [userDataForIds]);
-
   return (
     <Components.ModalBackdrop>
       <Components.ModalContent onClick={(e) => e.stopPropagation()}>
@@ -57,11 +53,15 @@ function ModalSeguidores ({userData, onClose}) {
           </Components.CloseButton>
         </Components.Titulo>
         <Components.Conteudo>
-          <ul>
-            {userDataForIds.map((username, index) => (
-              <li key={index}>{username}</li> // Renderize os usernames aqui
-            ))}
-          </ul>
+          {userDataForIds.length === 0 ? (
+            <p> Não tem seguidores </p>
+          ) : (
+            <ul>
+              {userDataForIds.map((seguidorData, index) => (
+                <Seguidor seguidorData = {seguidorData} handleClose={handleClose} />
+              ))}
+            </ul>
+          )}
         </Components.Conteudo>
       </Components.ModalContent>
     </Components.ModalBackdrop>

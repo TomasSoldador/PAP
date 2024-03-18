@@ -12,6 +12,7 @@ import Shop from "./pages/Shop/Shop";
 import Perfil from "./pages/Perfil/Perfil";
 import Criar from "./pages/Criar/CriarPublicacao";
 import CriarLoja from "./pages/CriarLoja/CriarLoja";
+import Settings from "./pages/Settings/Settings";
 
 function AppRouter() {
   return (
@@ -27,6 +28,7 @@ function AppRouter() {
         <Route path="/Perfil/:username" element={<PrivateRoute><Perfil /></PrivateRoute>} />
         <Route path="/Criar" element={<PrivateRoute><Criar /></PrivateRoute>} />
         <Route path="/CriarLoja" element={<PrivateRoute><CriarLoja /></PrivateRoute>} />
+        <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
       </Routes>
     </Router>
   );

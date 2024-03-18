@@ -25,6 +25,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Info = styled.div`
+  margin-left: 20px;
   border-bottom: 3px solid #15202B;
   width: 100%;
   margin-bottom: 10px;
@@ -101,14 +102,14 @@ export const buttonSeguir = styled.button`
 `;
 
 export const seguidor = styled.div`
-  margin: 10px 0 25px 30px;
+  margin: 10px 0 25px 10px;
   display: flex;
   align-items: center; /* Alinhamento à esquerda */
-  
   position: relative;
 `;
 
 export const Follows = styled.div`
   margin-left: 10px;
   font-weight: bold;
+  cursor: pointer;
 `;
