@@ -13,7 +13,7 @@ export const AllContainer = styled.div`
 `;
 
 export const Container = styled.div`
-  background-color: #fff;
+  background-color: #2c3e50;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
@@ -24,7 +24,7 @@ export const Container = styled.div`
 `;
 
 export const Form = styled.div`
-  background-color: #ffffff;
+  background-color: #2c3e50;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,26 +35,30 @@ export const Form = styled.div`
 `;
 
 export const Input = styled.input`
-  background-color: #eee;
+  color: white;
+  font-size: 18px;
+  background-color: transparent;
   border: none;
+  border-bottom: white solid 1px;
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
 `;
 
 export const Titulo = styled.div`
-  background-color: rgb(7, 7, 92);;
+  background-color: #2c3e50;
   color: white;
   width: 100%;
   height: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
   font-weight: bold;
 `;
 
 export const p = styled.div`
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,13 +71,13 @@ export const DivButtons = styled.div`
   bottom: 0;
   right: 0;
   width: 100%;
-  border-top: 2px solid black;  
+  border-top: 1px solid black;  
 `;
 
 export const Button = styled.button`
   border-radius: 20px;
-  border: 1px solid rgb(7, 7, 92);
-  background-color: rgb(9, 9, 121);
+  border: none;
+  background-color: #3471db;
   text-decoration: none;
   color: #ffffff;
   font-size: 12px;
@@ -83,11 +87,10 @@ export const Button = styled.button`
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
-  &:active {
-    transform: scale(0.95);
-  }
+  &:hover,
   &:focus {
-    outline: none;
+    background-color: #000dff;
+    cursor: pointer;
   }
 `;
 

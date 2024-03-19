@@ -1,22 +1,23 @@
 import * as Components from "./styled";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { Error } from "../../components/Alertas";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Cookies from 'js-cookie';
 
-
-
-// TODO: usar o nodemailer no lado do servidor para enviar o email com o codigo de segurança  
 export default function PasswordReset() {
-
+  const location = useLocation();
   const navigateTo = useNavigate();
-
+  
   const [email, setEmail] = useState("");
   const [emaild, setemaild] = useState("");
   const [isOpenErrorEmail, setIsOpenErrorEmail] = useState(false);
   const [emailEnviado, setEmailEnviado] = useState(false);
+  
+  useEffect(() => {
+    setEmail(location.state?.email || "");
+  }, [location.state?.email]);
 
   const Enviar = async (e) => {
     e.preventDefault();
@@ -83,7 +84,7 @@ export default function PasswordReset() {
                 />
               </Components.Form>
               <Components.DivButtons>
-                <Components.Button as={Link} to="/login">Cancelar</Components.Button>
+                <Components.Button onClick={() => navigateTo(-1)}>Cancelar</Components.Button>
                 <Components.Button onClick={Enviar}>Procurar</Components.Button>
               </Components.DivButtons>
             </>

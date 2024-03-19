@@ -5,8 +5,10 @@ import { jwtDecode } from "jwt-decode";
 import Axios from "axios";
 import Cookies from "js-cookie";
 import ChangePhoto from "./ModalChangePhoto/ChangePhoto";
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
+  const navigate  = useNavigate();
   const token = Cookies.get("authToken");
   const [crud_userId, setCrud_UserId] = useState([]);
   const [userId, setUserId] = useState("");
@@ -116,6 +118,10 @@ const Settings = () => {
     setSidebarKey(prevKey => prevKey + 1);
   }
 
+  const alterarPassword = () => {
+    navigate('/resetpassword', { state: { email: usuarioData[0]?.email } })
+  }
+
   return (
     <>
       <Components.LayoutContainer>
@@ -196,7 +202,7 @@ const Settings = () => {
           <Components.Input>
             <span>Password:</span>
             <input type="Input" value="*********" readOnly />
-            <Components.EditIcon />
+            <Components.EditIcon onClick={alterarPassword}/>
           </Components.Input>
         </Components.ContentContainer>
         {modalVisible && (
