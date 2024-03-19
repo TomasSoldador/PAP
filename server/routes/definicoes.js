@@ -65,13 +65,25 @@ router.post('/uploadPhoto', validateToken, upload.single("foto"), async (req, re
         }
       }
     })
-
-    
-
   } catch (error) {
-    
+    console.error(error)
   }
 })
 
+router.post("/uploadDados", async (req, res) => {
+  const { userId, username, descricao, gender } = req.body;
+  try {
+    db.query("UPDATE perfil SET username= ?, descricao= ?, genero= ? WHERE id= ?", [username, descricao, gender, userId], (erro, result) => {
+      if(erro) {
+        console.log(erro)
+      } else {
+        console.log("alterado")
+      }
+    })  
+  } catch (error) {
+    console.error(error)
+  }
+  
+})
 
 module.exports = router;

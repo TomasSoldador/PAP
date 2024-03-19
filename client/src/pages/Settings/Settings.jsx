@@ -16,6 +16,8 @@ const Settings = () => {
   const [usuarioData, setUsuarioData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [sidebarKey, setSidebarKey] = useState(0);
+  const [editedUsername, setEditedUsername] = useState("");
+  const [editedDescricao, setEditedDescricao] = useState("");
 
   const fotoURL = `http://localhost:3001/server/imagens/` + userData[0]?.imageUrl;
 
@@ -30,6 +32,8 @@ const Settings = () => {
         })
           .then((res) => {
             setUserData(res.data);
+            setEditedUsername(res.data[0].username);
+            setEditedDescricao(res.data[0].descricao);
             if (userData.descricao === "Masculino") {
               setGender("Masculino")
             } else if (res.data[0].genero === "Feminino") {
@@ -94,6 +98,24 @@ const Settings = () => {
     setSidebarKey(prevKey => prevKey + 1);
   }
 
+  const save = () => {
+    try {
+      Axios.post('http://localhost:3001/api/definicoes/uploadDados', {
+        userId: userId,
+        username: editedUsername,
+        descricao: editedDescricao,
+        gender: gender,
+      }).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.error(err)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+    setSidebarKey(prevKey => prevKey + 1);
+  }
+
   return (
     <>
       <Components.LayoutContainer>
@@ -105,18 +127,18 @@ const Settings = () => {
           <Components.ChangePhoto>
             <Components.ProfileImage src={fotoURL} alt={userData[0]?.username} />
             <Components.TextContainer>
-              <Components.Span1>{userData[0]?.username}</Components.Span1>
+              <Components.Span1>{editedUsername}</Components.Span1>
               <Components.Span2>{usuarioData[0]?.nome}</Components.Span2>
             </Components.TextContainer>
             <Components.ButtonChange onClick={MudarFoto}>Mudar Foto</Components.ButtonChange>
           </Components.ChangePhoto>
           <Components.Input>
             <span>Username:</span>
-            <input type="Input" value={userData[0]?.username} />
+            <input type="text" value={editedUsername} onChange={(e) => {setEditedUsername(e.target.value)}} />
           </Components.Input>
           <Components.Input>
             <span>Descricão:</span>
-            <input type="text" value={userData[0]?.descricao} />
+            <input type="text" value={editedDescricao} onChange={(e) => {setEditedDescricao(e.target.value)}} />
           </Components.Input>
           <Components.RadioWrapper>
             <span>Genero: </span>
@@ -159,7 +181,7 @@ const Settings = () => {
               placeholder="Género (opcional)"
             />
           )}
-          <Components.ButtonSave>
+          <Components.ButtonSave onClick={save}>
             <span>Salvar</span>
           </Components.ButtonSave>
 
