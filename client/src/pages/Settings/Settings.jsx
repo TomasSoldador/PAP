@@ -15,6 +15,7 @@ const Settings = () => {
   const [gender, setGender] = useState("");
   const [usuarioData, setUsuarioData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [sidebarKey, setSidebarKey] = useState(0);
 
   const fotoURL = `http://localhost:3001/server/imagens/` + userData[0]?.imageUrl;
 
@@ -90,12 +91,13 @@ const Settings = () => {
       }).catch ((error) => {
           console.error("Erro no pedido ao servidor: ", error);
       })
+    setSidebarKey(prevKey => prevKey + 1);
   }
 
   return (
     <>
       <Components.LayoutContainer>
-        <Sidebar />
+        <Sidebar key={sidebarKey}/>
         <Components.ContentContainer>
           <Components.EditPerfil>
             <span>Editar Perfil</span>

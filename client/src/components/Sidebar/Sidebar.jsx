@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import Axios from "axios";
 
-const Sidebar = () => {
+const Sidebar = ({ sidebarKey }) => {
   const token = Cookies.get("authToken");
   const [crud_userId, setCrud_UserId] = useState([]);
   const [userId, setUserId] = useState("");
@@ -54,7 +54,7 @@ const Sidebar = () => {
         console.log("Erro no pedido ao servidor: ", error);
       }
     }
-  }, [token]);
+  }, [token, sidebarKey]);
 
 
   const fotoURL = `http://localhost:3001/server/imagens/` + userImageURL;
