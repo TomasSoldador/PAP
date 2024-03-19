@@ -15,7 +15,6 @@ function Registar() {
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [avatar, setAvatar] = useState(null);
-  const [dataNascimento, setDataNascimento] = useState("");
   const [descricao, setDescricao] = useState("");
   const [outro, setOutro] = useState(false);
   const [dia, setDia] = useState("");

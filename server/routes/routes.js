@@ -8,6 +8,7 @@ const Explorer = require('./explorer');
 const User = require('./User');
 const Posts = require('./posts');
 const Loja = require('./loja');
+const Definicoes = require('./definicoes');
 const router = express.Router();
 
 router.use('/registar', registarRoutes);
@@ -18,7 +19,8 @@ router.use('/home', Home);
 router.use('/explorer', Explorer);
 router.use('/user', User);
 router.use('/posts', Posts);
-router.use('/loja', Loja)
+router.use('/loja', Loja);
+router.use('/definicoes', Definicoes);
 
 
 module.exports = router;
