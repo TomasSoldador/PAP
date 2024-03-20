@@ -103,3 +103,9 @@ export const posts = styled.div`
   flex-wrap: wrap;
 `;
 
+export const Frase = styled.div`
+  span {
+    font-weight: bolder;
+    font-size: 18px;
+  }
+`;

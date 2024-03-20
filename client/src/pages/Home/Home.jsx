@@ -70,9 +70,9 @@ function Home() {
               <Posts key={index} posts={post} />
             ))}
             {loadingBottom && (
-              <Components.LoadingBottom>
+              <Components.LoadingBotton>
                 <Components.LoadingSpinner />
-              </Components.LoadingBottom>
+              </Components.LoadingBotton>
             )}
           </>
         ) : (

@@ -7,6 +7,7 @@ import Axios from "axios";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import ComentarioPost from "./ComentarioPost/ComentarioPost";
+import { useNavigate } from 'react-router-dom';
 
 const Post = ({ posts }) => {
   const [comentariosVisible, setComentariosVisible] = useState(false);
@@ -21,6 +22,8 @@ const Post = ({ posts }) => {
   const [userImageURL, setUserImageURL] = useState("");
   const [crud_userId, setCrud_UserId] = useState([]);
   const [numeroLikes, setNumeroLikes] = useState("");
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (token) {
       const decodedToken = jwtDecode(token);
@@ -80,7 +83,6 @@ const Post = ({ posts }) => {
     }
 
     try {
-      // Utilize o estado atualizado para fazer a chamada para o servidor
       const response = await Axios.post(
         "http://localhost:3001/api/posts/likePost",
         {
@@ -165,7 +167,9 @@ const Post = ({ posts }) => {
     fetchUserData();
   }, [idperfil]);
 
-  
+  const handleOptionClick = (username) => {
+    navigate(`/Perfil/${username}`);
+  };
 
   return (
     <>
@@ -177,8 +181,9 @@ const Post = ({ posts }) => {
               dataPerfil[0]?.imageUrl || "../../assets/transferir.jpeg"
             }`}
             alt={`${dataPerfil[0]?.imageUrl}'s profile`}
+            onClick={() => handleOptionClick(dataPerfil[0]?.username)}
           />
-          <Components.UserName>{dataPerfil[0]?.username}</Components.UserName>
+          <Components.UserName onClick={() => handleOptionClick(dataPerfil[0]?.username)}>{dataPerfil[0]?.username}</Components.UserName>
         </Components.UserProfile>
         <Components.Photo>
           <Carousel

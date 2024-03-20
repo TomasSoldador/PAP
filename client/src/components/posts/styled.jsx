@@ -16,12 +16,14 @@ export const UserProfile = styled.div`
 `;
 
 export const ProfileImage = styled.img`
+  cursor: pointer;
   width: 32px;
   height: 32px;
   border-radius: 50%;
 `;
 
 export const UserName = styled.span`
+  cursor: pointer;
   color: white;
   font-weight: bold;
   margin-left: 10px;

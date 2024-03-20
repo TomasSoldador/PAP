@@ -72,6 +72,7 @@ function Explorer() {
           )}
         </Components.explorer>
         <Components.conteudo>
+        {posts.length > 0 ? (
           <Components.posts>
             {postsUser.length > 0 ? (
               postsUser.map((post, index) => (
@@ -87,6 +88,12 @@ function Explorer() {
               ))
             )}
           </Components.posts>
+        ) : (
+          <Components.Frase>
+            <span>Ups! Ainda não ha conteudo.</span>
+          </Components.Frase>
+        ) }
+          
         </Components.conteudo>
       </Components.ContentContainer>
     </Components.LayoutContainer>
