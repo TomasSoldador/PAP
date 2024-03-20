@@ -10,7 +10,10 @@ const PostsPerfil = ({
   type,
   updateUserPosts,
   updateUserPostsLoja,
-  atualizar
+  atualizar,
+  userId,
+  setIsOpenError,
+  setIsOpenSuccess
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -41,6 +44,9 @@ const PostsPerfil = ({
             type === "normal" ? updateUserPosts : updateUserPostsLoja
           }
           atualizar = {atualizar}
+          userId = {userId}
+          setIsOpenError={setIsOpenError}
+          setIsOpenSuccess={setIsOpenSuccess}
         />
       )}
     </>

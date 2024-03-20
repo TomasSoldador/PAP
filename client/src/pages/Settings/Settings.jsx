@@ -6,6 +6,7 @@ import Axios from "axios";
 import Cookies from "js-cookie";
 import ChangePhoto from "./ModalChangePhoto/ChangePhoto";
 import { useNavigate } from 'react-router-dom';
+import { Success , Error } from "../../components/Alertas";
 
 const Settings = () => {
   const navigate  = useNavigate();
@@ -20,6 +21,8 @@ const Settings = () => {
   const [sidebarKey, setSidebarKey] = useState(0);
   const [editedUsername, setEditedUsername] = useState("");
   const [editedDescricao, setEditedDescricao] = useState("");
+  const [isOpenSuccess, setIsOpenSuccess]  = useState(false);
+  const [isOpenError, setIsOpenError]  = useState(false);
 
   const fotoURL = `http://localhost:3001/server/imagens/` + userData[0]?.imageUrl;
 
@@ -101,6 +104,8 @@ const Settings = () => {
   }
 
   const save = () => {
+    setIsOpenSuccess(false)
+    setIsOpenError(false)
     try {
       Axios.post('http://localhost:3001/api/definicoes/uploadDados', {
         userId: userId,
@@ -108,7 +113,11 @@ const Settings = () => {
         descricao: editedDescricao,
         gender: gender,
       }).then((res) => {
-        console.log(res)
+        if(res.data === "UpdateDadosSuccess") {
+          setIsOpenSuccess(true)
+        } else {
+          setIsOpenError(true)
+        }
       }).catch((err) => {
         console.error(err)
       })
@@ -121,12 +130,19 @@ const Settings = () => {
   const alterarPassword = () => {
     navigate('/resetpassword', { state: { email: usuarioData[0]?.email } })
   }
+ 
 
   return (
     <>
       <Components.LayoutContainer>
         <Sidebar key={sidebarKey}/>
         <Components.ContentContainer>
+          {isOpenSuccess && (
+            <Success texto={"Alteração feita com sucesso!"} mostrar={true} />
+          )}
+          {isOpenError && (
+            <Error texto={"Erro a fazer as alterações!"} mostrar={true} />
+          )}
           <Components.EditPerfil>
             <span>Editar Perfil</span>
           </Components.EditPerfil>
@@ -206,7 +222,7 @@ const Settings = () => {
           </Components.Input>
         </Components.ContentContainer>
         {modalVisible && (
-          <ChangePhoto onClose={FecharModal} userId={userId} />
+          <ChangePhoto onClose={FecharModal} userId={userId} isOpenSuccess={setIsOpenSuccess} isOpenError={setIsOpenError}/>
         )}
       </Components.LayoutContainer>
     </>

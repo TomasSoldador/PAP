@@ -39,6 +39,20 @@ export const Error = ({texto, mostrar}) => {
   return <ToastContainer {...ToastConfig}/>
 }
 
+export const Success = ({texto, mostrar}) => {
+  const notify = () => {
+    toast.success(texto, Style);
+  };
+
+  useEffect(() => {
+    if (mostrar) {
+      notify();
+    }
+  }, [mostrar]);
+  
+  return <ToastContainer {...ToastConfig}/>
+}
+
 
 
 

@@ -72,7 +72,7 @@ export const svg = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Button = styled.button`
+export const Button = styled.div`
   margin-top: 15px;
   color: white;
   background-color: #3471db;
@@ -80,6 +80,8 @@ export const Button = styled.button`
   font-size: 14px;
   border: none;
   padding: 10px 10px 7px 10px;
+  font-size: 14px;
+  font-weight: bolder;
   &:hover,
   &:focus {
     background-color: #000dff;

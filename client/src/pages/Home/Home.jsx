@@ -4,9 +4,11 @@ import Cookies from "js-cookie";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import * as Components from "./styled";
 import Posts from "../../components/posts/Posts";
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const token = Cookies.get("authToken");
+  const navigate  = useNavigate();
   const [postsData, setPostsData] = useState([]);
   const [visiblePosts, setVisiblePosts] = useState(5);
   const [loadingOverlay, setLoadingOverlay] = useState(true);
@@ -48,22 +50,42 @@ function Home() {
     PesquisarPosts();
   }, [token, visiblePosts]);
 
+  const criar = () => {
+    navigate('/criar')
+  }
+
   return (
     <Components.LayoutContainer>
       <Sidebar />
       <Components.ContentContainer>
-        {postsData.map((post, index) => (
-          <Posts key={index} posts={post} />
-        ))}
-        {loadingOverlay && (
+        {loadingOverlay && postsData.length === 0 && (
           <Components.LoadingOverlay>
             <Components.LoadingSpinner />
           </Components.LoadingOverlay>
         )}
-        {loadingBottom && (
-          <Components.LoadingBotton>
-            <Components.LoadingSpinner />
-          </Components.LoadingBotton>
+
+        {postsData.length > 0 ? (
+          <>
+            {postsData.map((post, index) => (
+              <Posts key={index} posts={post} />
+            ))}
+            {loadingBottom && (
+              <Components.LoadingBottom>
+                <Components.LoadingSpinner />
+              </Components.LoadingBottom>
+            )}
+          </>
+        ) : (
+          !loadingOverlay && (
+            <>
+              <Components.Frase>
+                <span>Ups! Ainda não há publicações no nosso site. Seja o primeiro!</span>
+              </Components.Frase>
+              <Components.ButtonNew onClick={criar}>
+                <span>Adicionar</span>
+              </Components.ButtonNew>
+            </>
+          )
         )}
       </Components.ContentContainer>
     </Components.LayoutContainer>

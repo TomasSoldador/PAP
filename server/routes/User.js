@@ -87,10 +87,10 @@ router.delete('/profilePostLojaDelete', async (req, res) => {
     db.query('DELETE FROM postsloja WHERE id = ?', [id], (error, result) => {
       if (error) {
         console.error("Erro ao excluir post de loja (routes/User.js): ", error);
-        res.status(500).send('Erro no servidor');
+        res.json("PostLojaDeleteError");
       } else {
         if (result.affectedRows > 0) {
-          res.json({ message: 'Post de loja excluído com sucesso' });
+          res.json("PostLojaDeleteSuccess");
           const filesToDelete = [foto1, foto2, foto3, foto4].filter(Boolean);
           const uploadDir = path.join(__dirname, '../images/imagesPostsLoja');
 
@@ -98,18 +98,20 @@ router.delete('/profilePostLojaDelete', async (req, res) => {
             const filePath = path.join(uploadDir, filename);
             fs.unlink(filePath, (unlinkError) => {
               if (unlinkError) {
+                res.json("PostLojaDeleteError");
                 console.error(`Erro ao excluir arquivo ${filename}: `, unlinkError);
               }
             });
           })
         } else {
+          res.json("PostLojaDeleteError");
           res.status(404).send('Post de loja não encontrado');
         }
       }
     });
   } catch (error) {
     console.error("Erro ao processar solicitação de exclusão de post de loja (routes/User.js): ", error);
-    res.status(500).send('Erro no servidor');
+    res.json("PostLojaDeleteError");
   }
 });
 
@@ -131,11 +133,11 @@ router.delete('/profilePostDelete', async (req, res) => {
       db.query('DELETE FROM posts WHERE id = ?', [id], (error, resultPosts) => {
         if (error) {
           console.error("Erro ao excluir post (routes/User.js): ", error);
-          return res.status(500).send('Erro no servidor');
+          res.json("PostDeleteError");
         }
 
         if (resultPosts.affectedRows > 0) {
-          res.json({ message: 'Post excluído com sucesso' });
+          res.json("PostDeleteSuccess");
 
           const filesToDelete = [foto1, foto2, foto3, foto4].filter(Boolean);
           const uploadDir = path.join(__dirname, '../images/imagesPosts');
@@ -145,17 +147,19 @@ router.delete('/profilePostDelete', async (req, res) => {
             fs.unlink(filePath, (unlinkError) => {
               if (unlinkError) {
                 console.error(`Erro ao excluir arquivo ${filename}: `, unlinkError);
+                res.json("PostDeleteError");
               }
             });
           });
         } else {
           res.status(404).send('Post não encontrado');
+          res.json("PostDeleteError");
         }
       });
     });
   } catch (error) {
     console.error("Erro ao processar solicitação de exclusão de post (routes/User.js): ", error);
-    res.status(500).send('Erro no servidor');
+    res.json("PostDeleteError");
   }
 });
 

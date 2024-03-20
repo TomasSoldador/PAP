@@ -51,3 +51,29 @@ export const LoadingBotton = styled.div`
   bottom: 0;
   background-color: transparent;
 `;
+
+export const Frase = styled.div`
+  span {
+    font-weight: bolder;
+    font-size: 18px;
+  }
+`;
+
+export const ButtonNew = styled.div`
+  margin-top: 15px;
+  color: white;
+  background-color: #3471db;
+  border-radius: 8px;
+  border: none;
+  padding: 10px 10px 7px 10px;
+  &:hover,
+  &:focus {
+    background-color: #000dff;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: 16px;
+    font-weight: bolder;
+  }
+`;

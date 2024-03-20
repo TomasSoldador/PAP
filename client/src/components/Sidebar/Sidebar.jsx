@@ -28,7 +28,6 @@ const Sidebar = ({ sidebarKey }) => {
   useEffect(() => {
     if (token) {
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
       setUserId(decodedToken.id);
 
       try {

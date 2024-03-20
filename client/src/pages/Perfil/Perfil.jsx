@@ -3,11 +3,11 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import * as Components from "./styled";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import PostsPerfil from "../../components/PostsPerfil/PostsPerfil"
+import PostsPerfil from "../../components/PostsPerfil/PostsPerfil";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import ModalSeguidores from "./ModalSeguidores/ModalSeguidores";
-
+import { Success, Error } from "../../components/Alertas";
 
 function Perfil() {
   const { username } = useParams();
@@ -19,30 +19,40 @@ function Perfil() {
   const [crud_userId, setCrud_UserId] = useState([]);
   const [userId, setUserId] = useState("");
   const [userDataUsername, setUserDataUsername] = useState();
-  const [followButtonClicked, setFollowButtonClicked] = useState(false); 
+  const [followButtonClicked, setFollowButtonClicked] = useState(false);
   const [numeroFollows, setNumeroFollows] = useState();
-  const [allFollows, setAllFollows] = useState([]);
-  const [seguidorTrueFalse, setSeguidorTrueFalse] = useState("");
   const [tokenId, setTokenId] = useState("");
   const [modalShow, setModalShow] = useState(false);
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
+  const [isOpenError, setIsOpenError] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
       if (username) {
         try {
-          const response = await Axios.post("http://localhost:3001/api/user/profile", { username });
-          setUserData(response.data); 
+          const response = await Axios.post(
+            "http://localhost:3001/api/user/profile",
+            { username }
+          );
+          setUserData(response.data);
 
-          const resposePosts = await Axios.post("http://localhost:3001/api/user/profilePosts", { userId: response.data.id });
-          setUserPosts(resposePosts.data)
+          const resposePosts = await Axios.post(
+            "http://localhost:3001/api/user/profilePosts",
+            { userId: response.data.id }
+          );
+          setUserPosts(resposePosts.data);
 
-          const resposePostsLoja = await Axios.post("http://localhost:3001/api/user/profilePostsLoja", { userId : response.data.id });
-          setUserPostsLoja(resposePostsLoja.data)
+          const resposePostsLoja = await Axios.post(
+            "http://localhost:3001/api/user/profilePostsLoja",
+            { userId: response.data.id }
+          );
+          setUserPostsLoja(resposePostsLoja.data);
 
-          const responseAllFollows = await Axios.post("http://localhost:3001/api/user/getAllFollows", { userDataid: response.data.id });
-          setAllFollows(responseAllFollows.data)
-          setNumeroFollows(responseAllFollows.data.length)
-
+          const responseAllFollows = await Axios.post(
+            "http://localhost:3001/api/user/getAllFollows",
+            { userDataid: response.data.id }
+          );
+          setNumeroFollows(responseAllFollows.data.length);
         } catch (error) {
           console.error("Erro ao buscar dados do usuário: ", error);
         }
@@ -61,22 +71,21 @@ function Perfil() {
       try {
         Axios.post("http://localhost:3001/api/home/post", {
           userId: decodedToken.id,
-        }).then((res) => {
-          setUserDataUsername(res.data[0].username)
-          setTokenId(res.data[0].id)
-          
+        })
+          .then((res) => {
+            setUserDataUsername(res.data[0].username);
+            setTokenId(res.data[0].id);
 
-          setCrud_UserId([
-            ...crud_userId,
-            {
-              userId: decodedToken.id,
-            },
-          ]);
-        }).catch((error) => {
-          console.log("Erro na solicitação ao servidor: ", error);
-        });
-
-        
+            setCrud_UserId([
+              ...crud_userId,
+              {
+                userId: decodedToken.id,
+              },
+            ]);
+          })
+          .catch((error) => {
+            console.log("Erro na solicitação ao servidor: ", error);
+          });
       } catch (error) {
         console.log("Erro no pedido ao servidor: ", error);
       }
@@ -86,20 +95,35 @@ function Perfil() {
   const atualizar = async () => {
     if (username) {
       try {
-        const response = await Axios.post("http://localhost:3001/api/user/profile", { username });
-        setUserData(response.data); 
+        const response = await Axios.post(
+          "http://localhost:3001/api/user/profile",
+          { username }
+        );
+        setUserData(response.data);
 
-        const resposePosts = await Axios.post("http://localhost:3001/api/user/profilePosts", { userId: response.data.id });
-        setUserPosts(resposePosts.data)
+        const resposePosts = await Axios.post(
+          "http://localhost:3001/api/user/profilePosts",
+          { userId: response.data.id }
+        );
+        setUserPosts(resposePosts.data);
 
-        const resposePostsLoja = await Axios.post("http://localhost:3001/api/user/profilePostsLoja", { userId : response.data.id });
-        setUserPostsLoja(resposePostsLoja)
-        
+        const resposePostsLoja = await Axios.post(
+          "http://localhost:3001/api/user/profilePostsLoja",
+          { userId: response.data.id }
+        );
+        if (Array.isArray(resposePostsLoja.data)) {
+          setUserPostsLoja(resposePostsLoja.data);
+        } else {
+          console.error(
+            "Os dados recebidos para userPostsLoja não são um array:",
+            resposePostsLoja.data
+          );
+        }
       } catch (error) {
         console.error("Erro ao buscar dados do usuário: ", error);
       }
     }
-  }
+  };
 
   const updateUserPosts = (newPosts) => {
     setUserPosts(newPosts);
@@ -114,67 +138,77 @@ function Perfil() {
       if (followButtonClicked) {
         setFollowButtonClicked(false);
         await Axios.delete("http://localhost:3001/api/user/deletefollow", {
-          data: { userId: userId, followerId: userData.id }
+          data: { userId: userId, followerId: userData.id },
         });
       } else {
-        setFollowButtonClicked(true); 
+        setFollowButtonClicked(true);
         await Axios.post("http://localhost:3001/api/user/follows", {
           userId: userId,
-          followerId: userData.id
+          followerId: userData.id,
         });
       }
     } catch (error) {
       console.error("Erro ao processar a solicitação:", error);
     }
   };
-  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (userData) {
-          const responseFollowsTrueFalse = await Axios.post("http://localhost:3001/api/user/getfollows", { userId: tokenId, userDataId: userData });
+          const responseFollowsTrueFalse = await Axios.post(
+            "http://localhost:3001/api/user/getfollows",
+            { userId: tokenId, userDataId: userData }
+          );
           console.log(responseFollowsTrueFalse.data);
-          if(responseFollowsTrueFalse.data) {
-            setFollowButtonClicked(true)
+          if (responseFollowsTrueFalse.data) {
+            setFollowButtonClicked(true);
           } else {
-            setFollowButtonClicked(false)
+            setFollowButtonClicked(false);
           }
         }
       } catch (error) {
-        console.error('Erro ao buscar os dados:', error);
+        console.error("Erro ao buscar os dados:", error);
       }
     };
-  
+
     fetchData();
-  }, [tokenId, userData]); 
+  }, [tokenId, userData]);
 
   const mostrarFollows = () => {
-    console.log("clicado")
+    console.log("clicado");
     setModalShow(true);
-  }
+  };
 
   const onClose = () => {
     setModalShow(false);
-  }
+  };
 
-  
   return (
     <>
       <Components.LayoutContainer>
         <Sidebar />
         <Components.ContentContainer>
+          {isOpenSuccess && (
+            <Success texto={"Operação feita com sucesso!"} mostrar={true} />
+          )}
+          {isOpenError && (
+            <Error texto={"Erro a fazer a operação!"} mostrar={true} />
+          )}
           {userData ? (
             <>
               <Components.Info>
                 <Components.Foto>
                   <img
-                    src={`http://localhost:3001/server/imagens/` + userData.imageUrl}
+                    src={
+                      `http://localhost:3001/server/imagens/` +
+                      userData.imageUrl
+                    }
                     alt="Perfil"
                   />
                   <div>
                     <h1>{userData.username}</h1>
-                    <p>{userData.descricao}</p> 
+                    <p>{userData.descricao}</p>
                   </div>
                 </Components.Foto>
                 <Components.seguidor>
@@ -202,18 +236,39 @@ function Perfil() {
               {buttonPost ? (
                 <Components.Conteudo>
                   {userPosts.map((post) => (
-                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPosts"} type={"normal"} updateUserPosts={updateUserPosts} atualizar={atualizar}/>
+                    <PostsPerfil
+                      key={post.id}
+                      post={post}
+                      userData={userData}
+                      url={"imagesPosts"}
+                      type={"normal"}
+                      updateUserPosts={updateUserPosts}
+                      atualizar={atualizar}
+                      userId={userId}
+                      setIsOpenError={setIsOpenError}
+                      setIsOpenSuccess={setIsOpenSuccess}
+                    />
                   ))}
                 </Components.Conteudo>
               ) : (
                 <Components.Conteudo>
                   {userPostsLoja.map((post) => (
-                    <PostsPerfil key={post.id} post={post} userData={userData} url={"imagesPostsLoja"} type={"Loja"} updateUserPostsLoja={updateUserPostsLoja} atualizar={atualizar}/>
+                    <PostsPerfil
+                      key={post.id}
+                      post={post}
+                      userData={userData}
+                      url={"imagesPostsLoja"}
+                      type={"Loja"}
+                      updateUserPostsLoja={updateUserPostsLoja}
+                      atualizar={atualizar}
+                      userId={userId}
+                      setIsOpenError={setIsOpenError}
+                      setIsOpenSuccess={setIsOpenSuccess}
+                    />
                   ))}
                 </Components.Conteudo>
               )}
             </>
-            
           ) : (
             <p>Carregando dados do usuário...</p>
           )}

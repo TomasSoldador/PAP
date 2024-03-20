@@ -4,7 +4,7 @@ import * as Components from './styled';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 
-const ChangePhoto = ({ onClose, userId }) => {
+const ChangePhoto = ({ onClose, userId, isOpenSuccess, isOpenError }) => {
   const fileInputRef = useRef(null);
   const token = Cookies.get('authToken');
 
@@ -17,13 +17,15 @@ const ChangePhoto = ({ onClose, userId }) => {
   };
 
   const handleImageChange = async (event) => {
+    isOpenSuccess(false)
+    isOpenError(false)
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append("foto", file);
     formData.append("userId", userId);
 
     try {
-      const response = await Axios.post(
+      await Axios.post(
         "http://localhost:3001/api/definicoes/uploadPhoto",
         formData,
         {
@@ -32,7 +34,13 @@ const ChangePhoto = ({ onClose, userId }) => {
             Authorization: `Bearer ${token}`,
           },
         }
-      );
+      ).then((res) => {
+        if(res.data === "UpdateFotoSuccess") {
+          isOpenSuccess(true)
+        } else {
+          isOpenError(true)
+        }
+      })
       FecharModal();
     } catch (error) {
       console.error("Erro na requisição:", error);

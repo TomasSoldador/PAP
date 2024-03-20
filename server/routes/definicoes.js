@@ -55,8 +55,9 @@ router.post('/uploadPhoto', validateToken, upload.single("foto"), async (req, re
             db.query("UPDATE perfil SET imageUrl = ? WHERE id = ?", [foto, userId], (err, resultDB) => {
               if(err){
                 console.log(err);
+                res.json("UpdateFotoError")
               } else {
-                res.json("Modificado")
+                res.json("UpdateFotoSuccess")
               }
             })
           } else {
@@ -75,9 +76,10 @@ router.post("/uploadDados", async (req, res) => {
   try {
     db.query("UPDATE perfil SET username= ?, descricao= ?, genero= ? WHERE id= ?", [username, descricao, gender, userId], (erro, result) => {
       if(erro) {
-        console.log(erro)
+        console.error(erro)
+        res.json("UpdateDadosError")
       } else {
-        console.log("alterado")
+        res.json("UpdateDadosSuccess")
       }
     })  
   } catch (error) {
