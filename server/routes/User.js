@@ -84,7 +84,7 @@ router.delete('/profilePostLojaDelete', async (req, res) => {
       return res.status(400).send('ID do post não fornecido');
     }
 
-    db.query('DELETE FROM postsloja WHERE id = ?', [id], (error, result) => {
+    db.query('DELETE FROM PostsLoja WHERE id = ?', [id], (error, result) => {
       if (error) {
         console.error("Erro ao excluir post de loja (routes/User.js): ", error);
         res.json("PostLojaDeleteError");

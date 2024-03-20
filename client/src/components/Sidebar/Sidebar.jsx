@@ -91,7 +91,7 @@ const Sidebar = ({ sidebarKey }) => {
       </Components.SidebarItem>
       <Components.SidebarItem onClick={() => handleNavigation('/settings')}>
         <FaCog />
-        <span className="text">Defenições</span>
+        <span className="text">Definições</span>
       </Components.SidebarItem>
       <Components.ProfileButton onClick={() => {navigate(`/Perfil/${userDataUsername}`)}}>
         <div className="profile-pic">

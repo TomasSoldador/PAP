@@ -236,6 +236,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   resize: none; /* Impede o usuário de redimensionar o textarea */
   color: white;
+  border-bottom: 1px solid white;
   font-size: 14px;
   &:focus {
     outline: none;

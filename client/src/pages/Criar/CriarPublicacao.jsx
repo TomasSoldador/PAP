@@ -207,7 +207,7 @@ function Modal ({ showModal, setShowModal }) {
 
               <Components.DescriptionInput
                 type="text"
-                placeholder="Write a caption..."
+                placeholder="Escreva uma descrição..."
                 value={description}
                 onChange={handleDescriptionChange}
               />

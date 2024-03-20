@@ -185,7 +185,7 @@ function Modal () {
                 ></path>
               </svg>
             </Components.svg>
-            Arrasta fotos e vídeos para aqui
+            Arrasta fotos para aqui
             <Components.Button onClick={() => fileInputRef.current.click()}>
               {" "}
               Selecionar do Computador{" "}
@@ -231,33 +231,33 @@ function Modal () {
               
               <Components.Input
                 type="text"
-                placeholder="Nome"
+                placeholder="Nome..."
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
               />
               <Components.Input
                 type="text"
-                placeholder="Preco"
+                placeholder="Preco..."
                 value={preco}
                 onChange={(e) => setPreco(e.target.value)}
                 onKeyPress={handleKeyPressPreco}
               />
               <Components.Input
                 type="text"
-                placeholder="Phone number"
+                placeholder="Numero de telemovel..."
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 onKeyPress={handleKeyPress}
               />
               <Components.Input
                 type="text"
-                placeholder="Location"
+                placeholder="Localização..."
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
               <Components.Input
                 type="textarea"
-                placeholder="Write a caption..."
+                placeholder="Escreva uma descricao..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />

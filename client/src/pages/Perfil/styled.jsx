@@ -113,3 +113,35 @@ export const Follows = styled.div`
   font-weight: bold;
   cursor: pointer;
 `;
+
+export const WrapperFrase = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: center; /* Alinhar itens horizontalmente */
+`;
+
+export const Frase = styled.div`
+  margin-top: 40px;
+  text-align: center;
+  span {
+    font-weight: bolder;
+  }
+`;
+
+export const ButtonNew = styled.button`
+  margin-top: 15px;
+  color: white;
+  background-color: #3471db;
+  border-radius: 8px;
+  font-size: 14px;
+  border: none;
+  padding: 10px 10px 7px 10px;
+  font-size: 15px;
+  font-weight: bolder;
+  &:hover,
+  &:focus {
+    background-color: #000dff;
+    cursor: pointer;
+  }
+`;

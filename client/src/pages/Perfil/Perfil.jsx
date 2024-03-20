@@ -8,8 +8,11 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import ModalSeguidores from "./ModalSeguidores/ModalSeguidores";
 import { Success, Error } from "../../components/Alertas";
+import { useNavigate } from 'react-router-dom';
+
 
 function Perfil() {
+  const navigate  = useNavigate();
   const { username } = useParams();
   const [userData, setUserData] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
@@ -184,6 +187,10 @@ function Perfil() {
     setModalShow(false);
   };
 
+  const criarnovo = (path) => {
+    navigate(path)
+  }
+
   return (
     <>
       <Components.LayoutContainer>
@@ -233,7 +240,9 @@ function Perfil() {
                   Loja
                 </Components.botao>
               </Components.Buttons>
+              <Components.Conteudo>
               {buttonPost ? (
+                userPosts.length > 0 ? (
                 <Components.Conteudo>
                   {userPosts.map((post) => (
                     <PostsPerfil
@@ -250,9 +259,19 @@ function Perfil() {
                     />
                   ))}
                 </Components.Conteudo>
+                ) : (
+                  <Components.WrapperFrase>
+                    <Components.Frase>
+                      <span>Ainda não ha publicações</span>
+                    </Components.Frase>
+                    <Components.ButtonNew onClick={() => criarnovo('/criar')}>
+                      <span>Crie sua primeria Publicação</span>
+                    </Components.ButtonNew>
+                  </Components.WrapperFrase>
+                )
               ) : (
-                <Components.Conteudo>
-                  {userPostsLoja.map((post) => (
+                userPostsLoja.length > 0 ? (
+                  userPostsLoja.map((post) => (
                     <PostsPerfil
                       key={post.id}
                       post={post}
@@ -265,9 +284,19 @@ function Perfil() {
                       setIsOpenError={setIsOpenError}
                       setIsOpenSuccess={setIsOpenSuccess}
                     />
-                  ))}
-                </Components.Conteudo>
-              )}
+                  ))
+                ) : (
+                  
+                  <Components.WrapperFrase>
+                    <Components.Frase>
+                      <span>Ainda não há conteudo na loja.</span>
+                    </Components.Frase>
+                    <Components.ButtonNew onClick={() => criarnovo('/CriarLoja')}>
+                      <span>Crie sua primeira venda.</span>
+                    </Components.ButtonNew>
+                  </Components.WrapperFrase>
+                ))}
+              </Components.Conteudo>
             </>
           ) : (
             <p>Carregando dados do usuário...</p>
