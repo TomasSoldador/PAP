@@ -52,7 +52,7 @@ export const InputContainer = styled.div`
 
 export const Input = styled.input`
   background-color: transparent;
-  width: 340px;
+  width: 310px;
   height: 32px;
   color: white;
   border: none;

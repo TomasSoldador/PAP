@@ -29,6 +29,7 @@ function AppRouter() {
         <Route path="/Criar" element={<PrivateRoute><Criar /></PrivateRoute>} />
         <Route path="/CriarLoja" element={<PrivateRoute><CriarLoja /></PrivateRoute>} />
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
+        <Route path="*" element={<PrivateRoute><Home /></PrivateRoute>} />
       </Routes>
     </Router>
   );

@@ -128,7 +128,7 @@ export const InputContainer = styled.div`
 
 export const Input = styled.input`
   background-color: transparent;
-  width: 440px;
+  width: 420px;
   height: 32px;
   color: white;
   border: none;
