@@ -20,6 +20,7 @@ export const ProfileImage = styled.img`
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 export const UserName = styled.span`
@@ -36,7 +37,6 @@ export const Photo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 `;
 
 export const CarouselContainer = styled.div`
@@ -50,10 +50,9 @@ export const CarouselContainer = styled.div`
 
 export const Img = styled.img`
   z-index: 10;
-  
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Ajusta a imagem para cobrir toda a área do elemento */
 `;
 
 export const NavButton = styled.button`

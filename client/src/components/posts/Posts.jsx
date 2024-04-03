@@ -199,14 +199,14 @@ const Post = ({ posts }) => {
                   value.match(/\.(jpeg|jpg|gif|png)$/)
                 ) {
                   return (
-                    <div key={index}>
+                    
                       <Components.Img
                         src={
                           `http://localhost:3001/server/imagesPosts/` + value
                         }
                         alt={`Post Image ${index + 1}`}
                       />
-                    </div>
+                    
                   );
                 }
                 return null; // Handle other cases where value is not a valid image URL
